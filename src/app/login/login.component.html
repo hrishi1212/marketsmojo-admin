@@ -1,25 +1,25 @@
-
 <div class="main-content">
-<div class="card-content" >
-<div class="pen-title">
-  <h1>Admin Dashboard</h1>
-</div>
-<div class="module form-module" >
-  <div class="toggle"><i class="fa fa-times fa-setting"></i>
-    
+  <div class="card-content">
+    <div class="pen-title">
+      <h1>Admin Dashboard</h1>
+    </div>
+    <div class="module form-module">
+      <div class="toggle">
+        <i class="fa fa-times fa-setting"></i>
+
+      </div>
+      <div class="form">
+        <h2>Login to Admin account</h2>
+        <input type="text" [(ngModel)]="loginRequest.username" placeholder="Admin Email" [required]="isRequired">
+        <input type="password" [(ngModel)]="loginRequest.password" placeholder="Password" [required]="isRequired" />
+        <button type="button" (click)="savelogin()" label="Login">Log In</button>
+
+      </div>
+    </div>
+
+
+
+
+
   </div>
-  <div class="form" >
-    <h2>Login to Admin account</h2>
-      <input type="text"  [(ngModel)]="loginRequest.username" placeholder="Admin Email" [required]="isRequired">
-      <input type="password"  [(ngModel)]="loginRequest.password" placeholder="Password" [required]="isRequired"/>
-      <button type="button" (click)="savelogin()" label="Login">Log In</button>
-   
-  </div>
-</div>
-  
-
-
-
-
-</div>
 </div>

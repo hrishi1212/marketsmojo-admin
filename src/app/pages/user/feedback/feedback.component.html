@@ -1,10 +1,10 @@
 <h3>User Feedback</h3>
 <p-dataTable [value]="arrayfeedback" [rows]="10" [paginator]="true" [pageLinks]="5" [responsive]="true" [editable]="true"
     [loading]="loading" scrollable="true" scrollHeight="50%" scrollWidth="100%">
-    <p-column field="date" header="Date" [style]="{'width':'120px'}">     
-            <ng-template let-row="rowData" pTemplate="body">
-                {{row.date | date:'MM/dd/yyyy'}}
-            </ng-template>              
+    <p-column field="date" header="Date" [style]="{'width':'120px'}">
+        <ng-template let-row="rowData" pTemplate="body">
+            {{row.date | date:'MM/dd/yyyy'}}
+        </ng-template>
     </p-column>
     <p-column field="name" header="Name" [style]="{'width':'120px'}"></p-column>
     <p-column field="email" header="Email" [style]="{'width':'200px'}"></p-column>
@@ -14,8 +14,8 @@
     <p-column field="assign" header="Asignee" [style]="{'width':'100px'}"></p-column>
     <p-column field="status" header="Status" [style]="{'width':'100px'}"></p-column>
     <p-dataTable [value]="other">
-            <p-column *ngFor="let data of other" [field]="data.field" [header]="data.header"></p-column>
-          </p-dataTable>
+        <p-column *ngFor="let data of other" [field]="data.field" [header]="data.header"></p-column>
+    </p-dataTable>
     <p-column styleClass="col-button" [style]="{'width':'250px'}">
         <ng-template pTemplate="header">
             <button type="button" pButton class="ui-button-info" icon="fa-refresh"></button>
@@ -29,15 +29,31 @@
     </p-column>
 </p-dataTable>
 
-<p-dialog header="Title" [(visible)]="displayDialog" appendTo="body" [responsive]="true" showEffect="fade" [modal]="true">
-        <p-dropdown [options]="assign" [(ngModel)]="selectedAssign" [style]="{'width':'150px'}" filter="true">
-               
-            </p-dropdown>
-            <p-footer>
-                    <div class="ui-dialog-buttonpane ui-helper-clearfix">
-                        <button type="button" pButton icon="fa-close" (click)="delete()" label="Delete"></button>
-                        <button type="button" pButton icon="fa-check" (click)="save()" label="Save"></button>
-                    </div>
-                </p-footer>
-    </p-dialog>
-    
+<p-dialog header="Title" [(visible)]="displayDialog" appendTo="body" [width]="300" [height]="300" [responsive]="true" showEffect="fade"
+    [modal]="true">
+    <div class="ui-grid ui-grid-responsive ui-fluid">
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4">
+                <label for="assign">Assing To:</label>
+            </div>
+            <div class="ui-grid-col-8">
+                <p-dropdown [options]="assign" [(ngModel)]="selectedAssign" appendTo="body" [style]="{'width':'150px'}" filter="true"></p-dropdown>
+            </div>
+        </div>
+        <br>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4">
+                <label for="status">Status:</label>
+            </div>
+            <div class="ui-grid-col-8">
+                <p-dropdown [options]="status" [(ngModel)]="selectedStatus" appendTo="body" [style]="{'width':'150px'}" filter="true"></p-dropdown>
+            </div>
+        </div>
+    </div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+            <button type="button" pButton icon="fa-close" (click)="delete()" label="Delete"></button>
+            <button type="button" pButton icon="fa-check" (click)="save()" label="Save"></button>
+        </div>
+    </p-footer>
+</p-dialog>
