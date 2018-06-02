@@ -6,6 +6,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Feedback } from "../domain/feedback";
 import { Employee } from "../domain/employee";
 import { FeedbackRequest } from "../domain/feedback.request";
+import { FeedbackReplyRequest } from "../domain/feedbackReply.request";
+import { UpdateFeedbackReplyRequest } from "../domain/updateFeedbackReply.request";
 
 
 @Injectable()
@@ -48,13 +50,28 @@ export class FeedbackService {
             )
         }
     
-        getFeedbackReply(){
+        getFeedbackReply(feedbackReplyRequest:FeedbackReplyRequest){
+            var headers = new Headers();
+            headers.append('Content-Type', 'application/x-www-form-urlencoded');        
+            var body = JSON.stringify(feedbackReplyRequest);
             return this.http.get(FRAPI_URL + '/common_feedback/getFeedbackReply').map((response: Response) => {
                 if (response.json().code == 200) {
                     return response.json().data
                 }
             }
             )  
+        }
+
+        updateFeedbackReply(replyrequest :UpdateFeedbackReplyRequest ){
+            var headers = new Headers();
+            headers.append('Content-Type', 'application/x-www-form-urlencoded');        
+            var body = JSON.stringify(replyrequest);
+            return this.http.post(FRAPI_URL + '/common_feedback/updateFeedbackReply',body,{headers:headers}).map((response: Response) => {
+                if (response.json().code == 200) {
+                    return response.json().data
+                }
+            }
+            )
         }
 
 }

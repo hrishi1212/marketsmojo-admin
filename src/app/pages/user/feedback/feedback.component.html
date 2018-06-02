@@ -29,7 +29,7 @@
     </p-column>
 </p-dataTable>
 
-<p-dialog header="Title" [(visible)]="displayDialog" appendTo="body" [width]="300" [height]="300" [responsive]="true" showEffect="fade"
+<p-dialog header="Title" [(visible)]="displayDialog" appendTo="body" [width]="400" [contentStyle]="{'max-height':'200px'}" [autoAlign]="true" [responsive]="true" showEffect="fade"
     [modal]="true">
     <div class="ui-grid ui-grid-responsive ui-fluid">
         <div class="ui-grid-row">
@@ -47,6 +47,30 @@
             </div>
             <div class="ui-grid-col-8">
                 <p-dropdown [options]="status" [(ngModel)]="selectedStatus" appendTo="body" [style]="{'width':'150px'}" filter="true"></p-dropdown>
+            </div>
+        </div><br>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4">
+                <label for="status">Replies</label>
+            </div>
+            <div class="ui-grid-col-8">
+            </div>
+        </div><br>
+        <div class="ui-grid-row" *ngFor="let reply of FeedbackReply">
+            <div class="ui-grid-col-4">
+                <label for="status">{{reply.eid}} :- </label>
+            </div>
+            <div class="ui-grid-col-8">
+                {{reply.reply}}
+            </div>
+        </div><br><hr>
+
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4">
+                <label for="status">Your Reply</label>
+            </div>
+            <div class="ui-grid-col-8">
+                <input pInputText id="reply" [(ngModel)]="updatefeedback.reply" />
             </div>
         </div>
     </div>

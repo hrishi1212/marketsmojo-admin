@@ -20,6 +20,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TableModule } from 'primeng/table';
 import {DropdownModule} from 'primeng/primeng';
 import {ButtonModule} from 'primeng/primeng';
+import {ListboxModule} from 'primeng/listbox';
 
 @NgModule({
   declarations: [AppComponent, LoginComponent],
@@ -32,6 +33,7 @@ import {ButtonModule} from 'primeng/primeng';
     HttpModule,
     DropdownModule,
     ButtonModule,
+    ListboxModule,
     NgbModule.forRoot(),
     ThemeModule.forRoot(),
     CoreModule.forRoot(),

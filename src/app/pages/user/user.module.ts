@@ -18,6 +18,7 @@ import {DataTableModule} from 'primeng/datatable';
 import {DialogModule} from 'primeng/dialog';
 import {DropdownModule} from 'primeng/primeng';
 import {ButtonModule} from 'primeng/button';
+import {ListboxModule} from 'primeng/listbox';
 
 
 import {
@@ -52,7 +53,8 @@ const components = [
     DataTableModule,
     DialogModule,
     DropdownModule,
-    ButtonModule
+    ButtonModule,
+    ListboxModule
   ],
   declarations: [
     ...components,
