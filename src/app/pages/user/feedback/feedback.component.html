@@ -13,9 +13,6 @@
     <p-column field="type" header="Type" [style]="{'width':'100px'}"></p-column>
     <p-column field="assign" header="Asignee" [style]="{'width':'100px'}"></p-column>
     <p-column field="status" header="Status" [style]="{'width':'100px'}"></p-column>
-    <p-dataTable [value]="other">
-        <p-column *ngFor="let data of other" [field]="data.field" [header]="data.header"></p-column>
-    </p-dataTable>
     <p-column styleClass="col-button" [style]="{'width':'250px'}">
         <ng-template pTemplate="header">
             <button type="button" pButton class="ui-button-info" icon="fa-refresh"></button>
