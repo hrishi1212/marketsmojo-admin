@@ -15,19 +15,31 @@ export class LoginComponent {
     loginRequest: LoginRequest = new LoginRequest();
     user: User = new User();
     private username: string;
+     loginLabel = "Log In";
+    private usernameError : string;
+    private passwordError : string;
     private password: string;
     constructor(
         private router: Router,
         private _login: LoginService) { }
-    ngOnInit() {
+    ngOnInit() {}
 
-    }
-    savelogin() {
+    
+    checklogin() {
+        this.loginLabel = "WAIT...";
         this._login.Login(this.loginRequest).subscribe(
             (data: any) => {
                 this.user = data;
-                if (this.user) {
+                this.loginLabel = "Log In";
+                if (data.userid) {
+                    localStorage.setItem("userid", data.userid);
+                    localStorage.setItem("name", data.display_name);
+                    localStorage.setItem("image", data.image);
+                    localStorage.setItem("login_id", data.login_id);
                     this.router.navigate(["/pages/dashboard"]);
+                }else{
+                    this.usernameError = data.username;
+                    this.passwordError = data.password;
                 }
             })
 

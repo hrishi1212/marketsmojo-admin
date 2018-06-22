@@ -19,6 +19,8 @@ import {DialogModule} from 'primeng/dialog';
 import {DropdownModule} from 'primeng/primeng';
 import {ButtonModule} from 'primeng/button';
 import {ListboxModule} from 'primeng/listbox';
+import {EditorModule} from 'primeng/editor';
+import {TabViewModule} from 'primeng/tabview';
 
 
 import {
@@ -54,7 +56,9 @@ const components = [
     DialogModule,
     DropdownModule,
     ButtonModule,
-    ListboxModule
+    ListboxModule,
+    EditorModule,
+    TabViewModule
   ],
   declarations: [
     ...components,

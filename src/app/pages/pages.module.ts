@@ -9,6 +9,7 @@ import {TableModule} from 'primeng/table';
 import {ButtonModule} from 'primeng/button';
 import {DropdownModule} from 'primeng/dropdown';
 import {ListboxModule} from 'primeng/listbox';
+import {EditorModule} from 'primeng/editor';
 
 const PAGES_COMPONENTS = [
   PagesComponent,
@@ -23,7 +24,8 @@ const PAGES_COMPONENTS = [
     TableModule,
     ButtonModule,
     DropdownModule,
-    ListboxModule
+    ListboxModule,
+    EditorModule
   ],
   declarations: [
     ...PAGES_COMPONENTS

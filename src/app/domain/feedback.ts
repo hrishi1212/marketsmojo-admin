@@ -5,8 +5,10 @@ export class Feedback{
     type:string;
     suggestion:string;
     page:string;
-    assign_id:number;
     assign_name:string;
     status:number;
+    assign:number;
+    status_name:string;
+    assign_id:string;
     other :any[];
 }

@@ -32,14 +32,14 @@ export class HeaderComponent implements OnInit {
 
 
   }
-
+ private Name :string;
+ private Image :string;
   ngOnInit() {
     this.userService.getUsers()
       .subscribe((users: any) => this.user = users.nick);
-
-      this._login.getuserDetails().subscribe((data:any)=>{
-        this.user = data;
-      })
+      this.Name = localStorage.getItem("name");
+      this.Image = localStorage.getItem("image");
+     
   }
   onContecxtItemSelection(title) {
     if(title == 'Log out'){

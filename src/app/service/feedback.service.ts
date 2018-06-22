@@ -17,13 +17,23 @@ export class FeedbackService {
     constructor(private http: Http,
         private httpc: HttpClient) { }
 
-        getFeedbackDetails(){
-            return this.http.get(FRAPI_URL + '/common_feedback/getFeedbackDetails').map((response: Response) => {
-                if (response.json().code == 200) {
-                    return response.json().data
+        getFeedbackDetails(id){
+            if(id !== 0){
+                return this.http.get(FRAPI_URL + '/common_feedback/getFeedbackDetails?login_id='+ id).map((response: Response) => {
+                    if (response.json().code) {
+                        return response.json().data
+                    }
                 }
+                )  
+            }else{
+                return this.http.get(FRAPI_URL + '/common_feedback/getFeedbackDetails').map((response: Response) => {
+                    if (response.json().code) {
+                        return response.json().data
+                    }
+                }
+                )
             }
-            )
+            
         }
 
         getEmployeelist(){
@@ -36,7 +46,6 @@ export class FeedbackService {
         }
    
         updateFeedback(feedbackRequest: FeedbackRequest) {
-            console.log(typeof feedbackRequest);
             var headers = new Headers();
             headers.append('Content-Type', 'application/x-www-form-urlencoded');        
             var body = JSON.stringify(feedbackRequest);
@@ -67,6 +76,18 @@ export class FeedbackService {
             headers.append('Content-Type', 'application/x-www-form-urlencoded');        
             var body = JSON.stringify(replyrequest);
             return this.http.post(FRAPI_URL + '/common_feedback/updateFeedbackReply',body,{headers:headers}).map((response: Response) => {
+                if (response.json().code == 200) {
+                    return response.json().data
+                }
+            }
+            )
+        }
+
+        InsertFeedbackReply(replyrequest :UpdateFeedbackReplyRequest ){
+            var headers = new Headers();
+            headers.append('Content-Type', 'application/x-www-form-urlencoded');        
+            var body = JSON.stringify(replyrequest);
+            return this.http.post(FRAPI_URL + '/common_feedback/insertFeedbackReply',body,{headers:headers}).map((response: Response) => {
                 if (response.json().code == 200) {
                     return response.json().data
                 }

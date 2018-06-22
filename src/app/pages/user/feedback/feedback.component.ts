@@ -13,6 +13,7 @@ import { FeedbackReply } from "../../../domain/feedbackReply";
 import { FeedbackReplyRequest } from "../../../domain/feedbackReply.request";
 import { ListboxModule } from 'primeng/listbox';
 import { UpdateFeedbackReplyRequest } from "../../../domain/updateFeedbackReply.request";
+import {EditorModule} from 'primeng/editor';
 
 @Component({
     selector: 'feedback-root',
@@ -32,9 +33,12 @@ export class FeedbackComponent {
     selectedFeedback: Feedback;
     selectedreply: FeedbackReply;
     displayDialog: boolean;
+    displayReply: boolean;
     loading: boolean;
+    assignID :string = localStorage.getItem("login_id");
 
     arrayfeedback: Feedback[];
+    assignfeedback : Feedback[];
     employeeArray: Employee[];
     FeedbackReply: FeedbackReply[];
     selectedAssign: any;
@@ -42,6 +46,7 @@ export class FeedbackComponent {
     status: SelectItem[] = [];
     selectedStatus: any;
 
+    text1: string = '<div>Hello User!</div><div>MarketsMojo <b>Editor</b> Rocks</div><div><br></div>';
 
     constructor(private _feedback: FeedbackService) {
 
@@ -55,12 +60,12 @@ export class FeedbackComponent {
     }
 
     ngOnInit() {
-        this.getFeedbackDetails();
+       this.getFeedbackDetails();
     }
 
     getFeedbackDetails() {
         this.loading = true;
-        this._feedback.getFeedbackDetails().subscribe(
+        this._feedback.getFeedbackDetails(0).subscribe(
             (data: any) => {
                 if (data) {
                     this.arrayfeedback = data;
@@ -77,7 +82,7 @@ export class FeedbackComponent {
     selectFeedback(feedback: Feedback) {
         this.selectedFeedback = feedback
         this.displayDialog = true;
-        this.getFeedbackReply(feedback._id);
+        
     }
 
     save() {
@@ -102,7 +107,6 @@ export class FeedbackComponent {
 
     sendFeedbackRequest(feedback: Feedback) {
         this.selectedFeedback = feedback;
-        console.log(feedback.date);
         if (!feedback.date) {
             feedback.date = new Date();
         }
@@ -111,40 +115,89 @@ export class FeedbackComponent {
         this.feedbackRequest.name = feedback.name;
         this.feedbackRequest.page = feedback.page;
         this.feedbackRequest.status = this.selectedStatus;
+        if(this.selectedStatus == 1){
+            this.feedbackRequest.status_name = "PENDING";
+        }else if(this.selectedStatus == 2){
+            this.feedbackRequest.status_name = "INPROCESS";
+        }else if(this.selectedStatus == 3){
+            this.feedbackRequest.status_name = "COMPLETE";
+        }else if(this.selectedStatus == 4){
+            this.feedbackRequest.status_name = "OTHER";
+        }
         this.feedbackRequest.assign = this.selectedAssign;
+       this.employeeArray.forEach(value=>{
+        if(this.selectedAssign == value._id){
+            this.feedbackRequest.assign_id = value.login_id;
+            this.feedbackRequest.assign_name = value.name;
+        }
+       });
         this.feedbackRequest.suggestion = feedback.suggestion;
         this.feedbackRequest.type = feedback.type;
-        if(this.updatefeedback.reply){
-            this.updateReply();
-        }
+        
         this._feedback.updateFeedback(this.feedbackRequest).subscribe(
             (data: any) => {
-                if (data !== 'undefinded') {
+                if (data) {
                     this.getFeedbackDetails();
                     this.displayDialog = false;
                 }
-
+                this.getfeedbackDetailsId();
             })
 
     }
+    
     getFeedbackReply(id) {
         this.feedbackReplyRequest.fid = id;
         this.loading = true;
         this._feedback.getFeedbackReply(this.feedbackReplyRequest).subscribe(
             (data: any) => {
                 this.FeedbackReply = data;
-                console.log(this.FeedbackReply);
+                this.FeedbackReply.forEach(value=>{
+                    this.employeeArray.forEach(element=>{
+                        if(value.eid == element._id){
+                            value.e_name = element.name;
+                        }
+                    });
+                })
                 this.loading = false;
             })
 
     }
 
-    updateReply(){
-        this.updatefeedback._id = 4;
-        this._feedback.updateFeedbackReply(this.updatefeedback).subscribe(
+    insertReply(fid){
+        this.updatefeedback.fid = fid;
+        this.updatefeedback.eid = 5;
+        this._feedback.InsertFeedbackReply(this.updatefeedback).subscribe(
             (data: any) => {
-                console.log(data);
                 this.getFeedbackReply(4);
             })
+    }
+
+    SendReply(){
+        this.displayReply = true;
+    }
+  
+
+    getfeedbackDetailsId(){
+        this.loading = true;
+        this._feedback.getFeedbackDetails(this.assignID).subscribe(
+            (data: any) => {
+                if (data) {
+                    this.assignfeedback = data;
+                    this.getemployee();
+                    this.loading = false;
+                } else {
+                    this.assignfeedback =[];
+                    this.loading = false;
+                }
+
+            })
+    }
+
+    handleChange(event){
+        if(event.index == 1){
+            this.getfeedbackDetailsId();
+        }else if(event.index == 0){
+            this.getFeedbackDetails();
+        }
     }
 }
