@@ -2,6 +2,7 @@ export class Feedback{
     date:Date = new Date();
     _id:number;
     name:string;
+    email:string;
     type:string;
     suggestion:string;
     page:string;

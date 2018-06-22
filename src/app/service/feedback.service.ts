@@ -8,6 +8,7 @@ import { Employee } from "../domain/employee";
 import { FeedbackRequest } from "../domain/feedback.request";
 import { FeedbackReplyRequest } from "../domain/feedbackReply.request";
 import { UpdateFeedbackReplyRequest } from "../domain/updateFeedbackReply.request";
+import { sendEmail } from "../domain/sendemail";
 
 
 @Injectable()
@@ -95,4 +96,15 @@ export class FeedbackService {
             )
         }
 
+        sendEmail(sendEmail:sendEmail){
+            var headers = new Headers();
+            headers.append('Content-Type', 'application/x-www-form-urlencoded');        
+            var body = JSON.stringify(sendEmail);
+            return this.http.post(FRAPI_URL + '/common_feedback/sendReplyEmail',body,{headers:headers}).map((response: Response) => {
+                if (response.json().code == 200) {
+                    return response.json().data
+                }
+            }
+            )
+        }
 }

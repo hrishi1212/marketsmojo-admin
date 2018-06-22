@@ -14,6 +14,7 @@ import { FeedbackReplyRequest } from "../../../domain/feedbackReply.request";
 import { ListboxModule } from 'primeng/listbox';
 import { UpdateFeedbackReplyRequest } from "../../../domain/updateFeedbackReply.request";
 import {EditorModule} from 'primeng/editor';
+import { sendEmail } from "../../../domain/sendemail";
 
 @Component({
     selector: 'feedback-root',
@@ -29,6 +30,7 @@ export class FeedbackComponent {
     feedbackReply: FeedbackReply = new FeedbackReply();
     feedbackReplyRequest: FeedbackReplyRequest = new FeedbackReplyRequest();
     updatefeedback: UpdateFeedbackReplyRequest = new UpdateFeedbackReplyRequest();
+    sendemail : sendEmail = new sendEmail();
 
     selectedFeedback: Feedback;
     selectedreply: FeedbackReply;
@@ -199,5 +201,28 @@ export class FeedbackComponent {
         }else if(event.index == 0){
             this.getFeedbackDetails();
         }
+    }
+
+    sendEmailReply(selectedFeedback){
+        console.log(selectedFeedback.name);
+        console.log(selectedFeedback.email);
+        this.sendemail.to_email = selectedFeedback.email;
+        this.sendemail.to_name= selectedFeedback.name;
+        this._feedback.sendEmail(this.sendemail).subscribe(
+            (data: any) => {
+                console.log(data);
+                this.displayReply = false;
+            })
+    }
+
+    selectEmailFeedback(feedback: Feedback) {
+        console.log(feedback);
+        this.selectedFeedback = feedback
+        this.displayReply = true;
+        
+    }
+
+    Emailsave() {
+        this.sendEmailReply(this.selectedFeedback);
     }
 }

@@ -1,6 +1,7 @@
 <p-tabView (onChange)="handleChange($event)" [style]="{'height':'600px'}">
         <h3>User Feedback</h3>
         
+        <!-- all assign tab -->
         <p-tabPanel header="All feedback" [style]="{'height':'600px'}">
                 <p-dataTable [value]="arrayfeedback" [rows]="10" [paginator]="true" [pageLinks]="5" [responsive]="true" [editable]="true"
                 [loading]="loading" scrollable="true" scrollHeight="50%" scrollWidth="100%" [style]="{'height':'500px'}">
@@ -25,59 +26,17 @@
                 </p-column>
                 <p-column styleClass="col-button" header="Reply To user" [style]="{'width':'100px'}">
                     <ng-template let-feedback="rowData" pTemplate="body">
-                        <button type="button" pButton class="ui-button-info" (click)="SendReply()" label="reply"></button>
+                        <button type="button" pButton class="ui-button-info" (click)="selectEmailFeedback(feedback)" label="reply"></button>
                     </ng-template>
                    
                 </p-column>
             </p-dataTable>
             
-            <p-dialog header="Assign To" [(visible)]="displayDialog" appendTo="body" [width]="400" [contentStyle]="{'max-height':'400px'}" [autoAlign]="true" [responsive]="true" showEffect="fade"
-                [modal]="true">
-                <div class="ui-grid ui-grid-responsive ui-fluid">
-                    <div class="ui-grid-row">
-                        <div class="ui-grid-col-4">
-                            <label for="assign">Assing To:</label>
-                        </div>
-                        <div class="ui-grid-col-8">
-                            <p-dropdown [options]="assign" [(ngModel)]="selectedAssign" appendTo="body" [style]="{'width':'150px'}" filter="true"></p-dropdown>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="ui-grid-row">
-                        <div class="ui-grid-col-4">
-                            <label for="status">Status:</label>
-                        </div>
-                        <div class="ui-grid-col-8">
-                            <p-dropdown [options]="status" [(ngModel)]="selectedStatus" appendTo="body" [style]="{'width':'150px'}" filter="true"></p-dropdown>
-                        </div>
-                    </div><br>
-                </div>
-                <p-footer>
-                    <div class="ui-dialog-buttonpane ui-helper-clearfix">
-                        
-                        <button type="button" pButton icon="fa-check" (click)="save()" label="Save"></button>
-                    </div>
-                </p-footer>
-            </p-dialog>
-            
-            <p-dialog header="Reply" [(visible)]="displayReply" appendTo="body" [width]="1000" [contentStyle]="{'max-height':'400px'}" [autoAlign]="true" [responsive]="true" showEffect="fade"
-            [modal]="true">
-            <div class="ui-grid ui-grid-responsive ui-fluid">
-                    <p-editor [(ngModel)]="text1" [style]="{'height':'320px'}"></p-editor>
-                    <p>Value: {{text1||'empty'}}</p>
-                    
-                    <button pButton type="button" label="Clear" icon="pi pi-times" (click)="text1=null"></button>
-                    
-                    <hr style="border-top:0px;border-color:#dde3e6">
-            </div>
-            <p-footer>
-                <div class="ui-dialog-buttonpane ui-helper-clearfix">
-                    
-                    <button type="button" pButton icon="fa-check" (click)="save()" label="Send"></button>
-                </div>
-            </p-footer>
-            </p-dialog>
+           
         </p-tabPanel>
+        <!-- all assign tab end -->
+
+
         <p-tabPanel header="My Assign">
                 <p-dataTable [value]="assignfeedback" [rows]="10" [paginator]="true" [pageLinks]="5" [responsive]="true" [editable]="true"
                 [loading]="loading" scrollable="true" scrollHeight="50%" scrollWidth="100%">
@@ -102,59 +61,62 @@
                 </p-column>
                 <p-column styleClass="col-button" header="Reply To user" [style]="{'width':'100px'}">
                     <ng-template let-feedback="rowData" pTemplate="body">
-                        <button type="button" pButton class="ui-button-info" (click)="SendReply()" label="reply"></button>
+                        <button type="button" pButton class="ui-button-info" (click)="selectEmailFeedback(feedback)" label="reply"></button>
                     </ng-template>
                    
                 </p-column>
             </p-dataTable>
             
-            <p-dialog header="Assign To" [(visible)]="displayDialog" appendTo="body" [width]="400" [contentStyle]="{'max-height':'400px'}" [autoAlign]="true" [responsive]="true" showEffect="fade"
-                [modal]="true">
-                <div class="ui-grid ui-grid-responsive ui-fluid">
-                    <div class="ui-grid-row">
-                        <div class="ui-grid-col-4">
-                            <label for="assign">Assing To:</label>
-                        </div>
-                        <div class="ui-grid-col-8">
-                            <p-dropdown [options]="assign" [(ngModel)]="selectedAssign" appendTo="body" [style]="{'width':'150px'}" filter="true"></p-dropdown>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="ui-grid-row">
-                        <div class="ui-grid-col-4">
-                            <label for="status">Status:</label>
-                        </div>
-                        <div class="ui-grid-col-8">
-                            <p-dropdown [options]="status" [(ngModel)]="selectedStatus" appendTo="body" [style]="{'width':'150px'}" filter="true"></p-dropdown>
-                        </div>
-                    </div><br>
-                </div>
-                <p-footer>
-                    <div class="ui-dialog-buttonpane ui-helper-clearfix">
-                        
-                        <button type="button" pButton icon="fa-check" (click)="save()" label="Save"></button>
-                    </div>
-                </p-footer>
-            </p-dialog>
-            
-            <p-dialog header="Reply" [(visible)]="displayReply" appendTo="body" [width]="1000" [contentStyle]="{'max-height':'400px'}" [autoAlign]="true" [responsive]="true" showEffect="fade"
-            [modal]="true">
-            <div class="ui-grid ui-grid-responsive ui-fluid">
-                    <p-editor [(ngModel)]="text1" [style]="{'height':'320px'}"></p-editor>
-                    <p>Value: {{text1||'empty'}}</p>
-                    
-                    <button pButton type="button" label="Clear" icon="pi pi-times" (click)="text1=null"></button>
-                    
-                    <hr style="border-top:0px;border-color:#dde3e6">
-            </div>
-            <p-footer>
-                <div class="ui-dialog-buttonpane ui-helper-clearfix">
-                    
-                    <button type="button" pButton icon="fa-check" (click)="save()" label="Send"></button>
-                </div>
-            </p-footer>
-            </p-dialog>
+          
         </p-tabPanel>
 
     </p-tabView>
 
+    <!-- assign dialog -->
+    <p-dialog header="Assign To" [(visible)]="displayDialog" appendTo="body" [width]="400" [contentStyle]="{'max-height':'400px'}" [autoAlign]="true" [responsive]="true" showEffect="fade"
+    [modal]="true">
+    <div class="ui-grid ui-grid-responsive ui-fluid">
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4">
+                <label for="assign">Assing To:</label>
+            </div>
+            <div class="ui-grid-col-8">
+                <p-dropdown [options]="assign" [(ngModel)]="selectedAssign" appendTo="body" [style]="{'width':'150px'}" filter="true"></p-dropdown>
+            </div>
+        </div>
+        <br>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4">
+                <label for="status">Status:</label>
+            </div>
+            <div class="ui-grid-col-8">
+                <p-dropdown [options]="status" [(ngModel)]="selectedStatus" appendTo="body" [style]="{'width':'150px'}" filter="true"></p-dropdown>
+            </div>
+        </div><br>
+    </div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+            
+            <button type="button" pButton icon="fa-check" (click)="save()" label="Save"></button>
+        </div>
+    </p-footer>
+</p-dialog>
+
+<!-- email dialog -->
+<p-dialog header="Reply" [(visible)]="displayReply" appendTo="body" [width]="1000" [contentStyle]="{'max-height':'400px'}" [autoAlign]="true" [responsive]="true" showEffect="fade"
+[modal]="true">
+<div class="ui-grid ui-grid-responsive ui-fluid">
+        <p-editor [(ngModel)]="sendemail.message" [style]="{'height':'320px'}"></p-editor>
+        <p>Value: {{sendemail.message ||'empty'}}</p>
+        
+        <button pButton type="button" label="Clear" icon="pi pi-times" (click)="sendemail.message=null"></button>
+        
+        <hr style="border-top:0px;border-color:#dde3e6">
+</div>
+<p-footer>
+    <div class="ui-dialog-buttonpane ui-helper-clearfix">
+        
+        <button type="button" pButton icon="fa-check" (click)="Emailsave()" label="Send"></button>
+    </div>
+</p-footer>
+</p-dialog>
