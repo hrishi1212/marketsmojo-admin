@@ -106,6 +106,12 @@
 <p-dialog header="Reply" [(visible)]="displayReply" appendTo="body" [width]="1000" [contentStyle]="{'max-height':'400px'}"
     [autoAlign]="true" [responsive]="true" showEffect="fade" [modal]="true">
     <div class="ui-grid ui-grid-responsive ui-fluid">
+            <p-fieldset [toggleable]="true" [collapsed]="true" *ngFor="let reply of FeedbackReply">
+                    <p-header>{{reply.e_name}} to User</p-header>
+                    {{reply.reply}}
+                </p-fieldset>
+        </div><br>
+    <div class="ui-grid ui-grid-responsive ui-fluid">
         <p-editor [(ngModel)]="sendemail.message" [style]="{'height':'320px'}"></p-editor>
         <p>Value: {{sendemail.message ||'empty'}}</p>
 

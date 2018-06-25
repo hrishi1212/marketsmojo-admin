@@ -1,5 +1,5 @@
 export class UpdateFeedbackReplyRequest{
-    eid:number;
+    eid:string;
     fid :number;
     reply:string;
 }

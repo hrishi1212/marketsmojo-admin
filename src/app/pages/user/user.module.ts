@@ -21,6 +21,7 @@ import {ButtonModule} from 'primeng/button';
 import {ListboxModule} from 'primeng/listbox';
 import {EditorModule} from 'primeng/editor';
 import {TabViewModule} from 'primeng/tabview';
+import {FieldsetModule} from 'primeng/fieldset';
 
 
 import {
@@ -58,7 +59,8 @@ const components = [
     ButtonModule,
     ListboxModule,
     EditorModule,
-    TabViewModule
+    TabViewModule,
+    FieldsetModule
   ],
   declarations: [
     ...components,

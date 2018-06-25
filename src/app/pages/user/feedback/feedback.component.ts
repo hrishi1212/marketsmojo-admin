@@ -15,6 +15,7 @@ import { ListboxModule } from 'primeng/listbox';
 import { UpdateFeedbackReplyRequest } from "../../../domain/updateFeedbackReply.request";
 import {EditorModule} from 'primeng/editor';
 import { sendEmail } from "../../../domain/sendemail";
+import {FieldsetModule} from 'primeng/fieldset';
 
 @Component({
     selector: 'feedback-root',
@@ -82,7 +83,7 @@ export class FeedbackComponent {
     }
 
     selectFeedback(feedback: Feedback) {
-        this.selectedFeedback = feedback
+        this.selectedFeedback = feedback;
         this.displayDialog = true;
         
     }
@@ -147,34 +148,30 @@ export class FeedbackComponent {
 
     }
     
-    getFeedbackReply(id) {
-        this.feedbackReplyRequest.fid = id;
+    getFeedbackReply(fid) {
+        console.log(fid);
+        this.feedbackReplyRequest.fid = fid;
         this.loading = true;
         this._feedback.getFeedbackReply(this.feedbackReplyRequest).subscribe(
             (data: any) => {
                 this.FeedbackReply = data;
+               if(this.FeedbackReply){
                 this.FeedbackReply.forEach(value=>{
                     this.employeeArray.forEach(element=>{
                         if(value.eid == element._id){
                             value.e_name = element.name;
                         }
                     });
-                })
+                });
+               }
+                
                 this.loading = false;
             })
 
     }
 
-    insertReply(fid){
-        this.updatefeedback.fid = fid;
-        this.updatefeedback.eid = 5;
-        this._feedback.InsertFeedbackReply(this.updatefeedback).subscribe(
-            (data: any) => {
-                this.getFeedbackReply(4);
-            })
-    }
-
     SendReply(){
+        this.sendemail.message="<div>Hello User!</div><div>MarketsMojo <b>Editor</b> Rocks</div><div><br></div>";
         this.displayReply = true;
     }
   
@@ -204,25 +201,36 @@ export class FeedbackComponent {
     }
 
     sendEmailReply(selectedFeedback){
-        console.log(selectedFeedback.name);
-        console.log(selectedFeedback.email);
+        console.log(selectedFeedback._id);
         this.sendemail.to_email = selectedFeedback.email;
         this.sendemail.to_name= selectedFeedback.name;
         this._feedback.sendEmail(this.sendemail).subscribe(
             (data: any) => {
                 console.log(data);
                 this.displayReply = false;
-            })
+            });
+
+            var userid  = localStorage.getItem("userid");
+
+            this.updatefeedback.fid = selectedFeedback._id;
+            this.updatefeedback.eid = userid;
+            this.updatefeedback.reply = this.sendemail.message;
+            this._feedback.InsertFeedbackReply(this.updatefeedback).subscribe(
+                (data: any) => {
+                    this.getFeedbackReply(selectedFeedback._id);
+                })
     }
 
     selectEmailFeedback(feedback: Feedback) {
-        console.log(feedback);
+        this.sendemail.message="<div>Hello User!</div><div>MarketsMojo <b>Editor</b> Rocks</div><div><br></div>";
         this.selectedFeedback = feedback
+        this.getFeedbackReply(feedback._id);
         this.displayReply = true;
         
     }
 
     Emailsave() {
+        
         this.sendEmailReply(this.selectedFeedback);
     }
 }

@@ -64,7 +64,7 @@ export class FeedbackService {
             var headers = new Headers();
             headers.append('Content-Type', 'application/x-www-form-urlencoded');        
             var body = JSON.stringify(feedbackReplyRequest);
-            return this.http.get(FRAPI_URL + '/common_feedback/getFeedbackReply').map((response: Response) => {
+            return this.http.post(FRAPI_URL + '/common_feedback/getFeedbackReply',body).map((response: Response) => {
                 if (response.json().code == 200) {
                     return response.json().data
                 }
