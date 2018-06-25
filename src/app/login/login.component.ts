@@ -32,6 +32,7 @@ export class LoginComponent {
                 this.user = data.data;
                 this.loginLabel = "Log In";
                 if (data.data.userid) {
+                    localStorage.setItem("login", "true");
                     localStorage.setItem("userid", data.data.userid);
                     localStorage.setItem("name", data.data.display_name);
                     localStorage.setItem("image", data.data.image);

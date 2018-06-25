@@ -1,80 +1,79 @@
 <p-tabView (onChange)="handleChange($event)" [style]="{'height':'600px'}">
-        <h3>User Feedback</h3>
-        
-        <!-- all assign tab -->
-        <p-tabPanel header="All feedback" [style]="{'height':'600px'}">
-                <p-dataTable [value]="arrayfeedback" [rows]="10" [paginator]="true" [pageLinks]="5" [responsive]="true" [editable]="true"
-                [loading]="loading" scrollable="true" scrollHeight="50%" scrollWidth="100%" [style]="{'height':'500px'}">
-                <p-column field="date" header="Date" [style]="{'width':'120px'}">
-                    <ng-template let-row="rowData" pTemplate="body">
-                        {{row.date | date:'MM/dd/yyyy'}}
-                    </ng-template>
-                </p-column>
-                <p-column field="name" header="Name" [style]="{'width':'120px'}"></p-column>
-                <p-column field="email" header="Email" [style]="{'width':'250px'}"></p-column>
-                <p-column field="page" header="Page" [style]="{'width':'150px'}"></p-column>
-                <p-column field="suggestion" header="Suggestion" [style]="{'width':'350px'}"></p-column>
-                <p-column field="type" header="Type" [style]="{'width':'100px'}"></p-column>
-                <p-column field="assign_name" header="Asignee" [style]="{'width':'100px'}"></p-column>
-                <p-column field="status_name" header="Status" [style]="{'width':'100px'}"></p-column>
-                <p-column styleClass="col-button" header="Assign" [style]="{'width':'100px'}">
-                    
-                    <ng-template let-feedback="rowData" pTemplate="body">
-                        <button type="button" pButton class="ui-button-info" (click)="selectFeedback(feedback)" label="Assign"></button>
-                    </ng-template>
-                   
-                </p-column>
-                <p-column styleClass="col-button" header="Reply To user" [style]="{'width':'100px'}">
-                    <ng-template let-feedback="rowData" pTemplate="body">
-                        <button type="button" pButton class="ui-button-info" (click)="selectEmailFeedback(feedback)" label="reply"></button>
-                    </ng-template>
-                   
-                </p-column>
-            </p-dataTable>
-            
-           
-        </p-tabPanel>
-        <!-- all assign tab end -->
+
+    <!-- all assign tab -->
+    <p-tabPanel header="All feedback" [style]="{'height':'600px'}">
+        <p-dataTable [value]="arrayfeedback" [rows]="10" [paginator]="true" [pageLinks]="5" [responsive]="true" [editable]="true"
+            [loading]="loading" scrollable="true" scrollHeight="50%" scrollWidth="100%" [style]="{'height':'500px'}">
+            <p-column field="date" header="Date" [style]="{'width':'120px'}">
+                <ng-template let-row="rowData" pTemplate="body">
+                    {{row.date | date:'MM/dd/yyyy'}}
+                </ng-template>
+            </p-column>
+            <p-column field="name" header="Name" [style]="{'width':'120px'}"></p-column>
+            <p-column field="email" header="Email" [style]="{'width':'250px'}"></p-column>
+            <p-column field="page" header="Page" [style]="{'width':'150px'}"></p-column>
+            <p-column field="suggestion" header="Suggestion" [style]="{'width':'350px'}"></p-column>
+            <p-column field="type" header="Type" [style]="{'width':'100px'}"></p-column>
+            <p-column field="assign_name" header="Asignee" [style]="{'width':'100px'}"></p-column>
+            <p-column field="status_name" header="Status" [style]="{'width':'100px'}"></p-column>
+            <p-column styleClass="col-button" header="Assign" [style]="{'width':'100px'}">
+
+                <ng-template let-feedback="rowData" pTemplate="body">
+                    <button type="button" pButton class="ui-button-info" (click)="selectFeedback(feedback)" label="Assign"></button>
+                </ng-template>
+
+            </p-column>
+            <p-column styleClass="col-button" header="Reply To user" [style]="{'width':'100px'}">
+                <ng-template let-feedback="rowData" pTemplate="body">
+                    <button type="button" pButton class="ui-button-info" (click)="selectEmailFeedback(feedback)" label="reply"></button>
+                </ng-template>
+
+            </p-column>
+        </p-dataTable>
 
 
-        <p-tabPanel header="My Assign">
-                <p-dataTable [value]="assignfeedback" [rows]="10" [paginator]="true" [pageLinks]="5" [responsive]="true" [editable]="true"
-                [loading]="loading" scrollable="true" scrollHeight="50%" scrollWidth="100%">
-                <p-column field="date" header="Date" [style]="{'width':'120px'}">
-                    <ng-template let-row="rowData" pTemplate="body">
-                        {{row.date | date:'MM/dd/yyyy'}}
-                    </ng-template>
-                </p-column>
-                <p-column field="name" header="Name" [style]="{'width':'120px'}"></p-column>
-                <p-column field="email" header="Email" [style]="{'width':'250px'}"></p-column>
-                <p-column field="page" header="Page" [style]="{'width':'150px'}"></p-column>
-                <p-column field="suggestion" header="Suggestion" [style]="{'width':'350px'}"></p-column>
-                <p-column field="type" header="Type" [style]="{'width':'100px'}"></p-column>
-                <p-column field="assign_name" header="Asignee" [style]="{'width':'100px'}"></p-column>
-                <p-column field="status_name" header="Status" [style]="{'width':'100px'}"></p-column>
-                <p-column styleClass="col-button" header="Assign" [style]="{'width':'100px'}">
-                    
-                    <ng-template let-feedback="rowData" pTemplate="body">
-                        <button type="button" pButton class="ui-button-info" (click)="selectFeedback(feedback)" label="Assign"></button>
-                    </ng-template>
-                   
-                </p-column>
-                <p-column styleClass="col-button" header="Reply To user" [style]="{'width':'100px'}">
-                    <ng-template let-feedback="rowData" pTemplate="body">
-                        <button type="button" pButton class="ui-button-info" (click)="selectEmailFeedback(feedback)" label="reply"></button>
-                    </ng-template>
-                   
-                </p-column>
-            </p-dataTable>
-            
-          
-        </p-tabPanel>
+    </p-tabPanel>
+    <!-- all assign tab end -->
 
-    </p-tabView>
 
-    <!-- assign dialog -->
-    <p-dialog header="Assign To" [(visible)]="displayDialog" appendTo="body" [width]="400" [contentStyle]="{'max-height':'400px'}" [autoAlign]="true" [responsive]="true" showEffect="fade"
-    [modal]="true">
+    <p-tabPanel header="My Assign" [style]="{'height':'600px'}">
+        <p-dataTable [value]="assignfeedback" [rows]="10" [paginator]="true" [pageLinks]="5" [responsive]="true"
+            [loading]="loading" scrollable="true"  scrollWidth="100%" [style]="{'height':'500px'}">
+            <p-column field="date" header="Date" [style]="{'width':'120px'}">
+                <ng-template let-row="rowData" pTemplate="body">
+                    {{row.date | date:'MM/dd/yyyy'}}
+                </ng-template>
+            </p-column>
+            <p-column field="name" header="Name" [style]="{'width':'120px'}"></p-column>
+            <p-column field="email" header="Email" [style]="{'width':'250px'}"></p-column>
+            <p-column field="page" header="Page" [style]="{'width':'150px'}"></p-column>
+            <p-column field="suggestion" header="Suggestion" [style]="{'width':'350px'}"></p-column>
+            <p-column field="type" header="Type" [style]="{'width':'100px'}"></p-column>
+            <p-column field="assign_name" header="Asignee" [style]="{'width':'100px'}"></p-column>
+            <p-column field="status_name" header="Status" [style]="{'width':'100px'}"></p-column>
+            <p-column styleClass="col-button" header="Assign" [style]="{'width':'100px'}">
+
+                <ng-template let-feedback="rowData" pTemplate="body">
+                    <button type="button" pButton class="ui-button-info" (click)="selectFeedback(feedback)" label="Assign"></button>
+                </ng-template>
+
+            </p-column>
+            <p-column styleClass="col-button" header="Reply To user" [style]="{'width':'100px'}">
+                <ng-template let-feedback="rowData" pTemplate="body">
+                    <button type="button" pButton class="ui-button-info" (click)="selectEmailFeedback(feedback)" label="reply"></button>
+                </ng-template>
+
+            </p-column>
+        </p-dataTable>
+
+
+    </p-tabPanel>
+
+</p-tabView>
+
+<!-- assign dialog -->
+<p-dialog header="Assign To" [(visible)]="displayDialog" appendTo="body" [width]="400" [contentStyle]="{'max-height':'400px'}"
+    [autoAlign]="true" [responsive]="true" showEffect="fade" [modal]="true">
     <div class="ui-grid ui-grid-responsive ui-fluid">
         <div class="ui-grid-row">
             <div class="ui-grid-col-4">
@@ -92,31 +91,32 @@
             <div class="ui-grid-col-8">
                 <p-dropdown [options]="status" [(ngModel)]="selectedStatus" appendTo="body" [style]="{'width':'150px'}" filter="true"></p-dropdown>
             </div>
-        </div><br>
+        </div>
+        <br>
     </div>
     <p-footer>
         <div class="ui-dialog-buttonpane ui-helper-clearfix">
-            
+
             <button type="button" pButton icon="fa-check" (click)="save()" label="Save"></button>
         </div>
     </p-footer>
 </p-dialog>
 
 <!-- email dialog -->
-<p-dialog header="Reply" [(visible)]="displayReply" appendTo="body" [width]="1000" [contentStyle]="{'max-height':'400px'}" [autoAlign]="true" [responsive]="true" showEffect="fade"
-[modal]="true">
-<div class="ui-grid ui-grid-responsive ui-fluid">
+<p-dialog header="Reply" [(visible)]="displayReply" appendTo="body" [width]="1000" [contentStyle]="{'max-height':'400px'}"
+    [autoAlign]="true" [responsive]="true" showEffect="fade" [modal]="true">
+    <div class="ui-grid ui-grid-responsive ui-fluid">
         <p-editor [(ngModel)]="sendemail.message" [style]="{'height':'320px'}"></p-editor>
         <p>Value: {{sendemail.message ||'empty'}}</p>
-        
+
         <button pButton type="button" label="Clear" icon="pi pi-times" (click)="sendemail.message=null"></button>
-        
+
         <hr style="border-top:0px;border-color:#dde3e6">
-</div>
-<p-footer>
-    <div class="ui-dialog-buttonpane ui-helper-clearfix">
-        
-        <button type="button" pButton icon="fa-check" (click)="Emailsave()" label="Send"></button>
     </div>
-</p-footer>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+
+            <button type="button" pButton icon="fa-check" (click)="Emailsave()" label="Send"></button>
+        </div>
+    </p-footer>
 </p-dialog>
