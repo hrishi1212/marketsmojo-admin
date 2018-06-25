@@ -16,8 +16,8 @@ export class LoginComponent {
     user: User = new User();
     private username: string;
      loginLabel = "Log In";
-    private usernameError : string;
-    private passwordError : string;
+     usernameError : string;
+     passwordError : string;
     private password: string;
     constructor(
         private router: Router,
