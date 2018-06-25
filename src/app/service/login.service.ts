@@ -14,15 +14,11 @@ export class LoginService {
         private httpc: HttpClient) { }
 
     Login(loginRequest: LoginRequest) {
-        return this.http.post(LOGIN_REST_URL + 'authenticate/0', loginRequest).map((response: Response) => {
-            if (response.json().code == 200 && response.json().message == "success") {
-                localStorage.setItem("login", 'true');
-                return response.json().data
-            }else if(response.json().code == 200 && response.json().message !== "success"){
-                return response.json().data
-            }
-        }
-        )
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');        
+        var body = JSON.stringify(loginRequest);
+
+        return this.httpc.post<LoginRequest>(LOGIN_REST_URL + 'authenticate/0', body);
     }
 
 

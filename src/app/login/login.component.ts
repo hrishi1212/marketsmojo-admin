@@ -29,17 +29,17 @@ export class LoginComponent {
         this.loginLabel = "WAIT...";
         this._login.Login(this.loginRequest).subscribe(
             (data: any) => {
-                this.user = data;
+                this.user = data.data;
                 this.loginLabel = "Log In";
-                if (data.userid) {
-                    localStorage.setItem("userid", data.userid);
-                    localStorage.setItem("name", data.display_name);
-                    localStorage.setItem("image", data.image);
-                    localStorage.setItem("login_id", data.login_id);
+                if (data.data.userid) {
+                    localStorage.setItem("userid", data.data.userid);
+                    localStorage.setItem("name", data.data.display_name);
+                    localStorage.setItem("image", data.data.image);
+                    localStorage.setItem("login_id", data.data.login_id);
                     this.router.navigate(["/pages/dashboard"]);
                 }else{
-                    this.usernameError = data.username;
-                    this.passwordError = data.password;
+                    this.usernameError = data.data.username;
+                    this.passwordError = data.data.password;
                 }
             })
 
