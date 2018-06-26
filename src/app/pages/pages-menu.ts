@@ -20,14 +20,14 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'User Feedback',
         link: '/pages/user/feedback',
       },
-      {
-        title: 'User Survey',
-        link: '/pages/user/grid',
-      },
-      {
-        title: 'User Invoice',
-        link: '/pages/user/icons',
-      }
+      // {
+      //   title: 'User Survey',
+      //   link: '/pages/user/grid',
+      // },
+      // {
+      //   title: 'User Invoice',
+      //   link: '/pages/user/icons',
+      // }
     ],
   },
   // {

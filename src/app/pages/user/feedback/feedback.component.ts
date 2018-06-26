@@ -16,6 +16,7 @@ import { UpdateFeedbackReplyRequest } from "../../../domain/updateFeedbackReply.
 import {EditorModule} from 'primeng/editor';
 import { sendEmail } from "../../../domain/sendemail";
 import {FieldsetModule} from 'primeng/fieldset';
+import {InputTextModule} from 'primeng/inputtext';
 
 @Component({
     selector: 'feedback-root',
@@ -84,8 +85,16 @@ export class FeedbackComponent {
 
     selectFeedback(feedback: Feedback) {
         this.selectedFeedback = feedback;
+        console.log(this.selectedFeedback);
         this.displayDialog = true;
         
+    }
+    onRowSelect(event){
+        this.selectedFeedback.suggestion= event.data.suggestion;
+        this.selectedFeedback.page = event.data.page;
+        this.selectedFeedback.status = event.data.status;
+        this.selectedFeedback.type = event.data.type;
+        this.displayDialog = true;
     }
 
     save() {
