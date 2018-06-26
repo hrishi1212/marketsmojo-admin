@@ -2,15 +2,15 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { FormsComponent } from './forms.component';
-import { FormInputsComponent } from './form-inputs/form-inputs.component';
+import { StockMasterComponent } from './stock-master/stock-master.component';
 import { FormLayoutsComponent } from './form-layouts/form-layouts.component';
 
 const routes: Routes = [{
   path: '',
   component: FormsComponent,
   children: [{
-    path: 'inputs',
-    component: FormInputsComponent,
+    path: 'stock-master',
+    component: StockMasterComponent,
   }, {
     path: 'layouts',
     component: FormLayoutsComponent,
@@ -31,6 +31,6 @@ export class FormsRoutingModule {
 
 export const routedComponents = [
   FormsComponent,
-  FormInputsComponent,
+  StockMasterComponent,
   FormLayoutsComponent,
 ];

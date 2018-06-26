@@ -30,20 +30,16 @@ export const MENU_ITEMS: NbMenuItem[] = [
       // }
     ],
   },
-  // {
-  //   title: 'Forms',
-  //   icon: 'nb-compose',
-  //   children: [
-  //     {
-  //       title: 'Form Inputs',
-  //       link: '/pages/forms/inputs',
-  //     },
-  //     {
-  //       title: 'Form Layouts',
-  //       link: '/pages/forms/layouts',
-  //     },
-  //   ],
-  // },
+  {
+    title: 'Stock Updates',
+    icon: 'nb-compose',
+    children: [
+      {
+        title: 'Stock Master',
+        link: '/pages/forms/stock-master',
+      },
+    ],
+  },
   // {
   //   title: 'Components',
   //   icon: 'nb-gear',
