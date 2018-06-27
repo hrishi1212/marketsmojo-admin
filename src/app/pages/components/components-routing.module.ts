@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { ComponentsComponent } from './components.component';
-import { NewsComponent } from './news/tree.component';
+import { NewsComponent } from './news/news.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 
 const routes: Routes = [{
