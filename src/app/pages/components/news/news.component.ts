@@ -100,5 +100,7 @@ export class NewsComponent {
         
       }
 
-  
+      cancel(){
+        this.displayDialog = false;
+      }
 }
