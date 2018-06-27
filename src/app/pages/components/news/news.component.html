@@ -1,0 +1,36 @@
+<p-table #dt [columns]="headersCol" [value]="newsArray" [paginator]="true" [rows]="50" [responsive]="true"
+[loading]="loading" scrollable="true" selectionMode="single" [(selection)]="selectedNews" scrollHeight="500px" scrollWidth="100%" [style]="{'height':'500px'}"
+[lazy]="true" [autoLayout]="false" (onLazyLoad)="loadCarsLazy($event)" [totalRecords]="totalRecords">
+<ng-template pTemplate="caption">
+    <div style="text-align: right">        
+        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+        <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+    </div>
+</ng-template>
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns" width="{{col.width}}">
+                {{col.header}}
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr>
+            <td *ngFor="let col of columns" width="{{col.width}}" (click)="onRowSelectStock(rowData)" >
+                    {{rowData[col.field]}}
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<p-dialog header="Stock Details" [(visible)]="displayDialog" appendTo="body" [contentStyle]="{'max-height':'400px'}" [responsive]="true" showEffect="fade" [modal]="true" [width]="600">
+    <div class="ui-g ui-fluid" *ngIf="selectedNews">
+        {{selectedNews.description}}
+    </div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+            <button type="button" pButton icon="fa fa-close" (click)="cancel()" label="Cancel"></button>
+            <button type="button" pButton icon="fa fa-check" (click)="deleteNews()" label="Delete"></button>
+        </div>
+    </p-footer>
+</p-dialog>
