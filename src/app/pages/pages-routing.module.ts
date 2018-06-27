@@ -16,10 +16,11 @@ const routes: Routes = [{
     loadChildren: './user/user.module#UiFeaturesModule',
   }, 
   
+  {
+    path: 'components',
+    loadChildren: './components/components.module#ComponentsModule',
+  },
   // {
-  //   path: 'components',
-  //   loadChildren: './components/components.module#ComponentsModule',
-  // }, {
   //   path: 'maps',
   //   loadChildren: './maps/maps.module#MapsModule',
   // }, {

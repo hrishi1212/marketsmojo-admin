@@ -38,7 +38,7 @@ import {ListboxModule} from 'primeng/listbox';
     ThemeModule.forRoot(),
     CoreModule.forRoot(),
   ],
-  bootstrap: [AppComponent, LoginComponent],
+  bootstrap: [AppComponent],
   providers: [
     { provide: APP_BASE_HREF, useValue: '/' },
   ],

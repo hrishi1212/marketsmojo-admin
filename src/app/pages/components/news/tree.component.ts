@@ -5,7 +5,7 @@ import { TreeModel } from 'ng2-tree';
   selector: 'ngx-tree',
   templateUrl: './tree.component.html',
 })
-export class TreeComponent {
+export class NewsComponent {
 
   tree: TreeModel = {
     value: 'Programming languages by programming paradigm',

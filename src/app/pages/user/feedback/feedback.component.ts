@@ -85,7 +85,6 @@ export class FeedbackComponent {
 
     selectFeedback(feedback: Feedback) {
         this.selectedFeedback = feedback;
-        console.log(this.selectedFeedback);
         this.displayDialog = true;
         
     }
@@ -158,7 +157,6 @@ export class FeedbackComponent {
     }
     
     getFeedbackReply(fid) {
-        console.log(fid);
         this.feedbackReplyRequest.fid = fid;
         this.loading = true;
         this._feedback.getFeedbackReply(this.feedbackReplyRequest).subscribe(
@@ -210,12 +208,11 @@ export class FeedbackComponent {
     }
 
     sendEmailReply(selectedFeedback){
-        console.log(selectedFeedback._id);
+       
         this.sendemail.to_email = selectedFeedback.email;
         this.sendemail.to_name= selectedFeedback.name;
         this._feedback.sendEmail(this.sendemail).subscribe(
             (data: any) => {
-                console.log(data);
                 this.displayReply = false;
             });
 

@@ -100,7 +100,11 @@ export class StockMasterComponent {
   }
 
   loadCarsLazy(event: LazyLoadEvent) {
+    console.log(event);
     var pagenum = event.first / event.rows + 1;
+    if(event.globalFilter){
+      this.stockpage.search = event.globalFilter;
+    }
     this.stockpage.pgnum = pagenum;
     setTimeout(() => {
 

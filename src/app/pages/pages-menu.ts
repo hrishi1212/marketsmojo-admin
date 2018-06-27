@@ -40,19 +40,16 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
     ],
   },
-  // {
-  //   title: 'Components',
-  //   icon: 'nb-gear',
-  //   children: [
-  //     {
-  //       title: 'Tree',
-  //       link: '/pages/components/tree',
-  //     }, {
-  //       title: 'Notifications',
-  //       link: '/pages/components/notifications',
-  //     },
-  //   ],
-  // },
+  {
+    title: 'News',
+    icon: 'nb-list',
+    children: [
+      {
+        title: 'Update News',
+        link: '/pages/components/news',
+      }
+    ],
+  }
   // {
   //   title: 'Maps',
   //   icon: 'nb-location',
