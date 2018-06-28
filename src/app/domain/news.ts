@@ -9,4 +9,5 @@ export class News{
     newstype:string;
     isdeleted:number;
     topnews:string;
+    delete : string = '<i class="fa fa-trash" aria-hidden="true"></i>';
 }

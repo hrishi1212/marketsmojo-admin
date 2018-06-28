@@ -30,16 +30,16 @@ export const MENU_ITEMS: NbMenuItem[] = [
       // }
     ],
   },
-  {
-    title: 'Stock Updates',
-    icon: 'nb-compose',
-    children: [
-      {
-        title: 'Stock Master',
-        link: '/pages/forms/stock-master',
-      },
-    ],
-  },
+  // {
+  //   title: 'Stock Updates',
+  //   icon: 'nb-compose',
+  //   children: [
+  //     {
+  //       title: 'Stock Master',
+  //       link: '/pages/forms/stock-master',
+  //     },
+  //   ],
+  // },
   {
     title: 'News',
     icon: 'nb-list',

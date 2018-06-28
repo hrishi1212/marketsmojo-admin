@@ -44,53 +44,12 @@ export class StockMasterComponent {
           this.stockMaster = data.data.results;
           this.totalRecords = data.data.total;
           this.headersCol = [
-            { field: 'STOCKID', header: 'STOCKID' },
-            { field: 'FINCODE', header: 'FINCODE' },
-            { field: 'COMPNAME', header: 'COMPNAME' },
-            { field: 'S_NAME', header: 'S_NAME' },
-            { field: 'ACC_IND_CODE', header: 'ACC_IND_CODE' },
-            { field: 'ACC_Ind_Name', header: 'ACC_Ind_Name' },
-            { field: 'IND_CODE', header: 'IND_CODE' },
-            { field: 'Ind_Name', header: 'Ind_Name' },
-            { field: 'HSE_CODE', header: 'HSE_CODE' },
-            { field: 'Hse_Name', header: 'Hse_Name' },
-            { field: 'SCRIPCODE', header: 'SCRIPCODE' },
-            { field: 'SCRIP_GROUP', header: 'SCRIP_GROUP' },
-            { field: 'SYMBOL', header: 'SYMBOL' },
-            { field: 'SERIES', header: 'SERIES' },
-            { field: 'ISIN', header: 'ISIN' },
-            { field: 'Cap_Class', header: 'Cap_Class' },
-            { field: 'CHAIRMAN', header: 'CHAIRMAN' },
-            { field: 'COSEC', header: 'COSEC' },
-            { field: 'FFORMAT', header: 'FFORMAT' },
-            { field: 'FV', header: 'FV' },
-            { field: 'INC_MONTH', header: 'INC_MONTH' },
-            { field: 'INC_YEAR', header: 'INC_YEAR' },
-            { field: 'MDIR', header: 'MDIR' },
-            { field: 'RFORMAT', header: 'RFORMAT' },
-            { field: 'SCRIP_NAME', header: 'SCRIP_NAME' },
-            { field: 'Status', header: 'Status' },
-            { field: 'Sublisting', header: 'Sublisting' },
-            { field: 'FLAG', header: 'FLAG' },
-            { field: 'SC_COMP', header: 'SC_COMP' },
-            { field: 'SC_FULLNAME', header: 'SC_FULLNAME' },
-            { field: 'IsSeasonal', header: 'IsSeasonal' },
-            { field: 'MCAPType', header: 'MCAPType' },
-            { field: 'MCAPRank', header: 'MCAPRank' },
-            { field: 'Alias', header: 'Alias' },
-            { field: 'QualityRank', header: 'QualityRank' },
-            { field: 'QalityScoreText', header: 'QalityScoreText' },
-            { field: 'QualityTotal', header: 'QualityTotal' },
-            { field: 'ValuationRank', header: 'ValuationRank' },
-            { field: 'ValuationScoreText', header: 'ValuationScoreText' },
-            { field: 'CFTScore', header: 'CFTScore' },
-            { field: 'MergedWithStockID', header: 'MergedWithStockID' },
-            { field: 'MergedWithStockRatio', header: 'MergedWithStockRatio' },
-            { field: 'HeaderMessage', header: 'HeaderMessage' },
-            { field: 'StockNewsName', header: 'StockNewsName' },
-            { field: 'NewsPriority', header: 'NewsPriority' },
-            { field: 'HeaderMessageFromDT', header: 'HeaderMessageFromDT' },
-            { field: 'HeaderMessageToDT', header: 'HeaderMessageToDT' }
+          
+            { field: 'FINCODE', header: 'FINCODE',width:'100'},
+            { field: 'COMPNAME', header: 'COMPNAME',width:'200' },
+            { field: 'S_NAME', header: 'S_NAME',width:'200' },
+            { field: 'ACC_Ind_Name', header: 'ACC_Ind_Name',width:'200' },
+            { field: 'Ind_Name', header: 'Ind_Name',width:'200' }
 
           ];
           this.loading = false;
@@ -121,7 +80,7 @@ export class StockMasterComponent {
   }
 
   cloneStock(s:StockMaster){
-    this.stockmasterRequest.sid = s.STOCKID;
+    this.stockmasterRequest.stockid = s.STOCKID;
     this.stockmasterRequest.ACC_IND_CODE = s.ACC_IND_CODE;
     this.stockmasterRequest.ACC_Ind_Name = s.ACC_Ind_Name;
     this.stockmasterRequest.Alias = s.Alias;

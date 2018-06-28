@@ -1,5 +1,5 @@
 export class StockMasterRequest {
-    sid : number;
+    stockid : number;
     fincode: number;
     COMPNAME: string;
     S_NAME:string;

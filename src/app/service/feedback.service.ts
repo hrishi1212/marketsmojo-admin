@@ -9,6 +9,7 @@ import { FeedbackRequest } from "../domain/feedback.request";
 import { FeedbackReplyRequest } from "../domain/feedbackReply.request";
 import { UpdateFeedbackReplyRequest } from "../domain/updateFeedbackReply.request";
 import { sendEmail } from "../domain/sendemail";
+import { CMS_URL } from './url.service';
 
 
 @Injectable()
@@ -20,14 +21,14 @@ export class FeedbackService {
 
         getFeedbackDetails(id){
             if(id !== 0){
-                return this.http.get(FRAPI_URL + '/common_feedback/getFeedbackDetails?login_id='+ id).map((response: Response) => {
+                return this.http.get(CMS_URL + '/common_feedback/getFeedbackDetails?login_id='+ id).map((response: Response) => {
                     if (response.json().code) {
                         return response.json().data
                     }
                 }
                 )  
             }else{
-                return this.http.get(FRAPI_URL + '/common_feedback/getFeedbackDetails').map((response: Response) => {
+                return this.http.get(CMS_URL + '/common_feedback/getFeedbackDetails').map((response: Response) => {
                     if (response.json().code) {
                         return response.json().data
                     }
@@ -38,7 +39,7 @@ export class FeedbackService {
         }
 
         getEmployeelist(){
-            return this.http.get(FRAPI_URL + '/common_feedback/getEmployeeList').map((response: Response) => {
+            return this.http.get(CMS_URL + '/common_feedback/getEmployeeList').map((response: Response) => {
                 if (response.json().code == 200) {
                     return response.json().data
                 }
@@ -51,7 +52,7 @@ export class FeedbackService {
             headers.append('Content-Type', 'application/x-www-form-urlencoded');        
             var body = JSON.stringify(feedbackRequest);
             
-            return this.http.post(FRAPI_URL + '/common_feedback/updateFeedbackDetails', body, 
+            return this.http.post(CMS_URL + '/common_feedback/updateFeedbackDetails', body, 
             { headers : headers}).map((response: Response) => {
                 if (response.json().code == 200) {
                     return response.json().data
@@ -64,7 +65,7 @@ export class FeedbackService {
             var headers = new Headers();
             headers.append('Content-Type', 'application/x-www-form-urlencoded');        
             var body = JSON.stringify(feedbackReplyRequest);
-            return this.http.post(FRAPI_URL + '/common_feedback/getFeedbackReply',body).map((response: Response) => {
+            return this.http.post(CMS_URL + '/common_feedback/getFeedbackReply',body).map((response: Response) => {
                 if (response.json().code == 200) {
                     return response.json().data
                 }
@@ -76,7 +77,7 @@ export class FeedbackService {
             var headers = new Headers();
             headers.append('Content-Type', 'application/x-www-form-urlencoded');        
             var body = JSON.stringify(replyrequest);
-            return this.http.post(FRAPI_URL + '/common_feedback/updateFeedbackReply',body,{headers:headers}).map((response: Response) => {
+            return this.http.post(CMS_URL + '/common_feedback/updateFeedbackReply',body,{headers:headers}).map((response: Response) => {
                 if (response.json().code == 200) {
                     return response.json().data
                 }
@@ -88,7 +89,7 @@ export class FeedbackService {
             var headers = new Headers();
             headers.append('Content-Type', 'application/x-www-form-urlencoded');        
             var body = JSON.stringify(replyrequest);
-            return this.http.post(FRAPI_URL + '/common_feedback/insertFeedbackReply',body,{headers:headers}).map((response: Response) => {
+            return this.http.post(CMS_URL + '/common_feedback/insertFeedbackReply',body,{headers:headers}).map((response: Response) => {
                 if (response.json().code == 200) {
                     return response.json().data
                 }
@@ -100,7 +101,7 @@ export class FeedbackService {
             var headers = new Headers();
             headers.append('Content-Type', 'application/x-www-form-urlencoded');        
             var body = JSON.stringify(sendEmail);
-            return this.http.post(FRAPI_URL + '/common_feedback/sendReplyEmail',body,{headers:headers}).map((response: Response) => {
+            return this.http.post(CMS_URL + '/common_feedback/sendReplyEmail',body,{headers:headers}).map((response: Response) => {
                 if (response.json().code == 200) {
                     return response.json().data
                 }

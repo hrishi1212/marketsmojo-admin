@@ -47,16 +47,11 @@ export class NewsComponent {
           this.newsArray = data.data.results;
           this.totalRecords = data.data.total;
           this.headersCol = [
-            {field:'newsid',header:'newsid',Style: {width: '200px', 'text-align': 'center'},width:'350'},
             {field:'title',header:'title',Style: {width: '200px', 'text-align': 'center'},width:'500'},
-            {field:'imagepath',header:'imagepath',Style: {width: '200px', 'text-align': 'center'},width:'500'},
-            {field:'link',header:'link',Style: {width: '200px', 'text-align': 'center'},width:'500'},
-            {field:'source',header:'source',Style: {width: '200px', 'text-align': 'center'},width:'500'},
-            {field:'publisheddate',header:'publisheddate',Style: {width: '200px', 'text-align': 'center'},width:'350'},
-            {field:'description',header:'description',Style: {width: '200px', 'text-align': 'center'},width:'500'},
-            {field:'newstype',header:'newstype',Style: {width: '200px', 'text-align': 'center'},width:'200'},
-            {field:'isdeleted',header:'isdeleted',Style: {width: '50px', 'text-align': 'center'},width:'100'},
-            {field:'topnews',header:'topnews',Style: {width: '50px', 'text-align': 'center'},width:'100'},
+            {field:'source',header:'source',Style: {width: '200px', 'text-align': 'center'},width:'350'},
+            {field:'publisheddate',header:'publisheddate',Style: {width: '200px', 'text-align': 'center'},width:'200'},
+            {field:'newstype',header:'newstype',Style: {width: '200px', 'text-align': 'center'},width:'100'},
+           
           ];
        
           this.loading= false;
