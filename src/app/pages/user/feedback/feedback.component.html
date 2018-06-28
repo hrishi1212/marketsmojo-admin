@@ -11,13 +11,6 @@
         <p-dataTable [globalFilter]="gb" #dt [value]="arrayfeedback" selectionMode="single" [rows]="10" [paginator]="true" [(selection)]="selectedFeedback" [pageLinks]="5" [responsive]="true" (onRowSelect)="onRowSelect($event)"
             [loading]="loading" scrollable="true" scrollHeight="50%" scrollWidth="100%" [style]="{'height':'500px'}">
 
-            <ng-template>
-                    <div style="text-align: right">        
-                        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-                        <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
-                    </div>
-                </ng-template>
-
 
             <p-column field="date" header="Date" [style]="{'width':'120px'}">
                 <ng-template let-row="rowData" pTemplate="body">
@@ -51,18 +44,13 @@
     <p-tabPanel header="My Assign" [style]="{'height':'600px'}">
             <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
                     <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-                    <input #gb type="text" pInputText size="50" placeholder="Search Here">
-                    <button type="button" pButton icon="fa-file-o" iconPos="left" label="CSV" (click)="dt.exportCSV()" style="float:right"></button>
+                    <input #bg type="text" pInputText size="50" placeholder="Search Here">
+                    <button type="button" pButton icon="fa-file-o" iconPos="left" label="CSV" (click)="td.exportCSV()" style="float:right"></button>
                 
                     </div>
-        <p-dataTable [globalFilter]="gb" #dt [value]="assignfeedback" [rows]="10" [paginator]="true" [pageLinks]="5" [responsive]="true"
+        <p-dataTable [globalFilter]="bg" #td [value]="assignfeedback" [rows]="10" [paginator]="true" [pageLinks]="5" [responsive]="true"
             [loading]="loading" scrollable="true"  scrollWidth="100%" [style]="{'height':'500px'}" selectionMode="single" [(selection)]="selectedFeedback" (onRowSelect)="onRowSelect($event)">
-            <ng-template pTemplate="caption">
-                    <div style="text-align: right">        
-                        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-                        <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
-                    </div>
-                </ng-template>
+           
             <p-column field="date" header="Date" [style]="{'width':'120px'}">
                 <ng-template let-row="rowData" pTemplate="body">
                     {{row.date | date:'MM/dd/yyyy'}}

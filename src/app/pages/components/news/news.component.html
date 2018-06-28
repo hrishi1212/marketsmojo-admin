@@ -1,6 +1,6 @@
 <p-table #dt [columns]="headersCol" [value]="newsArray" [paginator]="true" [rows]="50" [responsive]="true"
 [loading]="loading" scrollable="true" selectionMode="single" [(selection)]="selectedNews" scrollHeight="500px" scrollWidth="100%" [style]="{'height':'500px'}"
-[lazy]="true" [autoLayout]="false" (onLazyLoad)="loadCarsLazy($event)" [totalRecords]="totalRecords">
+[lazy]="true" [autoLayout]="true" (onLazyLoad)="loadCarsLazy($event)" [totalRecords]="totalRecords">
 <ng-template pTemplate="caption">
     <div style="text-align: right">        
         <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
@@ -23,9 +23,27 @@
     </ng-template>
 </p-table>
 
-<p-dialog header="Stock Details" [(visible)]="displayDialog" appendTo="body" [contentStyle]="{'max-height':'400px'}" [responsive]="true" showEffect="fade" [modal]="true" [width]="600">
-    <div class="ui-g ui-fluid" *ngIf="selectedNews">
-        {{selectedNews.description}}
+<p-dialog header="News Details" [(visible)]="displayDialog" appendTo="body" [contentStyle]="{'max-height':'400px'}" [responsive]="true" showEffect="fade" [modal]="true" [width]="600">
+    <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="selectedNews">
+            <div class="ui-grid-row">
+                    <div class="ui-grid-col-4">
+                        <label for="assign">Title :</label>
+                    </div>
+                    <div class="ui-grid-col-8">
+                            {{selectedNews.title}}
+                    </div>
+                </div>
+                <br>
+            <div class="ui-grid-row">
+                    <div class="ui-grid-col-4">
+                        <label for="assign">Description :</label>
+                    </div>
+                    <div class="ui-grid-col-8">
+                            {{selectedNews.description}}
+                    </div>
+                </div>
+                <br>
+        
     </div>
     <p-footer>
         <div class="ui-dialog-buttonpane ui-helper-clearfix">
