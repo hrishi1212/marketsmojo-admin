@@ -8,8 +8,9 @@
                     <button type="button" pButton icon="fa-file-o" iconPos="left" label="CSV" (click)="dt.exportCSV()" style="float:right"></button>
                 
                     </div>
-        <p-dataTable [globalFilter]="gb" #dt [value]="arrayfeedback" selectionMode="single" [rows]="10" [paginator]="true" [(selection)]="selectedFeedback" [pageLinks]="5" [responsive]="true" (onRowSelect)="onRowSelect($event)"
-            [loading]="loading" scrollable="true" scrollHeight="50%" scrollWidth="100%" [style]="{'height':'500px'}">
+        <p-dataTable [globalFilter]="gb" #dt [value]="arrayfeedback" selectionMode="single" [rows]="50" [paginator]="true" [(selection)]="selectedFeedback" [pageLinks]="5" [responsive]="true" (onRowSelect)="onRowSelect($event)"
+            [loading]="loading" scrollable="true" scrollHeight="50%" scrollWidth="100%" [style]="{'height':'500px'}"
+            [lazy]="true" (onLazyLoad)="loadCarsLazy($event)" [totalRecords]="totalRecords">
 
 
             <p-column field="date" header="Date" [style]="{'width':'120px'}">
@@ -48,8 +49,9 @@
                     <button type="button" pButton icon="fa-file-o" iconPos="left" label="CSV" (click)="td.exportCSV()" style="float:right"></button>
                 
                     </div>
-        <p-dataTable [globalFilter]="bg" #td [value]="assignfeedback" [rows]="10" [paginator]="true" [pageLinks]="5" [responsive]="true"
-            [loading]="loading" scrollable="true"  scrollWidth="100%" [style]="{'height':'500px'}" selectionMode="single" [(selection)]="selectedFeedback" (onRowSelect)="onRowSelect($event)">
+        <p-dataTable [globalFilter]="bg" #td [value]="assignfeedback" [rows]="50" [paginator]="true" [pageLinks]="5" [responsive]="true"
+            [loading]="loading" scrollable="true"  scrollWidth="100%" [style]="{'height':'500px'}" selectionMode="single" [(selection)]="selectedFeedback" (onRowSelect)="onRowSelect($event)"
+            [lazy]="true" (onLazyLoad)="loadCarsLazyUser($event)" [totalRecords]="totalRecordsId">
            
             <p-column field="date" header="Date" [style]="{'width':'120px'}">
                 <ng-template let-row="rowData" pTemplate="body">

@@ -10,6 +10,7 @@ import { FeedbackReplyRequest } from "../domain/feedbackReply.request";
 import { UpdateFeedbackReplyRequest } from "../domain/updateFeedbackReply.request";
 import { sendEmail } from "../domain/sendemail";
 import { CMS_URL } from './url.service';
+import { FeedbackPage } from "../domain/feedbackpage";
 
 
 @Injectable()
@@ -19,21 +20,20 @@ export class FeedbackService {
     constructor(private http: Http,
         private httpc: HttpClient) { }
 
-        getFeedbackDetails(id){
+        getFeedbackDetails(id,page:FeedbackPage){
             if(id !== 0){
-                return this.http.get(CMS_URL + '/feedback/getFeedbackDetails?login_id='+ id).map((response: Response) => {
-                    if (response.json().code) {
-                        return response.json().data
-                    }
-                }
-                )  
+                var headers = new Headers();
+                headers.append('Content-Type', 'application/x-www-form-urlencoded');        
+                var body = JSON.stringify(page);
+    
+                return this.httpc.post<Feedback>(CMS_URL + '/feedback/getFeedbackDetails?login_id='+ id,body);
+ 
             }else{
-                return this.http.get(CMS_URL + '/feedback/getFeedbackDetails').map((response: Response) => {
-                    if (response.json().code) {
-                        return response.json().data
-                    }
-                }
-                )
+                var headers = new Headers();
+                headers.append('Content-Type', 'application/x-www-form-urlencoded');        
+                var body = JSON.stringify(page);
+    
+                return this.httpc.post<Feedback>(CMS_URL + '/feedback/getFeedbackDetails',body);
             }
             
         }

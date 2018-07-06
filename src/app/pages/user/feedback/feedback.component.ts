@@ -13,10 +13,12 @@ import { FeedbackReply } from "../../../domain/feedbackReply";
 import { FeedbackReplyRequest } from "../../../domain/feedbackReply.request";
 import { ListboxModule } from 'primeng/listbox';
 import { UpdateFeedbackReplyRequest } from "../../../domain/updateFeedbackReply.request";
-import {EditorModule} from 'primeng/editor';
+import { EditorModule } from 'primeng/editor';
 import { sendEmail } from "../../../domain/sendemail";
-import {FieldsetModule} from 'primeng/fieldset';
-import {InputTextModule} from 'primeng/inputtext';
+import { FieldsetModule } from 'primeng/fieldset';
+import { InputTextModule } from 'primeng/inputtext';
+import { LazyLoadEvent } from 'primeng/primeng';
+import { FeedbackPage } from "../../../domain/feedbackpage";
 
 @Component({
     selector: 'feedback-root',
@@ -32,23 +34,26 @@ export class FeedbackComponent {
     feedbackReply: FeedbackReply = new FeedbackReply();
     feedbackReplyRequest: FeedbackReplyRequest = new FeedbackReplyRequest();
     updatefeedback: UpdateFeedbackReplyRequest = new UpdateFeedbackReplyRequest();
-    sendemail : sendEmail = new sendEmail();
+    sendemail: sendEmail = new sendEmail();
+    feedbackpage: FeedbackPage = new FeedbackPage();
 
     selectedFeedback: Feedback;
     selectedreply: FeedbackReply;
     displayDialog: boolean;
     displayReply: boolean;
     loading: boolean;
-    assignID :string = localStorage.getItem("login_id");
+    assignID: string = localStorage.getItem("login_id");
 
     arrayfeedback: Feedback[];
-    assignfeedback : Feedback[];
+    assignfeedback: Feedback[];
     employeeArray: Employee[];
     FeedbackReply: FeedbackReply[];
     selectedAssign: any;
     assign: SelectItem[] = [];
     status: SelectItem[] = [];
     selectedStatus: any;
+    totalRecords: number;
+    totalRecordsId: number;
 
     text1: string = '<div>Hello User!</div><div>MarketsMojo <b>Editor</b> Rocks</div><div><br></div>';
 
@@ -64,15 +69,17 @@ export class FeedbackComponent {
     }
 
     ngOnInit() {
-       this.getFeedbackDetails();
+
     }
 
     getFeedbackDetails() {
         this.loading = true;
-        this._feedback.getFeedbackDetails(0).subscribe(
+        this._feedback.getFeedbackDetails(0, this.feedbackpage).subscribe(
             (data: any) => {
-                if (data) {
-                    this.arrayfeedback = data;
+                console.log(data);
+                if (data.code == 200) {
+                    this.arrayfeedback = data.data.results;
+                    this.totalRecords = data.data.results.total;
                     this.getemployee();
 
                 } else {
@@ -82,14 +89,41 @@ export class FeedbackComponent {
             })
 
     }
+    loadCarsLazy(event: LazyLoadEvent) {
+        var pagenum = event.first / event.rows + 1;
+        if (event.globalFilter) {
+            this.feedbackpage.search = event.globalFilter;
+        }
+        this.feedbackpage.pgnum = pagenum;
+        setTimeout(() => {
+
+            this.getFeedbackDetails();
+
+        }, 1000);
+    }
+
+    loadCarsLazyUser(event: LazyLoadEvent) {
+        var pagenum = event.first / event.rows + 1;
+        if (event.globalFilter) {
+            this.feedbackpage.search = event.globalFilter;
+        }
+        this.feedbackpage.pgnum = pagenum;
+        setTimeout(() => {
+
+            this.getfeedbackDetailsId();
+
+        }, 1000);
+    }
 
     selectFeedback(feedback: Feedback) {
         this.selectedFeedback = feedback;
         this.displayDialog = true;
-        
+
     }
-    onRowSelect(event){
-        this.selectedFeedback.suggestion= event.data.suggestion;
+
+
+    onRowSelect(event) {
+        this.selectedFeedback.suggestion = event.data.suggestion;
         this.selectedFeedback.page = event.data.page;
         this.selectedFeedback.status = event.data.status;
         this.selectedFeedback.type = event.data.type;
@@ -126,25 +160,25 @@ export class FeedbackComponent {
         this.feedbackRequest.name = feedback.name;
         this.feedbackRequest.page = feedback.page;
         this.feedbackRequest.status = this.selectedStatus;
-        if(this.selectedStatus == 1){
+        if (this.selectedStatus == 1) {
             this.feedbackRequest.status_name = "PENDING";
-        }else if(this.selectedStatus == 2){
+        } else if (this.selectedStatus == 2) {
             this.feedbackRequest.status_name = "INPROCESS";
-        }else if(this.selectedStatus == 3){
+        } else if (this.selectedStatus == 3) {
             this.feedbackRequest.status_name = "COMPLETE";
-        }else if(this.selectedStatus == 4){
+        } else if (this.selectedStatus == 4) {
             this.feedbackRequest.status_name = "OTHER";
         }
         this.feedbackRequest.assign = this.selectedAssign;
-       this.employeeArray.forEach(value=>{
-        if(this.selectedAssign == value._id){
-            this.feedbackRequest.assign_id = value.login_id;
-            this.feedbackRequest.assign_name = value.name;
-        }
-       });
+        this.employeeArray.forEach(value => {
+            if (this.selectedAssign == value._id) {
+                this.feedbackRequest.assign_id = value.login_id;
+                this.feedbackRequest.assign_name = value.name;
+            }
+        });
         this.feedbackRequest.suggestion = feedback.suggestion;
         this.feedbackRequest.type = feedback.type;
-        
+
         this._feedback.updateFeedback(this.feedbackRequest).subscribe(
             (data: any) => {
                 if (data) {
@@ -155,88 +189,89 @@ export class FeedbackComponent {
             })
 
     }
-    
+
     getFeedbackReply(fid) {
         this.feedbackReplyRequest.fid = fid;
         this.loading = true;
         this._feedback.getFeedbackReply(this.feedbackReplyRequest).subscribe(
             (data: any) => {
                 this.FeedbackReply = data;
-               if(this.FeedbackReply){
-                this.FeedbackReply.forEach(value=>{
-                    this.employeeArray.forEach(element=>{
-                        if(value.eid == element._id){
-                            value.e_name = element.name;
-                        }
+                if (this.FeedbackReply) {
+                    this.FeedbackReply.forEach(value => {
+                        this.employeeArray.forEach(element => {
+                            if (value.eid == element._id) {
+                                value.e_name = element.name;
+                            }
+                        });
                     });
-                });
-               }
-                
+                }
+
                 this.loading = false;
             })
 
     }
 
-    SendReply(){
-        this.sendemail.message="<div>Hello User!</div><div>MarketsMojo <b>Editor</b> Rocks</div><div><br></div>";
+    SendReply() {
+        this.sendemail.message = "<div>Hello User!</div><div>MarketsMojo <b>Editor</b> Rocks</div><div><br></div>";
         this.displayReply = true;
     }
-  
 
-    getfeedbackDetailsId(){
+
+    getfeedbackDetailsId() {
         this.loading = true;
-        this._feedback.getFeedbackDetails(this.assignID).subscribe(
+        this._feedback.getFeedbackDetails(this.assignID, this.feedbackpage).subscribe(
             (data: any) => {
                 if (data) {
-                    this.assignfeedback = data;
+                    this.assignfeedback = data.data.results;
+                    this.totalRecordsId = data.data.results.total;
                     this.getemployee();
                     this.loading = false;
                 } else {
-                    this.assignfeedback =[];
+                    this.assignfeedback = [];
                     this.loading = false;
                 }
 
             })
     }
 
-    handleChange(event){
-        if(event.index == 1){
+    handleChange(event) {
+        if (event.index == 1) {
             this.getfeedbackDetailsId();
-        }else if(event.index == 0){
+        } else if (event.index == 0) {
             this.getFeedbackDetails();
         }
     }
 
-    sendEmailReply(selectedFeedback){
-       
+    sendEmailReply(selectedFeedback) {
+
         this.sendemail.to_email = selectedFeedback.email;
-        this.sendemail.to_name= selectedFeedback.name;
+        this.sendemail.to_name = selectedFeedback.name;
         this._feedback.sendEmail(this.sendemail).subscribe(
             (data: any) => {
                 this.displayReply = false;
             });
 
-            var userid  = localStorage.getItem("userid");
+        var userid = localStorage.getItem("userid");
 
-            this.updatefeedback.fid = selectedFeedback._id;
-            this.updatefeedback.eid = userid;
-            this.updatefeedback.reply = this.sendemail.message;
-            this._feedback.InsertFeedbackReply(this.updatefeedback).subscribe(
-                (data: any) => {
-                    this.getFeedbackReply(selectedFeedback._id);
-                })
+        this.updatefeedback.fid = selectedFeedback._id;
+        this.updatefeedback.eid = userid;
+        this.updatefeedback.reply = this.sendemail.message;
+        this._feedback.InsertFeedbackReply(this.updatefeedback).subscribe(
+            (data: any) => {
+                this.getFeedbackReply(selectedFeedback._id);
+            })
     }
 
     selectEmailFeedback(feedback: Feedback) {
-        this.sendemail.message="<div>Hello User!</div><div>MarketsMojo <b>Editor</b> Rocks</div><div><br></div>";
+        this.sendemail.message = "<div>Hello User!</div><div>MarketsMojo <b>Editor</b> Rocks</div><div><br></div>";
         this.selectedFeedback = feedback
         this.getFeedbackReply(feedback._id);
         this.displayReply = true;
-        
+
     }
 
     Emailsave() {
-        
+
         this.sendEmailReply(this.selectedFeedback);
     }
 }
