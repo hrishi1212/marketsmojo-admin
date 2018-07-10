@@ -20,22 +20,19 @@ export class FeedbackService {
     constructor(private http: Http,
         private httpc: HttpClient) { }
 
-        getFeedbackDetails(id,page:FeedbackPage){
-            if(id !== 0){
+        getFeedbackDetails(page:FeedbackPage){
                 var headers = new Headers();
                 headers.append('Content-Type', 'application/x-www-form-urlencoded');        
-                var body = JSON.stringify(page);
-    
-                return this.httpc.post<Feedback>(CMS_URL + '/feedback/getFeedbackDetails?login_id='+ id,body);
- 
-            }else{
-                var headers = new Headers();
-                headers.append('Content-Type', 'application/x-www-form-urlencoded');        
-                var body = JSON.stringify(page);
-    
+                var body = JSON.stringify(page);  
                 return this.httpc.post<Feedback>(CMS_URL + '/feedback/getFeedbackDetails',body);
-            }
-            
+        }
+
+        getFeedbackDetailsEmployee(id){
+            var headers = new Headers();
+            headers.append('Content-Type', 'application/x-www-form-urlencoded');        
+            var body = JSON.stringify(id);  
+            console.log(body);
+            return this.httpc.post<Feedback>(CMS_URL + '/feedback/getFeedbackDetailsEmployee',body);
         }
 
         getEmployeelist(){

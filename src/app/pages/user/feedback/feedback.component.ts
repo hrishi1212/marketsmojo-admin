@@ -19,15 +19,21 @@ import { FieldsetModule } from 'primeng/fieldset';
 import { InputTextModule } from 'primeng/inputtext';
 import { LazyLoadEvent } from 'primeng/primeng';
 import { FeedbackPage } from "../../../domain/feedbackpage";
+interface EmployeeId {
+    login_id:string;
 
-@Component({
+}
+
+@Component({    
     selector: 'feedback-root',
     styleUrls: ['./feedback.component.css'],
     templateUrl: './feedback.component.html',
     providers: [FeedbackService]
 })
-export class FeedbackComponent {
 
+export class FeedbackComponent implements EmployeeId {
+    
+    login_id:string;
     feedback: Feedback = new Feedback();
     employee: Employee = new Employee();
     feedbackRequest: FeedbackRequest = new FeedbackRequest();
@@ -43,7 +49,7 @@ export class FeedbackComponent {
     displayReply: boolean;
     loading: boolean;
     assignID: string = localStorage.getItem("login_id");
-
+    employeeId : {login_id:string};
     arrayfeedback: Feedback[];
     assignfeedback: Feedback[];
     employeeArray: Employee[];
@@ -54,6 +60,7 @@ export class FeedbackComponent {
     selectedStatus: any;
     totalRecords: number;
     totalRecordsId: number;
+
 
     text1: string = '<div>Hello User!</div><div>MarketsMojo <b>Editor</b> Rocks</div><div><br></div>';
 
@@ -74,9 +81,8 @@ export class FeedbackComponent {
 
     getFeedbackDetails() {
         this.loading = true;
-        this._feedback.getFeedbackDetails(0, this.feedbackpage).subscribe(
+        this._feedback.getFeedbackDetails(this.feedbackpage).subscribe(
             (data: any) => {
-                console.log(data);
                 if (data.code == 200) {
                     this.arrayfeedback = data.data.results;
                     this.totalRecords = data.data.results.total;
@@ -219,7 +225,10 @@ export class FeedbackComponent {
 
     getfeedbackDetailsId() {
         this.loading = true;
-        this._feedback.getFeedbackDetails(this.assignID, this.feedbackpage).subscribe(
+        const employee = <EmployeeId>{
+            login_id:this.assignID
+        }
+        this._feedback.getFeedbackDetailsEmployee(employee).subscribe(
             (data: any) => {
                 if (data) {
                     this.assignfeedback = data.data.results;
@@ -271,7 +280,6 @@ export class FeedbackComponent {
     }
 
     Emailsave() {
-
         this.sendEmailReply(this.selectedFeedback);
     }
 }
