@@ -121,12 +121,23 @@ export class NewsComponent {
 
       search(event) {
         this.searchrequest.search = event.query;
-        this._search.getSearch(this.searchrequest).subscribe(
+        // this._search.getSearch(this.searchrequest).subscribe(
+        //   (data:any)=>{
+        //     if(data.code == "200"){
+        //       this.results = data.data;
+        //     }else{
+        //       this.results = [{id:0,name:"no data found"}];
+        //     }
+        //   }
+        // )
+
+        this._search.getSearchID(event.query).subscribe(
           (data:any)=>{
-            if(data.code == "200"){
-              this.results = data.data;
+            console.log(data);
+            if(data){
+              this.results = data;
             }else{
-              this.results = [{id:0,name:"no data found"}];
+              this.results = [{Id:0,Company:"no data found"}];
             }
           }
         )

@@ -4,7 +4,7 @@
 <ng-template pTemplate="caption">
     <div style="text-align: right">        
         <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-        <p-autoComplete [(ngModel)]="newspage.sid" [suggestions]="results" field="name" (completeMethod)="search($event)" (onSelect)="sidSelect($event)"></p-autoComplete>
+        <p-autoComplete [(ngModel)]="newspage.sid" [suggestions]="results" field="Company" (completeMethod)="search($event)" (onSelect)="sidSelect($event)"></p-autoComplete>
     </div>
     <div style="text-align: left">        
             <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
