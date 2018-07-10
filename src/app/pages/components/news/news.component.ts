@@ -7,20 +7,26 @@ import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
 import { NewsService } from "../../../service/news.service";
 import { PaginatorModule } from 'primeng/paginator';
-import { LazyLoadEvent } from 'primeng/primeng';
+import { LazyLoadEvent, SelectItem } from 'primeng/primeng';
 import {DialogModule} from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import {InputTextModule} from 'primeng/inputtext';
+import {AutoCompleteModule} from 'primeng/autocomplete';
+import { Search } from "../../../domain/search";
+import { SearchService } from "../../../service/search.service";
+import { SearchRequest } from "../../../domain/search.request";
+import { AnimationGroupPlayer } from '@angular/animations/src/players/animation_group_player';
 
 @Component({
   selector: 'ngx-tree',
   templateUrl: './news.component.html',
-  providers: [NewsService]
+  providers: [NewsService,SearchService]
 })
 export class NewsComponent {
 
-  constructor(private _news: NewsService) {
+  constructor(private _news: NewsService,
+  private _search : SearchService) {
   }
 
   loading: boolean;
@@ -29,14 +35,32 @@ export class NewsComponent {
   news :News = new News();
   newsRequest : NewsRequest = new NewsRequest();
   newspage : NewsPage = new NewsPage();
+  searchrequest : SearchRequest = new SearchRequest();
 
   newsArray : News[];
   headersCol: any[];
   selectedNews: News;
   newsNew : News;
   displayDialog : boolean;
+  text: string;
+  results: any[];
+  searchString = [];
+  NewsDrop: SelectItem[];
+  TopDrop : SelectItem[];
 
-  ngOnInit() { }
+  ngOnInit() { 
+    this.NewsDrop = [
+      { label: 'News Type', value: null },
+      { label: 'STKNWS', value: 'STKNWS' },
+      { label: 'DSKNWS', value: 'DSKNWS' },
+      { label: 'INTNWS', value: 'INTNWS' },
+  ];
+  this.TopDrop = [
+    { label: 'Top News', value: null },
+    { label: '0', value: 0 },
+    { label: '1', value: 1 }
+];
+  }
 
   getNewsPage(){
     this.loading = true;
@@ -47,10 +71,10 @@ export class NewsComponent {
           this.newsArray = data.data.results;
           this.totalRecords = data.data.total;
           this.headersCol = [
-            {field:'title',header:'title',Style: {width: '200px', 'text-align': 'center'},width:'500'},
-            {field:'source',header:'source',Style: {width: '200px', 'text-align': 'center'},width:'350'},
-            {field:'publisheddate',header:'publisheddate',Style: {width: '200px', 'text-align': 'center'},width:'200'},
-            {field:'newstype',header:'newstype',Style: {width: '200px', 'text-align': 'center'},width:'100'},
+            {field:'title',header:'Title',Style: {width: '200px', 'text-align': 'center'},width:'500'},
+            {field:'source',header:'Source',Style: {width: '200px', 'text-align': 'center'},width:'350'},
+            {field:'publisheddate',header:'Published Date',Style: {width: '200px', 'text-align': 'center'},width:'150'},
+            {field:'newstype',header:'News Type',Style: {width: '100%', 'text-align': 'center'},width:'100'},
            
           ];
        
@@ -95,7 +119,27 @@ export class NewsComponent {
         
       }
 
+      search(event) {
+        this.searchrequest.search = event.query;
+        this._search.getSearch(this.searchrequest).subscribe(
+          (data:any)=>{
+            if(data.code == "200"){
+              this.results = data.data;
+            }else{
+              this.results = [{id:0,name:"no data found"}];
+            }
+          }
+        )
+       
+    }
+
       cancel(){
         this.displayDialog = false;
+      }
+
+
+      sidSelect(event){
+        this.newspage.sid = event.id;
+        this.getNewsPage();
       }
 }

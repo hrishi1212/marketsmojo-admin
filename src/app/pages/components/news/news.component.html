@@ -4,8 +4,12 @@
 <ng-template pTemplate="caption">
     <div style="text-align: right">        
         <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-        <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+        <p-autoComplete [(ngModel)]="newspage.sid" [suggestions]="results" field="name" (completeMethod)="search($event)" (onSelect)="sidSelect($event)"></p-autoComplete>
     </div>
+    <div style="text-align: left">        
+            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+            <p-dropdown [options]="TopDrop" [(ngModel)]="newspage.top" (onChange)="getNewsPage()"></p-dropdown>
+        </div>
 </ng-template>
     <ng-template pTemplate="header" let-columns>
         <tr>
@@ -13,10 +17,16 @@
                 {{col.header}}
             </th>
         </tr>
+        <tr>
+                <th *ngFor="let col of columns" [ngSwitch]="col.field" width="{{col.width}}">
+                    <p-dropdown *ngSwitchCase="'newstype'" [(ngModel)]="newspage.type" (onChange)="getNewsPage()" [options]="NewsDrop" appendTo="body" [style]="{'width':'100%'}"></p-dropdown>
+                    
+                </th>
+            </tr>
     </ng-template>
     <ng-template pTemplate="body" let-rowData let-columns="columns">
         <tr>
-            <td *ngFor="let col of columns" width="{{col.width}}" (click)="onRowSelectStock(rowData)" >
+            <td *ngFor="let col of columns" width="{{col.width}}" (click)="onRowSelectStock(rowData)">
                     {{rowData[col.field]}}
             </td>
         </tr>
@@ -25,6 +35,15 @@
 
 <p-dialog header="News Details" [(visible)]="displayDialog" appendTo="body" [contentStyle]="{'max-height':'400px'}" [responsive]="true" showEffect="fade" [modal]="true" [width]="600">
     <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="selectedNews">
+            <div class="ui-grid-row">
+                    <div class="ui-grid-col-4">
+                        <label for="assign">Top News :</label>
+                    </div>
+                    <div class="ui-grid-col-8">
+                            {{selectedNews.topnews}}
+                    </div>
+                </div>
+                <br>
             <div class="ui-grid-row">
                     <div class="ui-grid-col-4">
                         <label for="assign">Title :</label>

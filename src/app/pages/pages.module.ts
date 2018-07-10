@@ -12,6 +12,7 @@ import {ListboxModule} from 'primeng/listbox';
 import {EditorModule} from 'primeng/editor';
 import {FieldsetModule} from 'primeng/fieldset';
 import {InputTextModule} from 'primeng/inputtext';
+import {AutoCompleteModule} from 'primeng/autocomplete';
 
 
 const PAGES_COMPONENTS = [
@@ -30,7 +31,8 @@ const PAGES_COMPONENTS = [
     ListboxModule,
     EditorModule,
     FieldsetModule,
-    InputTextModule
+    InputTextModule,
+    AutoCompleteModule
   ],
   declarations: [
     ...PAGES_COMPONENTS
