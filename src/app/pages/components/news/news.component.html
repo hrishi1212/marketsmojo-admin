@@ -4,11 +4,15 @@
 <ng-template pTemplate="caption">
     <div style="text-align: right">        
         <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-        <p-autoComplete [(ngModel)]="newspage.sid" [suggestions]="results" field="Company" (completeMethod)="search($event)" (onSelect)="sidSelect($event)"></p-autoComplete>
+        <p-autoComplete [(ngModel)]="Company" [suggestions]="results" field="Company" (completeMethod)="search($event)" (onSelect)="sidSelect($event)"></p-autoComplete>
+        <span style="margin-left:10px">Company: {{Company ? Company.name||Company : 'none'}}</span>
     </div>
     <div style="text-align: left">        
             <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
             <p-dropdown [options]="TopDrop" [(ngModel)]="newspage.top" (onChange)="getNewsPage()"></p-dropdown>
+        </div>
+        <div style="text-align: left;margin: -29px 20px 0px 168px;">        
+            <button pButton type="button" label="Refresh" (click)="refresh()"></button>
         </div>
 </ng-template>
     <ng-template pTemplate="header" let-columns>

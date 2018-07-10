@@ -42,7 +42,7 @@ export class NewsComponent {
   selectedNews: News;
   newsNew : News;
   displayDialog : boolean;
-  text: string;
+  Company: string;
   results: any[];
   searchString = [];
   NewsDrop: SelectItem[];
@@ -131,9 +131,8 @@ export class NewsComponent {
         //   }
         // )
 
-        this._search.getSearchID(event.query).subscribe(
+        this._search.getSearchID(this.searchrequest.search).subscribe(
           (data:any)=>{
-            console.log(data);
             if(data){
               this.results = data;
             }else{
@@ -150,7 +149,18 @@ export class NewsComponent {
 
 
       sidSelect(event){
-        this.newspage.sid = event.id;
+        this.newspage.sid = event.Id;
+        this.Company = event.Company;
+        this.getNewsPage();
+      }
+
+      refresh(){
+        this.newspage.pgnum = 1;
+        this.newspage.search = "";
+        this.newspage.sid = null;
+        this.newspage.top = null;
+        this.newspage.type = "";
+        this.Company = "";
         this.getNewsPage();
       }
 }
