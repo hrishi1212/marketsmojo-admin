@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { TreeModel } from 'ng2-tree';
 import { NewsPage } from "../../../domain/newspage";
 import { NewsRequest } from "../../../domain/news.request";
@@ -29,6 +29,8 @@ export class NewsComponent {
   private _search : SearchService) {
   }
 
+  @Input() suggestions : string;
+
   loading: boolean;
   totalRecords: number;
 
@@ -57,8 +59,9 @@ export class NewsComponent {
   ];
   this.TopDrop = [
     { label: 'Top News', value: null },
-    { label: '0', value: 0 },
-    { label: '1', value: 1 }
+    { label: 'TOP', value: 1 },
+    { label: 'OTHER', value: 0 }
+    
 ];
   }
 
@@ -134,6 +137,9 @@ export class NewsComponent {
         this._search.getSearchID(this.searchrequest.search).subscribe(
           (data:any)=>{
             if(data){
+              data.forEach(element => {
+               element.Company = element.Company.replace('<b>',' ').replace('</b>','');
+              });
               this.results = data;
             }else{
               this.results = [{Id:0,Company:"no data found"}];
