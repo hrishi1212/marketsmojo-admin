@@ -4,7 +4,7 @@ export class FeedbackRequest{
     name:string;
     type:string;
     suggestion:string;
-    page:string;
+    page:number;
     assign:number;
     assign_name:string;
     status:number;

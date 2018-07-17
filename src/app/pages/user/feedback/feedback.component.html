@@ -2,15 +2,15 @@
 
     <!-- all assign tab -->
     <p-tabPanel header="All feedback" [style]="{'height':'600px'}">
-            <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
-                    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-                    <input #gb type="text" pInputText size="50" placeholder="Search Here">
-                    <button type="button" pButton icon="fa-file-o" iconPos="left" label="CSV" (click)="dt.exportCSV()" style="float:right"></button>
-                
-                    </div>
-        <p-dataTable [globalFilter]="gb" #dt [value]="arrayfeedback" selectionMode="single" [rows]="50" [paginator]="true" [(selection)]="selectedFeedback" [pageLinks]="5" [responsive]="true" (onRowSelect)="onRowSelect($event)"
-            [loading]="loading" scrollable="true" scrollHeight="50%" scrollWidth="100%" [style]="{'height':'500px'}"
-            [lazy]="true" (onLazyLoad)="loadCarsLazy($event)" [totalRecords]="totalRecords">
+        <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+            <input #gb type="text" pInputText size="50" placeholder="Search Here">
+            <button type="button" pButton icon="fa-file-o" iconPos="left" label="CSV" (click)="dt.exportCSV()" style="float:right"></button>
+
+        </div>
+        <p-dataTable [globalFilter]="gb" #dt [value]="arrayfeedback" selectionMode="single" [rows]="50" [paginator]="true" [(selection)]="selectedFeedback"
+            [pageLinks]="5" [responsive]="true" (onRowSelect)="onRowSelect($event)" [loading]="loading" scrollable="true" scrollHeight="50%"
+            scrollWidth="100%" [style]="{'height':'500px'}" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)" [totalRecords]="totalRecords">
 
 
             <p-column field="date" header="Date" [style]="{'width':'120px'}">
@@ -21,7 +21,8 @@
             <p-column field="name" header="Name" [style]="{'width':'120px'}"></p-column>
             <p-column field="email" header="Email" [style]="{'width':'250px'}"></p-column>
             <p-column field="assign_name" header="Asignee" [style]="{'width':'100px'}"></p-column>
-            <p-column field="status_name" header="Status" [style]="{'width':'100px'}"></p-column>
+            <p-column field="status_name" header="Status" [style]="{'width':'100px'}">
+            </p-column>
             <p-column styleClass="col-button" header="Assign" [style]="{'width':'100px'}">
 
                 <ng-template let-feedback="rowData" pTemplate="body">
@@ -43,16 +44,16 @@
 
 
     <p-tabPanel header="Assigned to me" [style]="{'height':'600px'}">
-            <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
-                    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-                    <input #bg type="text" pInputText size="50" placeholder="Search Here">
-                    <button type="button" pButton icon="fa-file-o" iconPos="left" label="CSV" (click)="td.exportCSV()" style="float:right"></button>
-                
-                    </div>
+        <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+            <input #bg type="text" pInputText size="50" placeholder="Search Here">
+            <button type="button" pButton icon="fa-file-o" iconPos="left" label="CSV" (click)="td.exportCSV()" style="float:right"></button>
+
+        </div>
         <p-dataTable [globalFilter]="bg" #td [value]="assignfeedback" [rows]="50" [paginator]="true" [pageLinks]="5" [responsive]="true"
-            [loading]="loading" scrollable="true"  scrollWidth="100%" [style]="{'height':'500px'}" selectionMode="single" [(selection)]="selectedFeedback" (onRowSelect)="onRowSelect($event)"
-            [lazy]="true" (onLazyLoad)="loadCarsLazyUser($event)" [totalRecords]="totalRecordsId">
-           
+            [loading]="loading" scrollable="true" scrollWidth="100%" [style]="{'height':'500px'}" selectionMode="single" [(selection)]="selectedFeedback"
+            (onRowSelect)="onRowSelect($event)" [lazy]="true" (onLazyLoad)="loadCarsLazyUser($event)" [totalRecords]="totalRecordsId">
+
             <p-column field="date" header="Date" [style]="{'width':'120px'}">
                 <ng-template let-row="rowData" pTemplate="body">
                     {{row.date | date:'MM/dd/yyyy'}}
@@ -61,7 +62,8 @@
             <p-column field="name" header="Name" [style]="{'width':'120px'}"></p-column>
             <p-column field="email" header="Email" [style]="{'width':'250px'}"></p-column>
             <p-column field="assign_name" header="Asignee" [style]="{'width':'100px'}"></p-column>
-            <p-column field="status_name" header="Status" [style]="{'width':'100px'}"></p-column>
+            <p-column field="status_name" header="Status" [style]="{'width':'100px'}">
+            </p-column>
             <p-column styleClass="col-button" header="Assign" [style]="{'width':'100px'}">
 
                 <ng-template let-feedback="rowData" pTemplate="body">
@@ -83,36 +85,36 @@
 </p-tabView>
 
 <!-- assign dialog -->
-<p-dialog header="Assign To" [(visible)]="displayDialog" appendTo="body" [width]="400" [contentStyle]="{'max-height':'400px'}"
+<p-dialog header="Assign To" [(visible)]="displayDialog" appendTo="body" [width]="1000" [contentStyle]="{'max-height':'400px'}"
     [autoAlign]="true" [responsive]="true" showEffect="fade" [modal]="true">
     <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="selectedFeedback">
-            <div class="ui-grid-row">
-                    <div class="ui-grid-col-4">
-                        <label for="assign">Suggestion :</label>
-                    </div>
-                    <div class="ui-grid-col-8">
-                       {{selectedFeedback.suggestion}}
-                    </div>
-                </div>
-                <br>
-                <div class="ui-grid-row">
-                        <div class="ui-grid-col-4">
-                            <label for="assign">Page :</label>
-                        </div>
-                        <div class="ui-grid-col-8">
-                           {{selectedFeedback.page}}
-                        </div>
-                    </div>
-                    <br>
-                    <div class="ui-grid-row">
-                            <div class="ui-grid-col-4">
-                                <label for="assign">Type :</label>
-                            </div>
-                            <div class="ui-grid-col-8">
-                               {{selectedFeedback.type}}
-                            </div>
-                        </div>
-                        <br>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4">
+                <label for="assign">Suggestion :</label>
+            </div>
+            <div class="ui-grid-col-8">
+                {{selectedFeedback.suggestion}}
+            </div>
+        </div>
+        <br>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4">
+                <label for="assign">Page :</label>
+            </div>
+            <div class="ui-grid-col-8">
+                {{selectedFeedback.page_name}}
+            </div>
+        </div>
+        <br>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4">
+                <label for="assign">Type :</label>
+            </div>
+            <div class="ui-grid-col-8">
+                {{selectedFeedback.type}}
+            </div>
+        </div>
+        <br>
         <div class="ui-grid-row">
             <div class="ui-grid-col-4">
                 <label for="assign">Assing To:</label>
@@ -134,7 +136,7 @@
     </div>
     <p-footer>
         <div class="ui-dialog-buttonpane ui-helper-clearfix">
-
+            <button type="button" pButton icon="fa fa-close" (click)="displayDialog = false" label="Close"></button>
             <button type="button" pButton icon="fa-check" (click)="save()" label="Save"></button>
         </div>
     </p-footer>
@@ -144,20 +146,22 @@
 <p-dialog header="Reply" [(visible)]="displayReply" appendTo="body" [width]="1000" [contentStyle]="{'max-height':'400px'}"
     [autoAlign]="true" [responsive]="true" showEffect="fade" [modal]="true">
     <div class="ui-grid ui-grid-responsive ui-fluid">
-            <p-fieldset [toggleable]="true" [collapsed]="true" *ngFor="let reply of FeedbackReply">
-                    <p-header>{{reply.e_name}} to User</p-header>
-                    <p [innerHTML]="reply.reply"></p>
-                </p-fieldset>
-        </div><br>
+        <p-fieldset [toggleable]="true" [collapsed]="true" *ngFor="let reply of FeedbackReply">
+            <p-header>{{reply.e_name}} to User</p-header>
+            <p [innerHTML]="reply.reply"></p>
+        </p-fieldset>
+    </div>
+    <br>
     <div class="ui-grid ui-grid-responsive ui-fluid">
-        <p-editor [(ngModel)]="sendemail.message" [style]="{'height':'320px'}"></p-editor><br>
+        <p-editor [(ngModel)]="sendemail.message" [style]="{'height':'320px'}"></p-editor>
+        <br>
         <button pButton type="button" label="Clear" icon="pi pi-times" (click)="sendemail.message=null"></button>
 
         <hr style="border-top:0px;border-color:#dde3e6">
     </div>
     <p-footer>
         <div class="ui-dialog-buttonpane ui-helper-clearfix">
-
+            <button type="button" pButton icon="fa fa-close" (click)="displayReply = false" label="Close"></button>
             <button type="button" pButton icon="fa-check" (click)="Emailsave()" label="Send"></button>
         </div>
     </p-footer>

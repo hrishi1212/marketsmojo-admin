@@ -5,7 +5,8 @@ export class Feedback{
     email:string;
     type:string;
     suggestion:string;
-    page:string;
+    page:number;
+    page_name:string;
     assign_name:string;
     status:number;
     assign:number;

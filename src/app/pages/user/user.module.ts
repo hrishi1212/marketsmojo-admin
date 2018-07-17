@@ -23,6 +23,7 @@ import {EditorModule} from 'primeng/editor';
 import {TabViewModule} from 'primeng/tabview';
 import {FieldsetModule} from 'primeng/fieldset';
 import {InputTextModule} from 'primeng/inputtext';
+import {MultiSelectModule} from 'primeng/multiselect';
 
 
 import {
@@ -62,7 +63,8 @@ const components = [
     EditorModule,
     TabViewModule,
     FieldsetModule,
-    InputTextModule
+    InputTextModule,
+    MultiSelectModule
   ],
   declarations: [
     ...components,

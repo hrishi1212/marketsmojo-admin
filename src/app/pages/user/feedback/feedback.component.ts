@@ -19,6 +19,8 @@ import { FieldsetModule } from 'primeng/fieldset';
 import { InputTextModule } from 'primeng/inputtext';
 import { LazyLoadEvent } from 'primeng/primeng';
 import { FeedbackPage } from "../../../domain/feedbackpage";
+import {MultiSelectModule} from 'primeng/multiselect';
+
 interface EmployeeId {
     login_id:string;
 
@@ -57,6 +59,7 @@ export class FeedbackComponent implements EmployeeId {
     selectedAssign: any;
     assign: SelectItem[] = [];
     status: SelectItem[] = [];
+    status_name: SelectItem[] = [];
     selectedStatus: any;
     totalRecords: number;
     totalRecordsId: number;
@@ -71,7 +74,7 @@ export class FeedbackComponent implements EmployeeId {
         { label: 'INPROCESS', value: 2 },
         { label: 'COMPLETE', value: 3 },
         { label: 'OTHER', value: 4 },
-        ]
+        ];
 
     }
 
@@ -96,6 +99,7 @@ export class FeedbackComponent implements EmployeeId {
 
     }
     loadCarsLazy(event: LazyLoadEvent) {
+        console.log(event);
         var pagenum = event.first / event.rows + 1;
         if (event.globalFilter) {
             this.feedbackpage.search = event.globalFilter;
@@ -129,6 +133,39 @@ export class FeedbackComponent implements EmployeeId {
 
 
     onRowSelect(event) {
+        if(event.data.page == 1){
+            this.selectedFeedback.page_name = "Markets";
+        }else if(event.data.page == 2){
+            this.selectedFeedback.page_name = "Watchlist";
+        }else if(event.data.page == 3){
+            this.selectedFeedback.page_name = "Mojo Stock";
+        }
+        else if(event.data.page == 4){
+            this.selectedFeedback.page_name = "Portfolio";
+        }
+        else if(event.data.page == 5){
+            this.selectedFeedback.page_name = "Recos";
+        }
+        else if(event.data.page == 6){
+            this.selectedFeedback.page_name = "Results";
+        }
+        else if(event.data.page == 7){
+            this.selectedFeedback.page_name = "Mojo Talk";
+        }
+        else if(event.data.page == 8){
+            this.selectedFeedback.page_name = "Mojo Professional";
+        }
+        else if(event.data.page == 9){
+            this.selectedFeedback.page_name = "Technical";
+        }
+        else if(event.data.page == 10){
+            this.selectedFeedback.page_name = "Stocks";
+        }
+        else if(event.data.page == 11){
+            this.selectedFeedback.page_name = "Others";
+        }else{
+            this.selectedFeedback.page_name = event.data.page;
+        }
         this.selectedFeedback.suggestion = event.data.suggestion;
         this.selectedFeedback.page = event.data.page;
         this.selectedFeedback.status = event.data.status;
@@ -155,6 +192,8 @@ export class FeedbackComponent implements EmployeeId {
                 this.loading = false;
             })
     }
+
+   
 
     sendFeedbackRequest(feedback: Feedback) {
         this.selectedFeedback = feedback;
@@ -230,7 +269,7 @@ export class FeedbackComponent implements EmployeeId {
         }
         this._feedback.getFeedbackDetailsEmployee(employee).subscribe(
             (data: any) => {
-                if (data) {
+                if (data.code == 200) {
                     this.assignfeedback = data.data.results;
                     this.totalRecordsId = data.data.results.total;
                     this.getemployee();

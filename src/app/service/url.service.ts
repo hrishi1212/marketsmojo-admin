@@ -2,7 +2,7 @@
 // export const FRAPI_URL :string = "https://sandbox-frapi.marketsmojo.com";
 // export const CMS_URL :string = "https://sandbox-cms.marketsmojo.com";
 
-// export const LOGIN_REST_URL : string = "http://www.marketmojo.com/mojo/";
+// export const LOGIN_REST_URL : string = "http://marketmojo.com/mojo/";
 // export const FRONTEND_URL : string = "http://www.marketmojo.com/";
 // export const FRAPI_URL :string = "http://frapi.marketmojo.com";
 // export const CMS_URL :string = "http://cms.marketmojo.com";
