@@ -17,6 +17,10 @@ import { Search } from "../../../domain/search";
 import { SearchService } from "../../../service/search.service";
 import { SearchRequest } from "../../../domain/search.request";
 import { AnimationGroupPlayer } from '@angular/animations/src/players/animation_group_player';
+import {PanelModule} from 'primeng/panel';
+import { SetTopNews } from "../../../domain/settopnews.request";
+import { AddNews } from "../../../domain/addnews.request";
+import {InputMaskModule} from 'primeng/inputmask';
 
 @Component({
   selector: 'ngx-tree',
@@ -33,14 +37,18 @@ export class NewsComponent {
 
   loading: boolean;
   totalRecords: number;
+  totalRecordsTop:number;
 
   news :News = new News();
   newsRequest : NewsRequest = new NewsRequest();
   newspage : NewsPage = new NewsPage();
   searchrequest : SearchRequest = new SearchRequest();
+  settopnews : SetTopNews = new SetTopNews();
 
   newsArray : News[];
+  newsArrayTop : News[];
   headersCol: any[];
+  headersColTop : any[];
   selectedNews: News;
   newsNew : News;
   displayDialog : boolean;
@@ -49,13 +57,15 @@ export class NewsComponent {
   searchString = [];
   NewsDrop: SelectItem[];
   TopDrop : SelectItem[];
+  message :string;
+  messageTop :string;
 
   ngOnInit() { 
     this.NewsDrop = [
       { label: 'News Type', value: null },
-      { label: 'STKNWS', value: 'STKNWS' },
-      { label: 'DSKNWS', value: 'DSKNWS' },
-      { label: 'INTNWS', value: 'INTNWS' },
+      { label: 'Stock News', value: 'STKNWS' },
+      { label: 'Domestic News', value: 'DSKNWS' },
+      { label: 'International News', value: 'INTNWS' },
   ];
   this.TopDrop = [
     { label: 'Top News', value: null },
@@ -71,21 +81,54 @@ export class NewsComponent {
       (data:any)=>{
         
         if(data.code == "200"){
+         
           this.newsArray = data.data.results;
           this.totalRecords = data.data.total;
           this.headersCol = [
             {field:'title',header:'Title',Style: {width: '200px', 'text-align': 'center'},width:'500'},
-            {field:'source',header:'Source',Style: {width: '200px', 'text-align': 'center'},width:'350'},
-            {field:'publisheddate',header:'Published Date',Style: {width: '200px', 'text-align': 'center'},width:'150'},
             {field:'newstype',header:'News Type',Style: {width: '100%', 'text-align': 'center'},width:'100'},
-           
+            {field:'source',header:'Source',Style: {width: '200px', 'text-align': 'center'},width:'350'},
+            {field:'publisheddate',header:'Published Date',Style: {width: '200px', 'text-align': 'center'},width:'150'}
+
           ];
        
           this.loading= false;
+        }else{
+          this.loading = false;
+          this.message   = data.message;
         }
       }
     )
   }
+
+  
+  getNewsPageTop(){
+    this.loading = true;
+    this._news.getNewsPageTop(this.newspage).subscribe(
+      (data:any)=>{
+        
+        if(data.code == "200"){
+         
+          this.newsArrayTop = data.data.results;
+          this.totalRecordsTop = data.data.total;
+          this.headersColTop = [
+            {field:'topnews',header:'topnews',Style: {width: '200px', 'text-align': 'center'},width:'100'},
+            {field:'title',header:'Title',Style: {width: '200px', 'text-align': 'center'},width:'500'},
+            {field:'newstype',header:'News Type',Style: {width: '100%', 'text-align': 'center'},width:'100'},
+            {field:'source',header:'Source',Style: {width: '200px', 'text-align': 'center'},width:'350'},
+            {field:'publisheddate',header:'Published Date',Style: {width: '200px', 'text-align': 'center'},width:'150'}
+          ];
+       
+          this.loading= false;
+        }else{
+          this.loading = false;
+          this.messageTop   = data.message;
+        }
+      }
+    )
+  }
+
+
   loadCarsLazy(event: LazyLoadEvent) {
     
     var pagenum = event.first / event.rows + 1;
@@ -96,6 +139,18 @@ export class NewsComponent {
     setTimeout(() => {
 
       this.getNewsPage();
+
+    }, 1000);
+
+  }
+
+  loadNewsLazyTop(event: LazyLoadEvent) {
+    
+    var pagenum = event.first / event.rows + 1;
+    this.newspage.pgnum = pagenum;
+    setTimeout(() => {
+
+      this.getNewsPageTop();
 
     }, 1000);
 
@@ -115,8 +170,9 @@ export class NewsComponent {
             }
           )
   }
+
+
   onRowSelectStock(event) {
-    
         this.selectedNews = event;
         this.displayDialog=true;
         
@@ -124,16 +180,6 @@ export class NewsComponent {
 
       search(event) {
         this.searchrequest.search = event.query;
-        // this._search.getSearch(this.searchrequest).subscribe(
-        //   (data:any)=>{
-        //     if(data.code == "200"){
-        //       this.results = data.data;
-        //     }else{
-        //       this.results = [{id:0,name:"no data found"}];
-        //     }
-        //   }
-        // )
-
         this._search.getSearchID(this.searchrequest.search).subscribe(
           (data:any)=>{
             if(data){
@@ -168,5 +214,50 @@ export class NewsComponent {
         this.newspage.type = "";
         this.Company = "";
         this.getNewsPage();
+      }
+
+      saveTopNews(event){
+        this.settopnews.newsid = event.newsid;
+       this.loading= true;
+        this._news.setTopNews(this.settopnews).subscribe(
+          (data:any)=>{
+            if(data.code == "200"){
+              this.getNewsPage();
+              this.getNewsPageTop();
+              this.loading = false;
+            }else if(data.code !== "200"){
+             alert(data.message);
+             this.loading = false;
+            }
+          }
+        )
+      }
+
+
+      AdddisplayDialog : boolean = false;
+      addnews : AddNews = new AddNews();
+
+
+      addNews(){
+        this.addnews = new AddNews();
+        this.AdddisplayDialog = true; 
+      }
+
+      saveNews(){
+        this.addnews.isdeleted = 0;
+        this._news.addNews(this.addnews).subscribe(
+          (data:any)=>{
+            if(data.code == "200"){
+              this.AdddisplayDialog = false;
+              this.getNewsPage();
+              this.getNewsPageTop();
+              this.loading = false;
+            }else if(data.code !== "200"){
+             alert(data.message);
+             this.loading = false;
+             this.AdddisplayDialog = false;
+            }
+          }
+        )
       }
 }

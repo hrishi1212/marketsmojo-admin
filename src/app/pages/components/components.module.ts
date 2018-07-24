@@ -13,6 +13,8 @@ import { ButtonModule } from 'primeng/button';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import {InputTextModule} from 'primeng/inputtext';
 import {AutoCompleteModule} from 'primeng/autocomplete';
+import {PanelModule} from 'primeng/panel';
+import {InputMaskModule} from 'primeng/inputmask';
 
 
 @NgModule({
@@ -28,7 +30,9 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
     ButtonModule,
     InputTextareaModule,
     InputTextModule,
-    AutoCompleteModule
+    AutoCompleteModule,
+    PanelModule,
+    InputMaskModule
   ],
   declarations: [
     ...routedComponents,
