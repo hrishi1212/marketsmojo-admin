@@ -6,7 +6,7 @@
                     <div style="text-align: right">
                         <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
                         <p-autoComplete [(ngModel)]="Company" [suggestions]="results" field="Company" (completeMethod)="search($event)" (onSelect)="sidSelect($event)"></p-autoComplete>
-                        <span style="margin-left:10px" [innerHtml]="Company">Company: {{Company ? Company.name||Company : 'none'}}</span>
+                        <span style="margin-left:10px" [innerHtml]="Company"></span>
                     </div>
                     <div style="text-align: left">
                         <!-- <p-dropdown [options]="TopDrop" [(ngModel)]="newspage.top" (onChange)="getNewsPage()"></p-dropdown> -->
@@ -69,7 +69,7 @@
             <div style="text-align: right">
                 <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
                 <p-autoComplete [(ngModel)]="Company" [suggestions]="results" field="Company" (completeMethod)="search($event)" (onSelect)="sidSelect($event)"></p-autoComplete>
-                <span style="margin-left:10px" [innerHtml]="Company">Company: {{Company ? Company.name||Company : 'none'}}</span>
+                <span style="margin-left:10px" [innerHtml]="Company"></span>
             </div>
             <div style="text-align: left">
                 <!-- <p-dropdown [options]="TopDrop" [(ngModel)]="newspage.top" (onChange)="getNewsPage()"></p-dropdown> -->
@@ -261,7 +261,7 @@
                                 <label for="assign">Published Date :</label>
                             </div>
                             <div class="ui-grid-col-8">
-                                    <p-inputMask mask="9999/99/99" [(ngModel)]="addnews.publisheddate" placeholder="9999/99/99" slotChar="yyyy/mm/dd"></p-inputMask>{{addnews.publisheddate}}
+                                    <p-inputMask mask="9999/99/99" [(ngModel)]="addnews.publisheddate" placeholder="9999/99/99" slotChar="yyyy/mm/dd"></p-inputMask>
                             </div>
                         </div>
                         <br>
