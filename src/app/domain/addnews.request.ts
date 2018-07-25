@@ -8,5 +8,5 @@ export class AddNews{
     description:string;
     newstype:string;
     isdeleted:number;
-    topnews:string;
+    topnews:string = '0';
 }

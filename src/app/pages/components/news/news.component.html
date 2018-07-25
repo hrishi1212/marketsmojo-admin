@@ -1,31 +1,12 @@
-<p-panel [style]="{'margin-bottom':'20px'}" [toggleable]="true">
-        <p-header>
-                <div class="ui-helper-clearfix">
-                    <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">Top News</span>
-                    
-                    <div style="text-align: right">
-                        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-                        <p-autoComplete [(ngModel)]="Company" [suggestions]="results" field="Company" (completeMethod)="search($event)" (onSelect)="sidSelect($event)"></p-autoComplete>
-                        <span style="margin-left:10px" [innerHtml]="Company"></span>
-                    </div>
-                    <div style="text-align: left">
-                        <!-- <p-dropdown [options]="TopDrop" [(ngModel)]="newspage.top" (onChange)="getNewsPage()"></p-dropdown> -->
-                        <p-dropdown [(ngModel)]="newspage.type" (onChange)="getNewsPageTop()" [options]="NewsDrop" appendTo="body"></p-dropdown>
-        
-                    </div>
-                    <div style="text-align: left;margin: -29px 20px 0px 195px;">
-                        <button pButton type="button" label="Refresh" (click)="refresh()"></button>
-                    </div>
-                    <div *ngIf="message">{{message}}</div>
-                </div>
-            </p-header>
-        <p-table #dt [columns]="headersColTop" [value]="newsArrayTop" [paginator]="true" [rows]="50" [responsive]="true" [loading]="loading"
-        scrollable="true" selectionMode="single" [(selection)]="selectedNews" scrollHeight="500px" scrollWidth="100%" [style]="{'height':'600px'}"
-        [lazy]="true" [autoLayout]="true" (onLazyLoad)="loadNewsLazyTop($event)" [totalRecords]="totalRecordsTop">
+<p-panel [style]="{'margin-bottom':'20px'}" header="Top News" [toggleable]="true">
+
+    <p-table #dt [columns]="headersColTop" [value]="newsArrayTop" [paginator]="true" [rows]="50" [responsive]="true" [loading]="loading"
+        scrollable="true" selectionMode="single" [(selection)]="selectedNews" scrollWidth="100%" [lazy]="true" [autoLayout]="true"
+        (onLazyLoad)="loadNewsLazyTop($event)" [totalRecords]="totalRecordsTop">
         <ng-template pTemplate="header" let-columns>
             <tr>
-                    <th width="50"></th>
-                    <th width="100"></th>
+                <th width="70">topnews</th>
+                <th width="100"></th>
                 <th *ngFor="let col of columns" width="{{col.width}}">
                     {{col.header}}
                 </th>
@@ -33,26 +14,26 @@
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-columns="columns">
             <tr>
-                    <td pEditableColumn width="50">
-                            <p-cellEditor>
-                                <ng-template pTemplate="input">
-                                    <input type="text" [(ngModel)]="settopnews.topnews">
-                                </ng-template>
-                                <ng-template pTemplate="output">
-                                   
-                                </ng-template>
-                            </p-cellEditor>
-                        </td>
-                        <td pEditableColumn width="100">
-                                <p-cellEditor>
-                                        <ng-template pTemplate="input">
-                                                <button pButton type="button" label="Save" (click)="saveTopNews(rowData)"></button>
-                                        </ng-template>
-                                        <ng-template pTemplate="output">
-                                                <button pButton type="button" label="Save" (click)="saveTopNews(rowData)"></button>
-                                            </ng-template>
-                                </p-cellEditor>
-                        </td>  
+                <td pEditableColumn width="70">
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input type="text" [(ngModel)]="settopnews.topnews">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{rowData.topnews}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td pEditableColumn width="100">
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <button pButton type="button" label="Save" (click)="saveTopNews(rowData)"></button>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            <button pButton type="button" label="Save" (click)="saveTopNews(rowData)"></button>
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
                 <td *ngFor="let col of columns" width="{{col.width}}" (click)="onRowSelectStock(rowData)">
                     {{rowData[col.field]}}
                 </td>
@@ -65,7 +46,7 @@
     <p-header>
         <div class="ui-helper-clearfix">
             <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">Other News</span>
-            
+
             <div style="text-align: right">
                 <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
                 <p-autoComplete [(ngModel)]="Company" [suggestions]="results" field="Company" (completeMethod)="search($event)" (onSelect)="sidSelect($event)"></p-autoComplete>
@@ -90,46 +71,46 @@
         [lazy]="true" [autoLayout]="true" (onLazyLoad)="loadCarsLazy($event)" [totalRecords]="totalRecords">
         <ng-template pTemplate="header" let-columns>
             <tr>
-                    <th width="50"></th>
-                    <th width="100"></th>
+                <th width="70">topnews</th>
+                <th width="100"></th>
                 <th *ngFor="let col of columns" width="{{col.width}}">
                     {{col.header}}
                 </th>
-               
+
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-columns="columns">
             <tr>
-                    <td pEditableColumn width="50">
-                            <p-cellEditor>
-                                <ng-template pTemplate="input">
-                                    <input type="text" [(ngModel)]="settopnews.topnews">
-                                </ng-template>
-                                <ng-template pTemplate="output">
-                                   
-                                </ng-template>
-                            </p-cellEditor>
-                        </td>
-                        <td pEditableColumn width="100">
-                                <p-cellEditor>
-                                        <ng-template pTemplate="input">
-                                                <button pButton type="button" label="Save" (click)="saveTopNews(rowData)"></button>
-                                        </ng-template>
-                                        <ng-template pTemplate="output">
-                                                <button pButton type="button" label="Save" (click)="saveTopNews(rowData)"></button>
-                                            </ng-template>
-                                </p-cellEditor>
-                        </td>
+                <td pEditableColumn width="70">
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input type="text" [(ngModel)]="settopnews.topnews">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{rowData.topnews}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td pEditableColumn width="100">
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <button pButton type="button" label="Save" (click)="saveTopNews(rowData)"></button>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            <button pButton type="button" label="Save" (click)="saveTopNews(rowData)"></button>
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
                 <td *ngFor="let col of columns" width="{{col.width}}" (click)="onRowSelectStock(rowData)">
                     {{rowData[col.field]}}
                 </td>
-                
+
             </tr>
         </ng-template>
     </p-table>
 
-    <p-dialog header="News Details" [(visible)]="displayDialog" appendTo="body" [contentStyle]="{'max-height':'400px'}" [responsive]="true"
-        showEffect="fade" [modal]="true" [width]="1000">
+    <p-dialog header="News Details" [(visible)]="displayDialog" appendTo="body" [contentStyle]="{'max-height':'500px'}" [responsive]="true"
+        showEffect="fade" [modal]="true" [width]="900">
         <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="selectedNews">
             <div class="ui-grid-row">
                 <div class="ui-grid-col-4">
@@ -169,6 +150,15 @@
             <br>
             <div class="ui-grid-row">
                 <div class="ui-grid-col-4">
+                    <label for="assign">Source :</label>
+                </div>
+                <div class="ui-grid-col-8">
+                    {{selectedNews.source}}
+                </div>
+            </div>
+            <br>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-4">
                     <label for="assign">Image :</label>
                 </div>
                 <div class="ui-grid-col-8">
@@ -188,88 +178,84 @@
 </p-panel>
 
 
-<p-dialog header="ADD News Details" [(visible)]="AdddisplayDialog" appendTo="body" [contentStyle]="{'max-height':'400px'}" [responsive]="true"
-        showEffect="fade" [modal]="true" [width]="1000">
-        <div class="ui-grid ui-grid-responsive ui-fluid">
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-4">
-                    <label for="assign">Top News :</label>
-                </div>
-                <div class="ui-grid-col-8">
-                        <input pInputText id="topnews" [(ngModel)]="addnews.topnews" />
-                </div>
+<p-dialog header="Add News Details" [(visible)]="AdddisplayDialog" appendTo="body" [contentStyle]="{'max-height':'400px'}"
+    [responsive]="true" showEffect="fade" [modal]="true" [width]="1000">
+    <div class="ui-grid ui-grid-responsive ui-fluid">
+        <div class="ui-g">
+            <div class="ui-g-6">
+                <label for="assign">Top News :</label>
             </div>
-            <br>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-4">
-                    <label for="assign">Title :</label>
-                </div>
-                <div class="ui-grid-col-8">
-                        <textarea pInputTextarea [(ngModel)]="addnews.title"></textarea>
-
-                </div>
+            <div class="ui-g-6">
+                <input pInputText id="topnews" [(ngModel)]="addnews.topnews" />
             </div>
-            <br>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-4">
-                    <label for="assign">Description :</label>
-                </div>
-                <div class="ui-grid-col-8">
-                        <textarea pInputTextarea [(ngModel)]="addnews.description"></textarea>
-                </div>
-            </div>
-            <br>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-4">
-                    <label for="assign">link :</label>
-                </div>
-                <div class="ui-grid-col-8">
-                        <input pInputText id="link" [(ngModel)]="addnews.link" />
-                </div>
-            </div>
-            <br>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-4">
-                    <label for="assign">Image :</label>
-                </div>
-                <div class="ui-grid-col-8">
-                        <input pInputText id="imagepath" [(ngModel)]="addnews.imagepath" />
-                    <img [src]="addnews.imagepath" style="width:20%">
-                </div>
-            </div>
-            <br>
-            <div class="ui-grid-row">
-                    <div class="ui-grid-col-4">
-                        <label for="assign">Source :</label>
-                    </div>
-                    <div class="ui-grid-col-8">
-                            <input pInputText id="source" [(ngModel)]="addnews.source" />
-                    </div>
-                </div>
-                <br>
-                <div class="ui-grid-row">
-                        <div class="ui-grid-col-4">
-                            <label for="assign">News Type :</label>
-                        </div>
-                        <div class="ui-grid-col-8">
-                            <p-dropdown id="newstype" [(ngModel)]="addnews.newstype" [options]="NewsDrop"></p-dropdown>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="ui-grid-row">
-                            <div class="ui-grid-col-4">
-                                <label for="assign">Published Date :</label>
-                            </div>
-                            <div class="ui-grid-col-8">
-                                    <p-inputMask mask="9999/99/99" [(ngModel)]="addnews.publisheddate" placeholder="9999/99/99" slotChar="yyyy/mm/dd"></p-inputMask>
-                            </div>
-                        </div>
-                        <br>
         </div>
-        <p-footer>
-            <div class="ui-dialog-buttonpane ui-helper-clearfix">
-                <button type="button" pButton icon="fa fa-close" (click)="cancel()" label="Cancel"></button>
-                <button type="button" pButton icon="fa fa-check" (click)="saveNews()" label="Save"></button>
+        <div class="ui-g">
+            <div class="ui-g-6">
+                <label for="assign">Title :</label>
             </div>
-        </p-footer>
-    </p-dialog>
+            <div class="ui-g-6">
+                <textarea pInputTextarea [(ngModel)]="addnews.title"></textarea>
+            </div>
+        </div>
+        <br>
+        <div class="ui-g">
+            <div class="ui-g-6">
+                <label for="assign">Description :</label>
+            </div>
+            <div class="ui-g-6">
+                <textarea pInputTextarea [(ngModel)]="addnews.description"></textarea>
+            </div>
+        </div>
+        <div class="ui-g">
+            <div class="ui-g-6">
+                <label for="assign">link :</label>
+            </div>
+            <div class="ui-g-6">
+                <input pInputText id="link" [(ngModel)]="addnews.link" />
+            </div>
+        </div>
+        <br>
+        <div class="ui-g">
+            <div class="ui-g-6">
+                <label for="assign">Image :</label>
+            </div>
+            <div class="ui-g-6">
+                <input pInputText id="imagepath" [(ngModel)]="addnews.imagepath" />
+                <img [src]="addnews.imagepath" style="width:20%">
+            </div>
+        </div>
+        <div class="ui-g">
+            <div class="ui-g-6">
+                <label for="assign">Source :</label>
+            </div>
+            <div class="ui-g-6">
+                <input pInputText id="source" [(ngModel)]="addnews.source" />
+            </div>
+        </div>
+
+        <br>
+        <div class="ui-g">
+            <div class="ui-g-6">
+                <label for="assign">News Type :</label>
+            </div>
+            <div class="ui-g-6">
+                <p-dropdown id="newstype" [(ngModel)]="addnews.newstype" [options]="NewsDrop"></p-dropdown>
+            </div>
+        </div>
+        <div class="ui-g">
+            <div class="ui-g-6">
+                <label for="assign">Published Date :</label>
+            </div>
+            <div class="ui-g-6">
+                <p-inputMask mask="9999-99-99" [(ngModel)]="addnews.publisheddate" placeholder="9999-99-99" slotChar="yyyy-mm-dd"></p-inputMask>
+            </div>
+        </div>
+        <br>
+    </div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+            <button type="button" pButton icon="fa fa-close" (click)="AdddisplayDialog = false" label="Cancel"></button>
+            <button type="button" pButton icon="fa fa-check" (click)="saveNews()" label="Save"></button>
+        </div>
+    </p-footer>
+</p-dialog>

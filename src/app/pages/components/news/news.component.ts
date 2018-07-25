@@ -87,7 +87,6 @@ export class NewsComponent {
           this.headersCol = [
             {field:'title',header:'Title',Style: {width: '200px', 'text-align': 'center'},width:'500'},
             {field:'newstype',header:'News Type',Style: {width: '100%', 'text-align': 'center'},width:'100'},
-            {field:'source',header:'Source',Style: {width: '200px', 'text-align': 'center'},width:'350'},
             {field:'publisheddate',header:'Published Date',Style: {width: '200px', 'text-align': 'center'},width:'150'}
 
           ];
@@ -112,10 +111,8 @@ export class NewsComponent {
           this.newsArrayTop = data.data.results;
           this.totalRecordsTop = data.data.total;
           this.headersColTop = [
-            {field:'topnews',header:'topnews',Style: {width: '200px', 'text-align': 'center'},width:'100'},
             {field:'title',header:'Title',Style: {width: '200px', 'text-align': 'center'},width:'500'},
             {field:'newstype',header:'News Type',Style: {width: '100%', 'text-align': 'center'},width:'100'},
-            {field:'source',header:'Source',Style: {width: '200px', 'text-align': 'center'},width:'350'},
             {field:'publisheddate',header:'Published Date',Style: {width: '200px', 'text-align': 'center'},width:'150'}
           ];
        
