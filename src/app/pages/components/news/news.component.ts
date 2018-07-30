@@ -171,8 +171,8 @@ export class NewsComponent {
 
 
   onRowSelectStock(event) {
-    event.publisheddate = new Date(event.publisheddate);
     this.selectedNews = event;
+    this.selectedNews.publisheddate = new Date(event.publisheddate);
     this.displayDialog = true;
 
   }
@@ -277,6 +277,6 @@ export class NewsComponent {
     this.addnews.title = this.selectedNews.title;
     this.addnews.topnews = this.selectedNews.topnews;
     this.saveNews();
-
+    this.displayDialog = false;
   }
 }

@@ -104,13 +104,13 @@
                 <td *ngFor="let col of columns" width="{{col.width}}" (click)="onRowSelectStock(rowData)">
                     {{rowData[col.field]}}
                 </td>
-
+               
             </tr>
         </ng-template>
     </p-table>
 
-    <p-dialog header="News Details" [(visible)]="displayDialog" appendTo="body" [contentStyle]="{'max-height':'500px'}" [responsive]="true"
-        showEffect="fade" [modal]="true" [width]="900">
+    <p-dialog header="News Details" [(visible)]="displayDialog" appendTo="body" [contentStyle]="{'max-height':'370px'}" [responsive]="true"
+        showEffect="fade" [modal]="true" [width]="1100">
         <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="selectedNews">
             <br>
             <div class="ui-grid-row">
