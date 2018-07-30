@@ -112,21 +112,13 @@
     <p-dialog header="News Details" [(visible)]="displayDialog" appendTo="body" [contentStyle]="{'max-height':'500px'}" [responsive]="true"
         showEffect="fade" [modal]="true" [width]="900">
         <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="selectedNews">
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-4">
-                    <label for="assign">Top News :</label>
-                </div>
-                <div class="ui-grid-col-8">
-                    {{selectedNews.topnews}}
-                </div>
-            </div>
             <br>
             <div class="ui-grid-row">
                 <div class="ui-grid-col-4">
                     <label for="assign">Title :</label>
                 </div>
                 <div class="ui-grid-col-8">
-                    {{selectedNews.title}}
+                    <input pInputText id="selectedNews.title" [(ngModel)]="selectedNews.title" />
                 </div>
             </div>
             <br>
@@ -135,7 +127,7 @@
                     <label for="assign">Description :</label>
                 </div>
                 <div class="ui-grid-col-8">
-                    {{selectedNews.description}}
+                    <input pInputText id="selectedNews.description" [(ngModel)]="selectedNews.description" />
                 </div>
             </div>
             <br>
@@ -144,7 +136,7 @@
                     <label for="assign">link :</label>
                 </div>
                 <div class="ui-grid-col-8">
-                    {{selectedNews.link}}
+                    <input pInputText id="selectedNews.link" [(ngModel)]="selectedNews.link" />
                 </div>
             </div>
             <br>
@@ -153,7 +145,7 @@
                     <label for="assign">Source :</label>
                 </div>
                 <div class="ui-grid-col-8">
-                    {{selectedNews.source}}
+                    <input pInputText id="selectedNews.source" [(ngModel)]="selectedNews.source" />
                 </div>
             </div>
             <br>
@@ -163,14 +155,35 @@
                 </div>
                 <div class="ui-grid-col-8">
                     <img [src]="selectedNews.imagepath" style="width:20%">
+                    <input pInputText id="selectedNews.imagepath" [(ngModel)]="selectedNews.imagepath" />
                 </div>
             </div>
             <br>
+            <div class="ui-grid-row">
+                    <div class="ui-grid-col-4">
+                        <label for="assign">News Type :</label>
+                    </div>
+                    <div class="ui-grid-col-8">
+                            <p-dropdown id="newstype" [autoWidth]="false" [(ngModel)]="selectedNews.newstype" [options]="NewsDrop"></p-dropdown>
+                    </div>
+                </div>
+                <br>
+                <div class="ui-grid-row">
+                        <div class="ui-grid-col-4">
+                            <label for="assign">Published Date :</label>
+                        </div>
+                        <div class="ui-grid-col-8">
+                                <p-calendar [(ngModel)]="selectedNews.publisheddate" [showTime]="true"></p-calendar>
+                        </div>
+                    </div>
+                    <br>
         </div>
         <p-footer>
             <div class="ui-dialog-buttonpane ui-helper-clearfix">
                 <button type="button" pButton icon="fa fa-close" (click)="cancel()" label="Cancel"></button>
                 <button type="button" pButton icon="fa fa-check" (click)="deleteNews()" label="Delete"></button>
+                <button type="button" pButton icon="fa fa-check" (click)="updateNews()" label="Update"></button>
+
             </div>
         </p-footer>
     </p-dialog>
@@ -181,14 +194,6 @@
 <p-dialog header="Add News Details" [(visible)]="AdddisplayDialog" appendTo="body" [contentStyle]="{'max-height':'400px'}"
     [responsive]="true" showEffect="fade" [modal]="true" [width]="1000">
     <div class="ui-grid ui-grid-responsive ui-fluid">
-        <div class="ui-g">
-            <div class="ui-g-6">
-                <label for="assign">Top News :</label>
-            </div>
-            <div class="ui-g-6">
-                <input pInputText id="topnews" [(ngModel)]="addnews.topnews" />
-            </div>
-        </div>
         <div class="ui-g">
             <div class="ui-g-6">
                 <label for="assign">Title :</label>
@@ -239,7 +244,7 @@
                 <label for="assign">News Type :</label>
             </div>
             <div class="ui-g-6">
-                <p-dropdown id="newstype" [(ngModel)]="addnews.newstype" [options]="NewsDrop"></p-dropdown>
+                <p-dropdown id="newstype" [autoWidth]="false" [(ngModel)]="addnews.newstype" [options]="NewsDrop"></p-dropdown>
             </div>
         </div>
         <div class="ui-g">
@@ -247,7 +252,7 @@
                 <label for="assign">Published Date :</label>
             </div>
             <div class="ui-g-6">
-                <p-inputMask mask="9999-99-99" [(ngModel)]="addnews.publisheddate" placeholder="9999-99-99" slotChar="yyyy-mm-dd"></p-inputMask>
+                <p-calendar [(ngModel)]="addnews.publisheddate" [showTime]="true"></p-calendar>
             </div>
         </div>
         <br>

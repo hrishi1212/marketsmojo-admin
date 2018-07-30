@@ -15,6 +15,7 @@ import {InputTextModule} from 'primeng/inputtext';
 import {AutoCompleteModule} from 'primeng/autocomplete';
 import {PanelModule} from 'primeng/panel';
 import {InputMaskModule} from 'primeng/inputmask';
+import {CalendarModule} from 'primeng/calendar';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import {InputMaskModule} from 'primeng/inputmask';
     InputTextModule,
     AutoCompleteModule,
     PanelModule,
-    InputMaskModule
+    InputMaskModule,
+    CalendarModule
   ],
   declarations: [
     ...routedComponents,

@@ -4,7 +4,7 @@ export class News{
     imagepath:string;
     link:string;
     source:string;
-    publisheddate:string;
+    publisheddate:Date;
     description:string;
     newstype:string;
     isdeleted:number;
