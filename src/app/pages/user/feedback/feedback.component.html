@@ -1,7 +1,10 @@
+
 <p-tabView (onChange)="handleChange($event)" [style]="{'height':'600px'}">
 
     <!-- all assign tab -->
     <p-tabPanel header="All feedback" [style]="{'height':'600px'}">
+            <p-messages [(value)]="msgs"></p-messages>
+
         <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
             <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
             <input #gb type="text" pInputText size="50" placeholder="Search Here">
@@ -44,6 +47,8 @@
 
 
     <p-tabPanel header="Assigned to me" [style]="{'height':'600px'}">
+            <p-messages [(value)]="msgs"></p-messages>
+
         <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
             <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
             <input #bg type="text" pInputText size="50" placeholder="Search Here">

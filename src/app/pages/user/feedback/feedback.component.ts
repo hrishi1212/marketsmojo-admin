@@ -20,17 +20,21 @@ import { InputTextModule } from 'primeng/inputtext';
 import { LazyLoadEvent } from 'primeng/primeng';
 import { FeedbackPage } from "../../../domain/feedbackpage";
 import {MultiSelectModule} from 'primeng/multiselect';
+import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
+import {MessageService} from 'primeng/components/common/messageservice';
+import {Message} from 'primeng/components/common/api';
+import {GrowlModule} from 'primeng/growl';
 
 interface EmployeeId {
     login_id:string;
-
 }
 
 @Component({    
     selector: 'feedback-root',
     styleUrls: ['./feedback.component.css'],
     templateUrl: './feedback.component.html',
-    providers: [FeedbackService],
+    providers: [FeedbackService,MessageService],
     encapsulation: ViewEncapsulation.None
 })
 
@@ -64,11 +68,12 @@ export class FeedbackComponent implements EmployeeId {
     selectedStatus: any;
     totalRecords: number;
     totalRecordsId: number;
-
+    msgs: Message[] = [];
 
     text1: string = '<div>Hello User!</div><div>MarketsMojo <b>Editor</b> Rocks</div><div><br></div>';
 
-    constructor(private _feedback: FeedbackService) {
+    constructor(private _feedback: FeedbackService,
+        private messageService: MessageService) {
 
         this.status = [{ label: 'select status', value: 0 },
         { label: 'PENDING', value: 1 },
@@ -95,8 +100,9 @@ export class FeedbackComponent implements EmployeeId {
                         element.suggestion = element.suggestion.replace(/<!--[\s\S]*?-->/g,"");
                       }
                     });
-                     console.log(this.arrayfeedback);
-                    this.totalRecords = data.data.results.total;
+                     console.log(data.data);
+                    this.totalRecords = data.data.total;
+                    console.log(this.totalRecords);
                     this.getemployee();
 
                 } else {
@@ -279,7 +285,7 @@ export class FeedbackComponent implements EmployeeId {
             (data: any) => {
                 if (data.code == 200) {
                     this.assignfeedback = data.data.results;
-                    this.totalRecordsId = data.data.results.total;
+                    this.totalRecordsId = data.data.total;
                     this.getemployee();
                     this.loading = false;
                 } else {
@@ -305,6 +311,8 @@ export class FeedbackComponent implements EmployeeId {
         this._feedback.sendEmail(this.sendemail).subscribe(
             (data: any) => {
                 this.displayReply = false;
+                this.msgs = [];
+        this.msgs.push({severity:'success', summary:'Success Message', detail:'Email Sent'});
             });
 
         var userid = localStorage.getItem("userid");

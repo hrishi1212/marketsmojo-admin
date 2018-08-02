@@ -24,7 +24,9 @@ import {TabViewModule} from 'primeng/tabview';
 import {FieldsetModule} from 'primeng/fieldset';
 import {InputTextModule} from 'primeng/inputtext';
 import {MultiSelectModule} from 'primeng/multiselect';
-
+import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
+import {GrowlModule} from 'primeng/growl';
 
 import {
   NgxPopoverCardComponent, NgxPopoverFormComponent,
@@ -64,7 +66,10 @@ const components = [
     TabViewModule,
     FieldsetModule,
     InputTextModule,
-    MultiSelectModule
+    MultiSelectModule,
+    MessagesModule,
+    MessageModule,
+    GrowlModule
   ],
   declarations: [
     ...components,
