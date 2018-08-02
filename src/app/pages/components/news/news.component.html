@@ -177,6 +177,21 @@
                         </div>
                     </div>
                     <br>
+                    <div class="ui-grid-row">
+                            <div class="ui-grid-col-4">
+                                <label for="assign">Map Stocks</label>
+                            </div>
+                            <div class="ui-grid-col-8">
+                                    <p-autoComplete [(ngModel)]="mapStocks" [suggestions]="results" (completeMethod)="search($event)"
+                                    [minLength]="1" placeholder="Map Stocks" field="Company" [multiple]="true">
+                                </p-autoComplete>
+                                <span style="margin-left:10px" [innerHtml]="Company"></span>
+                                <ul>
+                                        <li *ngFor="let c of mapStocks">{{c.Company}}</li>
+                                    </ul>
+                            </div>
+                        </div>
+                        <br>
         </div>
         <p-footer>
             <div class="ui-dialog-buttonpane ui-helper-clearfix">
@@ -256,6 +271,20 @@
             </div>
         </div>
         <br>
+        <div class="ui-g">
+                <div  class="ui-g-6">
+                    <label for="assign">Map Stocks</label>
+                </div>
+                <div class="ui-g-6">
+                        <p-autoComplete [(ngModel)]="mapStocks" [suggestions]="results" (completeMethod)="search($event)"
+                        [minLength]="1" placeholder="Map Stocks" field="Company" [multiple]="true">
+                    </p-autoComplete>
+                    <span style="margin-left:10px" [innerHtml]="Company"></span>
+                    <ul>
+                            <li *ngFor="let c of mapStocks">{{c.Company}}</li>
+                        </ul>
+                </div>
+            </div>
     </div>
     <p-footer>
         <div class="ui-dialog-buttonpane ui-helper-clearfix">

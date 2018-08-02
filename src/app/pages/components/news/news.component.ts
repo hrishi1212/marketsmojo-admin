@@ -60,6 +60,8 @@ export class NewsComponent {
   TopDrop: SelectItem[];
   message: string;
   messageTop: string;
+  mapStocks: any[] = [];
+  mapStockId : any[] = [];
 
   ngOnInit() {
     this.NewsDrop = [
@@ -171,7 +173,14 @@ export class NewsComponent {
 
 
   onRowSelectStock(event) {
+    this.mapStockId=[];
+    this.mapStocks =[];
     this.selectedNews = event;
+    if(this.selectedNews.mapstock){
+      this.selectedNews.mapstock.forEach(element => {
+        this.mapStocks.push(element);
+      });
+    }
     this.selectedNews.publisheddate = new Date(event.publisheddate);
     this.displayDialog = true;
 
@@ -192,9 +201,8 @@ export class NewsComponent {
         }
       }
     )
-
   }
-
+  
   cancel() {
     this.displayDialog = false;
   }
@@ -239,13 +247,19 @@ export class NewsComponent {
 
 
   addNews() {
+    this.mapStockId=[];
+    this.mapStocks =[];
     this.addnews = new AddNews();
     this.AdddisplayDialog = true;
   }
 
   saveNews() {
-    console.log(this.addnews);
+    this.loading = true;
     this.addnews.isdeleted = 0;
+    this.mapStocks.forEach(value =>{
+      this.mapStockId.push(value.Id);
+    });
+    this.addnews.mapstock = this.mapStockId;
     this._news.addNews(this.addnews).subscribe(
       (data: any) => {
         if (data.code == "200") {
@@ -263,7 +277,11 @@ export class NewsComponent {
   }
 
   updateNews() {
-    console.log(this.selectedNews);
+    this.loading = true;
+    this.mapStocks.forEach(value =>{
+      this.mapStockId.push(value.Id);
+    });
+    this.addnews.mapstock = this.mapStockId;
     this.addnews.imagepath = this.selectedNews.imagepath;
     this.addnews.description = this.selectedNews.description;
     this.addnews.link = this.selectedNews.link;
@@ -276,7 +294,18 @@ export class NewsComponent {
     this.addnews.source = this.selectedNews.source;
     this.addnews.title = this.selectedNews.title;
     this.addnews.topnews = this.selectedNews.topnews;
-    this.saveNews();
+    this._news.addNews(this.addnews).subscribe(
+      (data: any) => {
+        if (data.code == "200") {
+          this.getNewsPage();
+          this.getNewsPageTop();
+          this.loading = false;
+        } else if (data.code !== "200") {
+          alert(data.message);
+          this.loading = false;
+        }
+      }
+    )
     this.displayDialog = false;
   }
 }

@@ -18,11 +18,10 @@ export class SearchService {
             var headers = new Headers();
             headers.append('Content-Type', 'application/x-www-form-urlencoded');        
             var body = JSON.stringify(SearchRequest);
-console.log(body);
             return this.httpc.post<Search>(CMS_URL + '/News/stockSearch',body);
         }
 
         getSearchID(id){
-            return this.httpc.get<Search>( FRONTEND_URL + "portfolio-plus/frontendsearch?SearchPhrase=" + id);
+            return this.httpc.get<Search>("http://marketmojo.com/portfolio-plus/frontendsearch?SearchPhrase=" + id);
         }
 }

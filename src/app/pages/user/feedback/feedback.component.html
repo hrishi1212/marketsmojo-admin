@@ -92,8 +92,8 @@
             <div class="ui-grid-col-4">
                 <label for="assign">Suggestion :</label>
             </div>
-            <div class="ui-grid-col-8">
-                {{selectedFeedback.suggestion}}
+            <div class="ui-grid-col-8" [innerHTML]="selectedFeedback.suggestion">
+              
             </div>
         </div>
         <br>

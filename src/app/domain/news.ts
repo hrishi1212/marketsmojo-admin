@@ -8,6 +8,7 @@ export class News{
     description:string;
     newstype:string;
     isdeleted:number;
+    mapstock: any[];
     topnews:string;
     delete : string = '<i class="fa fa-trash" aria-hidden="true"></i>';
 }

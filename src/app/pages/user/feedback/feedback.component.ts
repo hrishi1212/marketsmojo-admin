@@ -30,7 +30,8 @@ interface EmployeeId {
     selector: 'feedback-root',
     styleUrls: ['./feedback.component.css'],
     templateUrl: './feedback.component.html',
-    providers: [FeedbackService]
+    providers: [FeedbackService],
+    encapsulation: ViewEncapsulation.None
 })
 
 export class FeedbackComponent implements EmployeeId {
@@ -88,6 +89,13 @@ export class FeedbackComponent implements EmployeeId {
             (data: any) => {
                 if (data.code == 200) {
                     this.arrayfeedback = data.data.results;
+                   
+                    this.arrayfeedback.forEach(element => {
+                      if(element.content_type == "html"){
+                        element.suggestion = element.suggestion.replace(/<!--[\s\S]*?-->/g,"");
+                      }
+                    });
+                     console.log(this.arrayfeedback);
                     this.totalRecords = data.data.results.total;
                     this.getemployee();
 

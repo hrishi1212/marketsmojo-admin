@@ -12,5 +12,6 @@ export class Feedback{
     assign:number;
     status_name:string;
     assign_id:string;
+    content_type:string;
     other :any[];
 }

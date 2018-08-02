@@ -8,5 +8,6 @@ export class AddNews{
     description:string;
     newstype:string;
     isdeleted:number;
+    mapstock: any[];
     topnews:string = '0';
 }
