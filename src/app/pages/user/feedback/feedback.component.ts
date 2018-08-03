@@ -100,9 +100,7 @@ export class FeedbackComponent implements EmployeeId {
                         element.suggestion = element.suggestion.replace(/<!--[\s\S]*?-->/g,"");
                       }
                     });
-                     console.log(data.data);
                     this.totalRecords = data.data.total;
-                    console.log(this.totalRecords);
                     this.getemployee();
 
                 } else {
@@ -113,7 +111,6 @@ export class FeedbackComponent implements EmployeeId {
 
     }
     loadCarsLazy(event: LazyLoadEvent) {
-        console.log(event);
         var pagenum = event.first / event.rows + 1;
         if (event.globalFilter) {
             this.feedbackpage.search = event.globalFilter;

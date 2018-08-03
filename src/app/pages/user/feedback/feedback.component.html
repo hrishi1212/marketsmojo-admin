@@ -1,8 +1,8 @@
 
-<p-tabView (onChange)="handleChange($event)" [style]="{'height':'600px'}">
+<p-tabView (onChange)="handleChange($event)">
 
     <!-- all assign tab -->
-    <p-tabPanel header="All feedback" [style]="{'height':'600px'}">
+    <p-tabPanel header="All feedback">
             <p-messages [(value)]="msgs"></p-messages>
 
         <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
@@ -12,8 +12,8 @@
 
         </div>
         <p-dataTable [globalFilter]="gb" #dt [value]="arrayfeedback" selectionMode="single" [rows]="50" [paginator]="true" [(selection)]="selectedFeedback"
-            [pageLinks]="5" [responsive]="true" (onRowSelect)="onRowSelect($event)" [loading]="loading" scrollable="true" scrollHeight="50%"
-            scrollWidth="100%" [style]="{'height':'500px'}" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)" [totalRecords]="totalRecords">
+            [pageLinks]="5" [responsive]="true" (onRowSelect)="onRowSelect($event)" [loading]="loading" scrollable="true" 
+            scrollWidth="100%"  [lazy]="true" (onLazyLoad)="loadCarsLazy($event)" [totalRecords]="totalRecords">
 
 
             <p-column field="date" header="Date" [style]="{'width':'120px'}">
@@ -46,7 +46,7 @@
     <!-- all assign tab end -->
 
 
-    <p-tabPanel header="Assigned to me" [style]="{'height':'600px'}">
+    <p-tabPanel header="Assigned to me">
             <p-messages [(value)]="msgs"></p-messages>
 
         <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
