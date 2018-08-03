@@ -22,6 +22,6 @@ export class SearchService {
         }
 
         getSearchID(id){
-            return this.httpc.get<Search>("http://marketmojo.com/portfolio-plus/frontendsearch?SearchPhrase=" + id);
+            return this.httpc.get<Search>(FRONTEND_URL + id);
         }
 }
