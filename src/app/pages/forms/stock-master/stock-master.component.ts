@@ -11,15 +11,19 @@ import {DialogModule} from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import {InputTextModule} from 'primeng/inputtext';
-
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { Search } from "../../../domain/search";
+import { SearchService } from "../../../service/search.service";
+import { SearchRequest } from "../../../domain/search.request";
 @Component({
   selector: 'ngx-form-inputs',
   styleUrls: ['./stock-master.component.scss'],
   templateUrl: './stock-master.component.html',
-  providers: [StockMasterService]
+  providers: [StockMasterService,SearchService]
 })
 export class StockMasterComponent {
-  constructor(private _stockmaster: StockMasterService) {
+  constructor(private _stockmaster: StockMasterService,
+    private _search: SearchService) {
   }
 
 
@@ -28,6 +32,8 @@ export class StockMasterComponent {
   stockmaster: StockMaster = new StockMaster();
   stockmasterRequest :StockMasterRequest = new StockMasterRequest();
   stockpage: StockPage = new StockPage();
+  searchrequest: SearchRequest = new SearchRequest();
+  results: any[];
 
   stockMaster: StockMaster[];
   headersCol: any[];
@@ -35,6 +41,22 @@ export class StockMasterComponent {
   stocknew : StockMaster;
   displayDialog : boolean;
   ngOnInit() { }
+
+  search(event) {
+    this.searchrequest.search = event.query;
+    this._search.getSearchID(this.searchrequest.search).subscribe(
+      (data: any) => {
+        if (data) {
+          data.forEach(element => {
+            element.Company = element.Company.replace('<b>', ' ').replace('</b>', '');
+          });
+          this.results = data;
+        } else {
+          this.results = [{ Id: 0, Company: "no data found" }];
+        }
+      }
+    )
+  }
 
   getstockPage() {
     this.loading = true;
@@ -45,11 +67,11 @@ export class StockMasterComponent {
           this.totalRecords = data.data.total;
           this.headersCol = [
           
-            { field: 'FINCODE', header: 'FINCODE',width:'100'},
-            { field: 'COMPNAME', header: 'COMPNAME',width:'200' },
-            { field: 'S_NAME', header: 'S_NAME',width:'200' },
-            { field: 'ACC_Ind_Name', header: 'ACC_Ind_Name',width:'200' },
-            { field: 'Ind_Name', header: 'Ind_Name',width:'200' }
+            { field: 'fincode', header: 'FINCODE',width:'100'},
+            { field: 'compname', header: 'COMPNAME',width:'200' },
+            { field: 's_name', header: 'S_NAME',width:'200' },
+            { field: 'acc_ind_name', header: 'ACC_Ind_Name',width:'200' },
+            { field: 'ind_name', header: 'Ind_Name',width:'200' }
 
           ];
           this.loading = false;
@@ -57,9 +79,13 @@ export class StockMasterComponent {
       }
     )
   }
-
+  Company : string;
+sidSelect(event) {
+    this.stockpage.sid = event.Id;
+    this.Company = event.Company;
+   this.getstockPage();
+  }
   loadCarsLazy(event: LazyLoadEvent) {
-    console.log(event);
     var pagenum = event.first / event.rows + 1;
     if(event.globalFilter){
       this.stockpage.search = event.globalFilter;
@@ -80,52 +106,52 @@ export class StockMasterComponent {
   }
 
   cloneStock(s:StockMaster){
-    this.stockmasterRequest.stockid = s.STOCKID;
-    this.stockmasterRequest.ACC_IND_CODE = s.ACC_IND_CODE;
-    this.stockmasterRequest.ACC_Ind_Name = s.ACC_Ind_Name;
-    this.stockmasterRequest.Alias = s.Alias;
-    this.stockmasterRequest.Cap_Class = s.Cap_Class;
-    this.stockmasterRequest.CFTScore = s.CFTScore;
-    this.stockmasterRequest.CHAIRMAN = s.CHAIRMAN;
-    this.stockmasterRequest.COMPNAME = s.COMPNAME;
-    this.stockmasterRequest.COSEC=s.COSEC;
-    this.stockmasterRequest.FFORMAT=s.FFORMAT;
-    this.stockmasterRequest.fincode =s.FINCODE;
-    this.stockmasterRequest.FLAG=s.FLAG;
-    this.stockmasterRequest.FV=s.FV;
-    this.stockmasterRequest.HeaderMessage=s.HeaderMessage;
-    this.stockmasterRequest.HeaderMessageFromDT=s.HeaderMessageFromDT;
-    this.stockmasterRequest.HeaderMessageToDT=s.HeaderMessageToDT;
-    this.stockmasterRequest.HSE_CODE=s.HSE_CODE;
-    this.stockmasterRequest.Hse_Name=s.Hse_Name;
-    this.stockmasterRequest.INC_MONTH=s.INC_MONTH;
-    this.stockmasterRequest.INC_YEAR=s.INC_YEAR;
-    this.stockmasterRequest.ind_code=s.IND_CODE;
-    this.stockmasterRequest.Ind_Name=s.Ind_Name;
-    this.stockmasterRequest.ISIN = s.ISIN;
-    this.stockmasterRequest.IsSeasonal = s.IsSeasonal;
-    this.stockmasterRequest.MCAPRank = s.MCAPRank;
-    this.stockmasterRequest.MCAPType = s.MCAPType;
-    this.stockmasterRequest.MDIR = s.MDIR;
-    this.stockmasterRequest.MergedWithStockID = s.MergedWithStockID;
-    this.stockmasterRequest.MergedWithStockRatio = s.MergedWithStockRatio;
-    this.stockmasterRequest.NewsPriority = s.NewsPriority;
-    this.stockmasterRequest.QalityScoreText = s.QalityScoreText;
-    this.stockmasterRequest.QualityRank = s.QualityRank;
-    this.stockmasterRequest.QualityTotal = s.QualityTotal;
-    this.stockmasterRequest.RFORMAT = s.RFORMAT;
-    this.stockmasterRequest.S_NAME = s.S_NAME;
-    this.stockmasterRequest.SC_COMP = s.SC_COMP;
-    this.stockmasterRequest.SCRIP_GROUP = s.SCRIP_GROUP;
-    this.stockmasterRequest.SCRIP_NAME = s.SCRIP_NAME;
-    this.stockmasterRequest.SCRIPCODE = s.SCRIPCODE;
-    this.stockmasterRequest.SERIES = s.SERIES;
-    this.stockmasterRequest.Status = s.Status;
-    this.stockmasterRequest.StockNewsName = s.StockNewsName;
-    this.stockmasterRequest.Sublisting = s.Sublisting;
-    this.stockmasterRequest.SYMBOL = s.SYMBOL;
-    this.stockmasterRequest.ValuationRank = s.ValuationRank;
-    this.stockmasterRequest.ValuationScoreText = s.ValuationScoreText;
+    this.stockmasterRequest.stockid = s.stockid;
+    this.stockmasterRequest.acc_ind_code = s.acc_ind_code;
+    this.stockmasterRequest.acc_ind_name = s.acc_ind_name;
+    this.stockmasterRequest.alias = s.alias;
+    this.stockmasterRequest.cap_class = s.cap_class;
+    this.stockmasterRequest.cftscore = s.cftscore;
+    this.stockmasterRequest.chairman = s.chairman;
+    this.stockmasterRequest.compname = s.compname;
+    this.stockmasterRequest.cosec=s.cosec;
+    this.stockmasterRequest.fformat=s.fformat;
+    this.stockmasterRequest.fincode =s.fincode;
+    this.stockmasterRequest.flag=s.flag;
+    this.stockmasterRequest.fv=s.fv;
+    this.stockmasterRequest.headermessage=s.headermessage;
+    this.stockmasterRequest.headermessagefromdt=s.headermessagefromdt;
+    this.stockmasterRequest.headermessagetodt=s.headermessagetodt;
+    this.stockmasterRequest.hse_code=s.hse_code;
+    this.stockmasterRequest.hse_name=s.hse_name;
+    this.stockmasterRequest.inc_month=s.inc_month;
+    this.stockmasterRequest.inc_year=s.inc_year;
+    this.stockmasterRequest.ind_code=s.ind_code;
+    this.stockmasterRequest.ind_name=s.ind_name;
+    this.stockmasterRequest.isin = s.isin;
+    this.stockmasterRequest.isseasonal = s.isseasonal;
+    this.stockmasterRequest.mcaprank = s.mcaprank;
+    this.stockmasterRequest.mcaptype = s.mcaptype;
+    this.stockmasterRequest.mdir = s.mdir;
+    this.stockmasterRequest.mergedwithstockid = s.mergedwithstockid;
+    this.stockmasterRequest.mergedwithstockratio = s.mergedwithstockratio;
+    this.stockmasterRequest.newspriority = s.newspriority;
+    this.stockmasterRequest.qalityscoretext = s.qalityscoretext;
+    this.stockmasterRequest.qualityrank = s.qualityrank;
+    this.stockmasterRequest.qualitytotal = s.qualitytotal;
+    this.stockmasterRequest.rformat = s.rformat;
+    this.stockmasterRequest.s_name = s.s_name;
+    this.stockmasterRequest.sc_comp = s.sc_comp;
+    this.stockmasterRequest.scrip_group = s.scrip_group;
+    this.stockmasterRequest.scrip_name = s.scrip_name;
+    this.stockmasterRequest.scripcode = s.scripcode;
+    this.stockmasterRequest.series = s.series;
+    this.stockmasterRequest.status = s.status;
+    this.stockmasterRequest.stocknewsname = s.stocknewsname;
+    this.stockmasterRequest.sublisting = s.sublisting;
+    this.stockmasterRequest.symbol = s.symbol;
+    this.stockmasterRequest.valuationrank = s.valuationrank;
+    this.stockmasterRequest.valuationscoretext = s.valuationscoretext;
   }
 
   cancel(){
@@ -133,6 +159,7 @@ export class StockMasterComponent {
   }
 
   updateStock(){
+    this.stockmasterRequest.userid = localStorage.getItem('userid');
     this._stockmaster.updateStock(this.stockmasterRequest).subscribe(
 
       (data:any)=>{

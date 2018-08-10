@@ -1,11 +1,13 @@
+
+
 <p-table #dt [columns]="headersCol" [value]="stockMaster" [paginator]="true" [rows]="50" [responsive]="true" [loading]="loading"
     scrollable="true" selectionMode="single" [(selection)]="selectedStock" scrollHeight="500px" scrollWidth="100%" [style]="{'height':'500px'}"
     [lazy]="true" (onLazyLoad)="loadCarsLazy($event)" [totalRecords]="totalRecords">
     <ng-template pTemplate="caption">
         <div style="text-align: right">
             <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-            <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')"
-                style="width:auto">
+            <p-autoComplete [(ngModel)]="Company" [suggestions]="results" field="Company" (completeMethod)="search($event)" (onSelect)="sidSelect($event)"></p-autoComplete>
+            <span style="margin-left:10px" [innerHtml]="Company"></span>
         </div>
     </ng-template>
     <ng-template pTemplate="header" let-columns>
@@ -39,22 +41,22 @@
             </div>
             <div class="col">
                 <label for="COMPNAME">COMPNAME</label>
-                <input pInputText id="COMPNAME" [(ngModel)]="stockmasterRequest.COMPNAME" />
+                <input pInputText id="COMPNAME" [(ngModel)]="stockmasterRequest.compname" />
             </div>
             <div class="col">
                 <label for="S_NAME">S_NAME</label>
-                <input pInputText id="S_NAME" [(ngModel)]="stockmasterRequest.S_NAME" />
+                <input pInputText id="S_NAME" [(ngModel)]="stockmasterRequest.s_name" />
             </div>
         </div>
         <br>
         <div class="row">
             <div class="col">
                 <label for="ACC_IND_CODE">ACC_IND_CODE</label>
-                <input pInputText id="ACC_IND_CODE" [(ngModel)]="stockmasterRequest.ACC_IND_CODE" />
+                <input pInputText id="ACC_IND_CODE" [(ngModel)]="stockmasterRequest.acc_ind_code" />
             </div>
             <div class="col">
                 <label for="ACC_Ind_Name">ACC_Ind_Name</label>
-                <input pInputText id="ACC_Ind_Name" [(ngModel)]="stockmasterRequest.ACC_Ind_Name" />
+                <input pInputText id="ACC_Ind_Name" [(ngModel)]="stockmasterRequest.acc_ind_name" />
             </div>
             <div class="col">
                 <label for="ind_code">IND_CODE</label>
@@ -62,195 +64,195 @@
             </div>
             <div class="col">
                 <label for="Ind_Name">Ind_Name</label>
-                <input pInputText id="Ind_Name" [(ngModel)]="stockmasterRequest.Ind_Name" />
+                <input pInputText id="Ind_Name" [(ngModel)]="stockmasterRequest.ind_name" />
             </div>
         </div>
         <br>
         <div class="row">
             <div class="col">
                 <label for="HSE_CODE">HSE_CODE</label>
-                <input pInputText id="HSE_CODE" [(ngModel)]="stockmasterRequest.HSE_CODE" />
+                <input pInputText id="HSE_CODE" [(ngModel)]="stockmasterRequest.hse_code" />
             </div>
             <div class="col">
                 <label for="Hse_Name">Hse_Name</label>
-                <input pInputText id="Hse_Name" [(ngModel)]="stockmasterRequest.Hse_Name" />
+                <input pInputText id="Hse_Name" [(ngModel)]="stockmasterRequest.hse_name" />
             </div>
             <div class="col">
                 <label for="SCRIPCODE">SCRIPCODE</label>
-                <input pInputText id="SCRIPCODE" [(ngModel)]="stockmasterRequest.SCRIPCODE" />
+                <input pInputText id="SCRIPCODE" [(ngModel)]="stockmasterRequest.scripcode" />
             </div>
             <div class="col">
                 <label for="SCRIP_GROUP">SCRIP_GROUP</label>
-                <input pInputText id="SCRIP_GROUP" [(ngModel)]="stockmasterRequest.SCRIP_GROUP" />
+                <input pInputText id="SCRIP_GROUP" [(ngModel)]="stockmasterRequest.scrip_group" />
             </div>
         </div>
         <br>
         <div class="row">
             <div class="col">
                 <label for="SYMBOL">SYMBOL</label>
-                <input pInputText id="SYMBOL" [(ngModel)]="stockmasterRequest.SYMBOL" />
+                <input pInputText id="SYMBOL" [(ngModel)]="stockmasterRequest.symbol" />
             </div>
             <div class="col">
                 <label for="SERIES">SERIES</label>
-                <input pInputText id="SERIES" [(ngModel)]="stockmasterRequest.SERIES" />
+                <input pInputText id="SERIES" [(ngModel)]="stockmasterRequest.series" />
 
             </div>
             <div class="col">
                 <label for="ISIN">ISIN</label>
-                <input pInputText id="ISIN" [(ngModel)]="stockmasterRequest.ISIN" />
+                <input pInputText id="ISIN" [(ngModel)]="stockmasterRequest.isin" />
 
             </div>
             <div class="col">
                 <label for="Cap_Class">Cap_Class</label>
-                <input pInputText id="Cap_Class" [(ngModel)]="stockmasterRequest.Cap_Class" />
+                <input pInputText id="Cap_Class" [(ngModel)]="stockmasterRequest.cap_class" />
             </div>
         </div>
         <br>
         <div class="row">
             <div class="col">
                 <label for="CHAIRMAN">CHAIRMAN</label>
-                <input pInputText id="CHAIRMAN" [(ngModel)]="stockmasterRequest.CHAIRMAN" />
+                <input pInputText id="CHAIRMAN" [(ngModel)]="stockmasterRequest.chairman" />
             </div>
             <div class="col">
                 <label for="COSEC">COSEC</label>
-                <input pInputText id="COSEC" [(ngModel)]="stockmasterRequest.COSEC" />
+                <input pInputText id="COSEC" [(ngModel)]="stockmasterRequest.cosec" />
             </div>
             <div class="col">
                 <label for="FFORMAT">FFORMAT</label>
-                <input pInputText id="FFORMAT" [(ngModel)]="stockmasterRequest.FFORMAT" />
+                <input pInputText id="FFORMAT" [(ngModel)]="stockmasterRequest.fformat" />
             </div>
             <div class="col">
                 <label for="FV">FV</label>
-                <input pInputText id="FV" [(ngModel)]="stockmasterRequest.FV" />
+                <input pInputText id="FV" [(ngModel)]="stockmasterRequest.fv" />
             </div>
         </div>
         <br>
         <div class="row">
             <div class="col">
                 <label for="INC_MONTH">INC_MONTH</label>
-                <input pInputText id="INC_MONTH" [(ngModel)]="stockmasterRequest.INC_MONTH" />
+                <input pInputText id="INC_MONTH" [(ngModel)]="stockmasterRequest.inc_month" />
             </div>
             <div class="col">
                 <label for="INC_YEAR">INC_YEAR</label>
-                <input pInputText id="INC_YEAR" [(ngModel)]="stockmasterRequest.INC_YEAR" />
+                <input pInputText id="INC_YEAR" [(ngModel)]="stockmasterRequest.inc_year" />
             </div>
             <div class="col">
                 <label for="MDIR">MDIR</label>
-                <input pInputText id="MDIR" [(ngModel)]="stockmasterRequest.MDIR" />
+                <input pInputText id="MDIR" [(ngModel)]="stockmasterRequest.mdir" />
             </div>
             <div class="col">
                 <label for="RFORMAT">RFORMAT</label>
-                <input pInputText id="RFORMAT" [(ngModel)]="stockmasterRequest.RFORMAT" />
+                <input pInputText id="RFORMAT" [(ngModel)]="stockmasterRequest.rformat" />
             </div>
         </div>
         <br>
         <div class="row">
             <div class="col">
                 <label for="SCRIP_NAME">SCRIP_NAME</label>
-                <input pInputText id="SCRIP_NAME" [(ngModel)]="stockmasterRequest.SCRIP_NAME" />
+                <input pInputText id="SCRIP_NAME" [(ngModel)]="stockmasterRequest.scrip_name" />
             </div>
             <div class="col">
                 <label for="Status">Status</label>
-                <input pInputText id="Status" [(ngModel)]="stockmasterRequest.Status" />
+                <input pInputText id="Status" [(ngModel)]="stockmasterRequest.status" />
             </div>
             <div class="col">
                 <label for="Sublisting">Sublisting</label>
-                <input pInputText id="Sublisting" [(ngModel)]="stockmasterRequest.Sublisting" />
+                <input pInputText id="Sublisting" [(ngModel)]="stockmasterRequest.sublisting" />
             </div>
             <div class="col">
                 <label for="FLAG">FLAG</label>
-                <input pInputText id="FLAG" [(ngModel)]="stockmasterRequest.FLAG" />
+                <input pInputText id="FLAG" [(ngModel)]="stockmasterRequest.flag" />
             </div>
         </div>
         <br>
         <div class="row">
             <div class="col">
                 <label for="SC_COMP">SC_COMP</label>
-                <input pInputText id="SC_COMP" [(ngModel)]="stockmasterRequest.SC_COMP" />
+                <input pInputText id="SC_COMP" [(ngModel)]="stockmasterRequest.sc_comp" />
             </div>
             <div class="col">
                 <label for="SC_FULLNAME">SC_FULLNAME</label>
-                <input pInputText id="SC_FULLNAME" [(ngModel)]="stockmasterRequest.SC_FULLNAME" />
+                <input pInputText id="SC_FULLNAME" [(ngModel)]="stockmasterRequest.sc_fullname" />
             </div>
             <div class="col">
                 <label for="IsSeasonal">IsSeasonal</label>
-                <input pInputText id="IsSeasonal" [(ngModel)]="stockmasterRequest.IsSeasonal" />
+                <input pInputText id="IsSeasonal" [(ngModel)]="stockmasterRequest.isseasonal" />
             </div>
             <div class="col">
                 <label for="MCAPType">MCAPType</label>
-                <input pInputText id="MCAPType" [(ngModel)]="stockmasterRequest.MCAPType" />
+                <input pInputText id="MCAPType" [(ngModel)]="stockmasterRequest.mcaptype" />
             </div>
         </div>
         <br>
         <div class="row">
             <div class="col">
                 <label for="MCAPRank">MCAPRank</label>
-                <input pInputText id="MCAPRank" [(ngModel)]="stockmasterRequest.MCAPRank" />
+                <input pInputText id="MCAPRank" [(ngModel)]="stockmasterRequest.mcaprank" />
             </div>
             <div class="col">
                 <label for="Alias">Alias</label>
-                <input pInputText id="Alias" [(ngModel)]="stockmasterRequest.Alias" />
+                <input pInputText id="Alias" [(ngModel)]="stockmasterRequest.alias" />
             </div>
             <div class="col">
                 <label for="QualityRank">QualityRank</label>
-                <input pInputText id="QualityRank" [(ngModel)]="stockmasterRequest.QualityRank" />
+                <input pInputText id="QualityRank" [(ngModel)]="stockmasterRequest.qualityrank" />
             </div>
             <div class="col">
                 <label for="QalityScoreText">QalityScoreText</label>
-                <input pInputText id="QalityScoreText" [(ngModel)]="stockmasterRequest.QalityScoreText" />
+                <input pInputText id="QalityScoreText" [(ngModel)]="stockmasterRequest.qalityscoretext" />
             </div>
         </div>
         <br>
         <div class="row">
             <div class="col">
                 <label for="QualityTotal">QualityTotal</label>
-                <input pInputText id="QualityTotal" [(ngModel)]="stockmasterRequest.QualityTotal" />
+                <input pInputText id="QualityTotal" [(ngModel)]="stockmasterRequest.qualitytotal" />
             </div>
             <div class="col">
                 <label for="ValuationRank">ValuationRank</label>
-                <input pInputText id="ValuationRank" [(ngModel)]="stockmasterRequest.ValuationRank" />
+                <input pInputText id="ValuationRank" [(ngModel)]="stockmasterRequest.valuationrank" />
             </div>
             <div class="col">
                 <label for="ValuationScoreText">ValuationScoreText</label>
-                <input pInputText id="ValuationScoreText" [(ngModel)]="stockmasterRequest.ValuationScoreText" />
+                <input pInputText id="ValuationScoreText" [(ngModel)]="stockmasterRequest.valuationscoretext" />
             </div>
             <div class="col">
                 <label for="CFTScore">CFTScore</label>
-                <input pInputText id="CFTScore" [(ngModel)]="stockmasterRequest.CFTScore" />
+                <input pInputText id="CFTScore" [(ngModel)]="stockmasterRequest.cftscore" />
             </div>
         </div>
         <br>
         <div class="row">
             <div class="col">
                 <label for="MergedWithStockID">MergedWithStockID</label>
-                <input pInputText id="MergedWithStockID" [(ngModel)]="stockmasterRequest.MergedWithStockID" />
+                <input pInputText id="MergedWithStockID" [(ngModel)]="stockmasterRequest.mergedwithstockid" />
             </div>
             <div class="col">
                 <label for="MergedWithStockRatio">MergedWithStockRatio</label>
-                <input pInputText id="MergedWithStockRatio" [(ngModel)]="stockmasterRequest.MergedWithStockRatio" />
+                <input pInputText id="MergedWithStockRatio" [(ngModel)]="stockmasterRequest.mergedwithstockratio" />
             </div>
             <div class="col">
                 <label for="HeaderMessage">HeaderMessage</label>
-                <textarea pInputTextarea [(ngModel)]="stockmasterRequest.HeaderMessage"></textarea>
+                <textarea pInputTextarea [(ngModel)]="stockmasterRequest.headermessage"></textarea>
             </div>
             <div class="col">
                 <label for="StockNewsName">StockNewsName</label>
-                <input pInputText id="StockNewsName" [(ngModel)]="stockmasterRequest.StockNewsName" />
+                <input pInputText id="StockNewsName" [(ngModel)]="stockmasterRequest.stocknewsname" />
             </div>
         </div>
         <br>
         <div class="row">
             <div class="col">
                 <label for="NewsPriority">NewsPriority</label>
-                <input pInputText id="NewsPriority" [(ngModel)]="stockmasterRequest.NewsPriority" />
+                <input pInputText id="NewsPriority" [(ngModel)]="stockmasterRequest.newspriority" />
             </div>
             <div class="col">
                 <label for="HeaderMessageFromDT">HeaderMessageFromDT</label>
-                <input pInputText id="HeaderMessageFromDT" [(ngModel)]="stockmasterRequest.HeaderMessageFromDT" />
+                <input pInputText id="HeaderMessageFromDT" [(ngModel)]="stockmasterRequest.headermessagefromdt" />
             </div>
             <div class="col">
                 <label for="HeaderMessageToDT">HeaderMessageToDT</label>
-                <input pInputText id="HeaderMessageToDT" [(ngModel)]="stockmasterRequest.HeaderMessageToDT" />
+                <input pInputText id="HeaderMessageToDT" [(ngModel)]="stockmasterRequest.headermessagetodt" />
             </div>
 
         </div>

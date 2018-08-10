@@ -9,6 +9,7 @@ import {DialogModule} from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import {InputTextModule} from 'primeng/inputtext';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import {InputTextModule} from 'primeng/inputtext';
     DialogModule,
     ButtonModule,
     InputTextareaModule,
-    InputTextModule
+    InputTextModule,
+    AutoCompleteModule
   ],
   declarations: [
     ...routedComponents,

@@ -31,7 +31,6 @@ export class FeedbackService {
             var headers = new Headers();
             headers.append('Content-Type', 'application/x-www-form-urlencoded');        
             var body = JSON.stringify(id);  
-            console.log(body);
             return this.httpc.post<Feedback>(CMS_URL + '/feedback/getFeedbackDetailsEmployee',body);
         }
 
