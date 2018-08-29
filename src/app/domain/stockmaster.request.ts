@@ -4,6 +4,7 @@ export class StockMasterRequest {
     fincode: number;
     compname: string;
     s_name:string;
+    subsect_id : number;
     acc_ind_code:number;
     acc_ind_name:string;
     ind_code:number;

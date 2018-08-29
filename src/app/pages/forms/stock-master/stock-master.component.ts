@@ -6,6 +6,8 @@ import { TabViewModule } from 'primeng/tabview';
 import { StockMasterService } from "../../../service/stockmaster.service";
 import { PaginatorModule } from 'primeng/paginator';
 import { LazyLoadEvent } from 'primeng/primeng';
+import {SelectItem } from 'primeng/primeng';
+import {DropdownModule} from 'primeng/dropdown';
 import { StockPage } from "../../../domain/stockmasterPage";
 import {DialogModule} from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
@@ -40,6 +42,9 @@ export class StockMasterComponent {
   selectedStock: StockMaster;
   stocknew : StockMaster;
   displayDialog : boolean;
+  Industry: SelectItem[];
+  SubSector: SelectItem[];
+
   ngOnInit() { }
 
   search(event) {
@@ -64,6 +69,8 @@ export class StockMasterComponent {
       (data: any) => {
         if (data.code == "200") {
           this.stockMaster = data.data.results;
+          this.Industry = data.data.industry;
+          this.SubSector = data.data.subsectors;
           this.totalRecords = data.data.total;
           this.headersCol = [
           
@@ -109,6 +116,7 @@ sidSelect(event) {
     this.stockmasterRequest.stockid = s.stockid;
     this.stockmasterRequest.acc_ind_code = s.acc_ind_code;
     this.stockmasterRequest.acc_ind_name = s.acc_ind_name;
+    this.stockmasterRequest.subsect_id = s.subsect_id;
     this.stockmasterRequest.alias = s.alias;
     this.stockmasterRequest.cap_class = s.cap_class;
     this.stockmasterRequest.cftscore = s.cftscore;

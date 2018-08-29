@@ -60,11 +60,11 @@
             </div>
             <div class="col">
                 <label for="ind_code">IND_CODE</label>
-                <input pInputText id="ind_code" [(ngModel)]="stockmasterRequest.ind_code" />
-            </div>
+                <p-dropdown id="ind_code" [options]="Industry" appendTo="body" filter="true" [(ngModel)]="stockmasterRequest.ind_code"></p-dropdown>
+            </div><br>
             <div class="col">
-                <label for="Ind_Name">Ind_Name</label>
-                <input pInputText id="Ind_Name" [(ngModel)]="stockmasterRequest.ind_name" />
+                <label for="subsect_id">Sub Sector</label><br>
+                <p-dropdown id="subsect_id" [options]="SubSector" appendTo="body" filter="true" [(ngModel)]="stockmasterRequest.subsect_id"></p-dropdown>
             </div>
         </div>
         <br>
