@@ -1,0 +1,292 @@
+<!--<p-panel [style]="{'margin-bottom':'20px'}" header="Top News" [toggleable]="true">-->
+
+<!--<p-table #dt [columns]="headersColTop" [value]="newsArrayTop" [paginator]="true" [rows]="50" [responsive]="true" [loading]="loading"
+         scrollable="true" selectionMode="single" [(selection)]="selectedNews" scrollWidth="100%" [lazy]="true" [autoLayout]="true"
+         (onLazyLoad)="loadNewsLazyTop($event)" [totalRecords]="totalRecordsTop">
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th width="70">topnews</th>
+            <th width="100"></th>
+            <th *ngFor="let col of columns" width="{{col.width}}">
+                {{col.header}}
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr>
+            <td pEditableColumn width="70">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input type="text" [(ngModel)]="settopnews.topnews">
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{rowData.topnews}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td pEditableColumn width="100">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <button pButton type="button" label="Save" (click)="saveTopNews(rowData)"></button>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        <button pButton type="button" label="Save" (click)="saveTopNews(rowData)"></button>
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td *ngFor="let col of columns" width="{{col.width}}" (click)="onRowSelectStock(rowData)">
+                {{rowData[col.field]}}
+            </td>
+        </tr>
+    </ng-template>
+</p-table>-->
+<!--</p-panel>-->
+
+<p-panel [toggleable]="true" [style]="{'margin-padding':' 5.5em .75em'}">
+    <p-header>
+        <div class="ui-helper-clearfix">
+            <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">Mojo News</span>
+
+            <div style="text-align: right">
+                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                <p-autoComplete [(ngModel)]="Company" [suggestions]="results" field="Company" (completeMethod)="search($event)" (onSelect)="sidSelect($event)"></p-autoComplete>
+                <span style="margin-left:10px" [innerHtml]="Company"></span>
+            </div>
+            <div style="text-align: left">
+                <!-- <p-dropdown [options]="TopDrop" [(ngModel)]="newspage.top" (onChange)="getNewsPage()"></p-dropdown> -->
+                <p-dropdown [(ngModel)]="newspage.type" (onChange)="getNewsPage()" [options]="NewsDrop" appendTo="body"></p-dropdown>
+
+            </div>
+            <div style="text-align: left;margin: -29px 20px 0px 195px;">
+                <button pButton type="button" label="Refresh" (click)="refresh()"></button>
+            </div>
+            <div style="text-align: left;margin: -29px 20px 0px 295px;">
+                <button pButton type="button" icon="fa fa-plus" label="ADD News" (click)="addNews()"></button>
+            </div>
+            <div *ngIf="message">{{message}}</div>
+        </div>
+    </p-header>
+    <p-table #dt [columns]="headersCol" [value]="newsArray" [paginator]="true" [rows]="50" [responsive]="true" [loading]="loading"
+             scrollable="true" selectionMode="single" [(selection)]="selectedNews" scrollHeight="500px" scrollWidth="100%" [style]="{'height':'600px'}"
+             [lazy]="true" [autoLayout]="true" (onLazyLoad)="loadCarsLazy($event)" [totalRecords]="totalRecords">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th width="70">topnews</th>
+                <th width="100"></th>
+                <th *ngFor="let col of columns" width="{{col.width}}">
+                    {{col.header}}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr>
+                <td pEditableColumn width="70">
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input type="text" [(ngModel)]="settopnews.topnews">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            <i *ngIf="rowData.topnews!=0" class="ion ion-star"></i>
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td pEditableColumn width="100">
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <button pButton type="button" label="Save--1" (click)="saveTopNews(rowData)"></button>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            <button pButton type="button" label="Save--2" (click)="saveTopNews(rowData)"></button>
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td *ngFor="let col of columns" width="{{col.width}}" (click)="onRowSelectStock(rowData)">
+                    {{rowData[col.field]}}
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <p-dialog header="News Details" [(visible)]="displayDialog" appendTo="body" [contentStyle]="{'max-height':'370px'}" [responsive]="true" showEffect="fade" [modal]="true" [width]="1100">
+        <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="selectedNews">
+            <br>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-4">
+                    <label for="assign">Title :</label>
+                </div>
+                <div class="ui-grid-col-8">
+                    <input pInputText id="selectedNews.title" [(ngModel)]="selectedNews.title" />
+                </div>
+            </div>
+            <br>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-4">
+                    <label for="assign">Description :</label>
+                </div>
+                <div class="ui-grid-col-8">
+                    <input pInputText id="selectedNews.description" [(ngModel)]="selectedNews.description" />
+                </div>
+            </div>
+            <br>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-4">
+                    <label for="assign">link :</label>
+                </div>
+                <div class="ui-grid-col-8">
+                    <input pInputText id="selectedNews.link" [(ngModel)]="selectedNews.link" />
+                </div>
+            </div>
+            <br>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-4">
+                    <label for="assign">Source :</label>
+                </div>
+                <div class="ui-grid-col-8">
+                    <input pInputText id="selectedNews.source" [(ngModel)]="selectedNews.source" />
+                </div>
+            </div>
+            <br>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-4">
+                    <label for="assign">Image :</label>
+                </div>
+                <div class="ui-grid-col-8">
+                    <img [src]="selectedNews.imagepath" style="width:20%">
+                    <input pInputText id="selectedNews.imagepath" [(ngModel)]="selectedNews.imagepath" />
+                </div>
+            </div>
+            <br>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-4">
+                    <label for="assign">News Type :</label>
+                </div>
+                <div class="ui-grid-col-8">
+                    <p-dropdown id="newstype" [autoWidth]="false" [(ngModel)]="selectedNews.newstype" [options]="NewsDrop"></p-dropdown>
+                </div>
+            </div>
+            <br>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-4">
+                    <label for="assign">Published Date :</label>
+                </div>
+                <div class="ui-grid-col-8">
+                    <p-calendar [(ngModel)]="selectedNews.publisheddate" [showTime]="true"></p-calendar>
+                </div>
+            </div>
+            <br>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-4">
+                    <label for="assign">Map Stocks</label>
+                </div>
+                <div class="ui-grid-col-8">
+                    <p-autoComplete [(ngModel)]="mapStocks" [suggestions]="results" (completeMethod)="search($event)"
+                                    [minLength]="1" placeholder="Map Stocks" field="Company" [multiple]="true">
+                    </p-autoComplete>
+                    <span style="margin-left:10px" [innerHtml]="Company"></span>
+                    <ul>
+                        <li *ngFor="let c of mapStocks">{{c.Company}}</li>
+                    </ul>
+                </div>
+            </div>
+            <br>
+        </div>
+        <p-footer>
+            <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                <button type="button" pButton icon="fa fa-close" (click)="cancel()" label="Cancel"></button>
+                <button type="button" pButton icon="fa fa-check" (click)="deleteNews()" label="Delete"></button>
+                <button type="button" pButton icon="fa fa-check" (click)="updateNews()" label="Update"></button>
+
+            </div>
+        </p-footer>
+    </p-dialog>
+
+</p-panel>
+
+
+<p-dialog header="Add News Details" [(visible)]="AdddisplayDialog" appendTo="body" [contentStyle]="{'max-height':'400px'}"
+          [responsive]="true" showEffect="fade" [modal]="true" [width]="1000">
+    <div class="ui-grid ui-grid-responsive ui-fluid">
+        <div class="ui-g">
+            <div class="ui-g-6">
+                <label for="assign">Title :</label>
+            </div>
+            <div class="ui-g-6">
+                <textarea pInputTextarea [(ngModel)]="addnews.title"></textarea>
+            </div>
+        </div>
+        <br>
+        <div class="ui-g">
+            <div class="ui-g-6">
+                <label for="assign">Description :</label>
+            </div>
+            <div class="ui-g-6">
+                <textarea pInputTextarea [(ngModel)]="addnews.description"></textarea>
+            </div>
+        </div>
+        <div class="ui-g">
+            <div class="ui-g-6">
+                <label for="assign">link :</label>
+            </div>
+            <div class="ui-g-6">
+                <input pInputText id="link" [(ngModel)]="addnews.link" />
+            </div>
+        </div>
+        <br>
+        <div class="ui-g">
+            <div class="ui-g-6">
+                <label for="assign">Image :</label>
+            </div>
+            <div class="ui-g-6">
+                <input pInputText id="imagepath" [(ngModel)]="addnews.imagepath" />
+                <img [src]="addnews.imagepath" style="width:20%">
+            </div>
+        </div>
+        <div class="ui-g">
+            <div class="ui-g-6">
+                <label for="assign">Source :</label>
+            </div>
+            <div class="ui-g-6">
+                <input pInputText id="source" [(ngModel)]="addnews.source" />
+            </div>
+        </div>
+
+        <br>
+        <div class="ui-g">
+            <div class="ui-g-6">
+                <label for="assign">News Type :</label>
+            </div>
+            <div class="ui-g-6">
+                <p-dropdown id="newstype" [autoWidth]="false" [(ngModel)]="addnews.newstype" [options]="NewsDrop"></p-dropdown>
+            </div>
+        </div>
+        <div class="ui-g">
+            <div class="ui-g-6">
+                <label for="assign">Published Date :</label>
+            </div>
+            <div class="ui-g-6">
+                <p-calendar [(ngModel)]="addnews.publisheddate" [showTime]="true"></p-calendar>
+            </div>
+        </div>
+        <br>
+        <div class="ui-g">
+            <div  class="ui-g-6">
+                <label for="assign">Map Stocks</label>
+            </div>
+            <div class="ui-g-6">
+                <p-autoComplete [(ngModel)]="mapStocks" [suggestions]="results" (completeMethod)="search($event)"
+                                [minLength]="1" placeholder="Map Stocks" field="Company" [multiple]="true">
+                </p-autoComplete>
+                <span style="margin-left:10px" [innerHtml]="Company"></span>
+                <ul>
+                    <li *ngFor="let c of mapStocks">{{c.Company}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+            <button type="button" pButton icon="fa fa-close" (click)="AdddisplayDialog = false" label="Cancel"></button>
+            <button type="button" pButton icon="fa fa-check" (click)="saveNews()" label="Save"></button>
+        </div>
+    </p-footer>
+</p-dialog>

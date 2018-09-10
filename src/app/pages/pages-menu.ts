@@ -45,9 +45,13 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'nb-list',
     children: [
       {
-        title: 'Update News',
+        title: 'Other News',
         link: '/pages/components/news',
-      }
+      },
+        {
+            title: 'Mojo News',
+            link: '/pages/components/mojo-news',
+        }
     ],
   }
   // {
