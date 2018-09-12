@@ -161,7 +161,7 @@ export class MojoNewsComponent {
     deleteNews() {
         this.newsRequest.newsid = this.selectedNews.newsid;
 
-        this._news.updateNews(this.newsRequest).subscribe(
+        /*this._news.updateNews(this.newsRequest).subscribe(
             (data: any) => {
                 if (data.code == "200") {
                     this.displayDialog = false;
@@ -170,7 +170,7 @@ export class MojoNewsComponent {
                     alert(data.message);
                 }
             }
-        )
+        )*/
     }
 
     onRowSelectStock(event) {
@@ -257,7 +257,7 @@ export class MojoNewsComponent {
     }
 
     saveNews() {
-        this.loading = true;
+        /*this.loading = true;
         this.addnews.isdeleted = 0;
         this.mapStocks.forEach(value =>{
             this.mapStockId.push(value.Id);
@@ -276,11 +276,11 @@ export class MojoNewsComponent {
                     this.AdddisplayDialog = false;
                 }
             }
-        )
+        )*/
     }
 
     updateNews() {
-        this.loading = true;
+        /*this.loading = true;
         this.mapStocks.forEach(value =>{
             this.mapStockId.push(value.Id);
         });
@@ -309,6 +309,6 @@ export class MojoNewsComponent {
                 }
             }
         )
-        this.displayDialog = false;
+        this.displayDialog = false;*/
     }
 }

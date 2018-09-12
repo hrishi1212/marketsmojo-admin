@@ -5,26 +5,27 @@ import {Router,ActivatedRoute} from "@angular/router";
 // import { NewsPage } from "../../../domain/newspage";
 // import { NewsRequest } from "../../../domain/news.request";
 import { News } from "../../../domain/news";
-// import { TableModule } from 'primeng/table';
-// import { TabViewModule } from 'primeng/tabview';
-// import { NewsService } from "../../../service/news.service";
+import { TableModule } from 'primeng/table';
+import { TabViewModule } from 'primeng/tabview';
+import { NewsService } from "../../../service/news.service";
 import { MojoNewsService } from "../../../service/mojonews.service";
-// import { PaginatorModule } from 'primeng/paginator';
+import { PaginatorModule } from 'primeng/paginator';
 import { LazyLoadEvent, SelectItem } from 'primeng/primeng';
-// import { DialogModule } from 'primeng/dialog';
-// import { ButtonModule } from 'primeng/button';
-// import { InputTextareaModule } from 'primeng/inputtextarea';
-// import { InputTextModule } from 'primeng/inputtext';
-// import { AutoCompleteModule } from 'primeng/autocomplete';
+import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputTextModule } from 'primeng/inputtext';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 // import { Search } from "../../../domain/search";
 import { SearchService } from "../../../service/search.service";
 import { SearchRequest } from "../../../domain/search.request";
 // import { AnimationGroupPlayer } from '@angular/animations/src/players/animation_group_player';
-// import { PanelModule } from 'primeng/panel';
+import { PanelModule } from 'primeng/panel';
 // import { SetTopNews } from "../../../domain/settopnews.request";
-import { AddNews } from "../../../domain/addnews.request";
-// import { InputMaskModule } from 'primeng/inputmask';
-// import { CalendarModule } from 'primeng/calendar';
+import { AddMojoNews } from "../../../domain/addmojonews.request";
+import { InputMaskModule } from 'primeng/inputmask';
+import { CalendarModule } from 'primeng/calendar';
+// import {CheckboxModule} from 'primeng/checkbox';
 
 
 @Component({
@@ -42,14 +43,15 @@ export class MojoNewsDetailComponent{
     selNewsDetails;
     newsDetailData;
     searchrequest: SearchRequest = new SearchRequest();
-    addnews: AddNews = new AddNews();
+    addmojonews: AddMojoNews = new AddMojoNews();
     mapStocks: any[] = [];
     mapStockId : any[] = [];
     NewsDrop: SelectItem[];
     TopDrop: SelectItem[];
     public action : string;
-    results : any[];
+    results : any[]=[];
     loading : boolean;
+    sourceImagePath: File ;
     ngOnInit(){
         this.NewsDrop = [
             { label: 'News Type', value: null },
@@ -63,7 +65,7 @@ export class MojoNewsDetailComponent{
             { label: 'OTHER', value: 0 }
         ];
         if(this.location.path() != "" && this.location.path() == "/pages/components/mojo-news-add"){
-                this.selNewsDetails = new AddNews();
+                this.selNewsDetails = this.addmojonews;
                 this.action = 'add';
         }else {
             this.action = 'update';
@@ -106,7 +108,8 @@ export class MojoNewsDetailComponent{
             this.mapStockId.push(value.Id);
         });
         this.newsDetailData.mapstock = this.mapStockId;
-        this._news.updateNews(this.newsDetailData).subscribe(
+        this.newsDetailData.topnews = this.topnews;
+        this._news.updateNews(this.newsDetailData,this.sourceImagePath).subscribe(
             (data: any) => {
                 if (data.code == "200") {
                     if(data.data==true){
@@ -136,12 +139,13 @@ export class MojoNewsDetailComponent{
     }
     saveNews() {
         this.loading = true;
-        this.addnews.isdeleted = 0;
+        this.addmojonews.isdeleted = 0;
         this.mapStocks.forEach(value =>{
             this.mapStockId.push(value.Id);
         });
-        this.addnews.mapstock = this.mapStockId;
-        this._news.addNews(this.addnews).subscribe(
+        this.newsDetailData.topnews = this.topnews;
+        this.addmojonews.mapstock = this.mapStockId;
+        this._news.addNews(this.addmojonews,this.sourceImagePath).subscribe(
             (data: any) => {
                 if (data.code == "200") {
                     alert(data.message);
@@ -151,5 +155,17 @@ export class MojoNewsDetailComponent{
                 }
             }
         )
+    }
+    handleFileInput(files: FileList){
+        this.sourceImagePath = files.item(0);
+        console.log(this.sourceImagePath);
+    }
+    topnews:number;
+    manageTopNews(_event){
+        if(_event){
+            this.topnews = 1;
+        }else{
+            this.topnews = 0;
+        }
     }
 }

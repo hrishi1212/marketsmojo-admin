@@ -21,6 +21,7 @@ import { TableModule } from 'primeng/table';
 import {DropdownModule} from 'primeng/primeng';
 import {ButtonModule} from 'primeng/primeng';
 import {ListboxModule} from 'primeng/listbox';
+import {CheckboxModule} from 'primeng/checkbox';
 
 @NgModule({
   declarations: [AppComponent, LoginComponent],
@@ -34,6 +35,7 @@ import {ListboxModule} from 'primeng/listbox';
     DropdownModule,
     ButtonModule,
     ListboxModule,
+    CheckboxModule,
     NgbModule.forRoot(),
     ThemeModule.forRoot(),
     CoreModule.forRoot(),

@@ -14,7 +14,7 @@
             <label for="assign">Description :</label>
         </div>
         <div class="ui-grid-col-8">
-            <input pInputText id="newsDetailData.description" [(ngModel)]="newsDetailData.description" />
+            <p-editor [(ngModel)]="newsDetailData.description" [style]="{'height':'320px','background':'white'}"></p-editor>
         </div>
     </div>
     <br>
@@ -42,7 +42,7 @@
         </div>
         <div class="ui-grid-col-8">
             <img [src]="newsDetailData.imagepath" style="width:20%">
-            <input pInputText id="newsDetailData.imagepath" [(ngModel)]="newsDetailData.imagepath" />
+            <input type="file" id="newsDetailData.imgfile" [(ngModel)]="newsDetailData.imgfile" (change)="handleFileInput($event.target.files)" />
         </div>
     </div>
     <br>
@@ -61,6 +61,15 @@
         </div>
         <div class="ui-grid-col-8">
             <p-calendar [(ngModel)]="newsDetailData.publisheddate" [showTime]="true"></p-calendar>
+        </div>
+    </div>
+    <br>
+    <div class="ui-grid-row">
+        <div class="ui-grid-col-4">
+            <label for="assign">Top News :</label>
+        </div>
+        <div class="ui-grid-col-8">
+            <p-checkbox [(ngModel)]="newsDetailData.topnews" (onChange)="manageTopNews($event)" value="1" id="newsDetailData.topnews" binary="true"></p-checkbox>
         </div>
     </div>
     <br>
@@ -113,7 +122,8 @@
             <label for="assign">Description :</label>
         </div>
         <div class="ui-grid-col-8">
-            <input pInputText id="selNewsDetails.description" [(ngModel)]="selNewsDetails.description" />
+            <p-editor [(ngModel)]="selNewsDetails.description" [style]="{'height':'320px','background':'white'}"></p-editor>
+            <!--<input pInputText id="selNewsDetails.description" [(ngModel)]="selNewsDetails.description" />-->
         </div>
     </div>
     <br>
@@ -141,7 +151,7 @@
         </div>
         <div class="ui-grid-col-8">
             <img [src]="selNewsDetails.imagepath" style="width:20%">
-            <input pInputText id="selNewsDetails.imagepath" [(ngModel)]="selNewsDetails.imagepath" />
+            <input type="file" id="selNewsDetails.imgfile" [(ngModel)]="selNewsDetails.imgfile" (change)="handleFileInput($event.target.files)" />
         </div>
     </div>
     <br>
@@ -160,6 +170,15 @@
         </div>
         <div class="ui-grid-col-8">
             <p-calendar [(ngModel)]="selNewsDetails.publisheddate" [showTime]="true"></p-calendar>
+        </div>
+    </div>
+    <br>
+    <div class="ui-grid-row">
+        <div class="ui-grid-col-4">
+            <label for="assign">Top News :</label>
+        </div>
+        <div class="ui-grid-col-8">
+            <p-checkbox value="1" [(ngModel)]="selNewsDetails.topnews" (onChange)="manageTopNews($event)" id="selNewsDetails.topnews" binary="true" aria-checked="false"></p-checkbox>
         </div>
     </div>
     <br>

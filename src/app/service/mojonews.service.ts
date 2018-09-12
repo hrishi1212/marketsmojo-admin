@@ -9,6 +9,7 @@ import { NewsRequest } from "../domain/news.request";
 import { News } from "../domain/news";
 import { SetTopNews } from "../domain/settopnews.request";
 import { AddNews } from "../domain/addnews.request";
+import { AddMojoNews } from "../domain/addmojonews.request";
 
 
 @Injectable()
@@ -35,12 +36,18 @@ export class MojoNewsService {
     }
 
 
-    updateNews(NewsRequest:NewsRequest){
+    updateNews(NewsRequest:NewsRequest,_file:File){
         var headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         var body = JSON.stringify(NewsRequest);
-        // console.log(body);return true;
-        return this.httpc.post<NewsRequest>(CMS_URL + '/News_Mojonews/manageNews ',body);
+        // console.log(body);return false;
+        const formData: FormData = new FormData();
+        formData.append('params', body);
+        if(_file.name) {
+            formData.append('source_img', _file, _file.name);
+        }
+
+        return this.httpc.post(CMS_URL + '/News_Mojonews/manageNews ',formData);
     }
     deleteNews(NewsRequest:NewsRequest){
         var headers = new Headers();
@@ -59,12 +66,16 @@ export class MojoNewsService {
         return this.httpc.post<SetTopNews>(CMS_URL + '/News_Mojonews/setTopNews ',body);
     }
 
-    addNews(AddNews:AddNews){
+    addNews(AddMojoNews:AddMojoNews,_file:File){
         var headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
-        var body = JSON.stringify(AddNews);
-
-        return this.httpc.post<AddNews>(CMS_URL + '/News_Mojonews/manageNews ',body);
+        var body = JSON.stringify(AddMojoNews);
+        const formData: FormData = new FormData();
+        formData.append('params', body);
+        if(_file.name) {
+            formData.append('source_img', _file, _file.name);
+        }
+        return this.httpc.post(CMS_URL + '/News_Mojonews/manageNews ',formData);
     }
     getNewsDetail(NewsRequest:NewsRequest){
         var headers = new Headers();
