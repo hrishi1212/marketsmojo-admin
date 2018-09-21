@@ -8,6 +8,8 @@ import { NewsRequest } from "../domain/news.request";
 import { News } from "../domain/news";
 import { SetTopNews } from "../domain/settopnews.request";
 import { AddNews } from "../domain/addnews.request";
+import { LandingRequest } from "../domain/landingnews.request";
+import { LandingNews } from "../domain/landingnews";
 
 
 @Injectable()
@@ -15,46 +17,66 @@ export class NewsService {
     constructor(private http: Http,
         private httpc: HttpClient) { }
 
-        getNewsPage(NewsPage :NewsPage){
-            var headers = new Headers();
-            headers.append('Content-Type', 'application/x-www-form-urlencoded');        
-            var body = JSON.stringify(NewsPage);
+    getNewsPage(NewsPage: NewsPage) {
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        var body = JSON.stringify(NewsPage);
 
-            return this.httpc.post<News>(CMS_URL + '/News/listnews',body);
-        }
+        return this.httpc.post<News>(CMS_URL + '/News/listnews', body);
+    }
 
-        getNewsPageTop(NewsPage :NewsPage){
-            var headers = new Headers();
-            headers.append('Content-Type', 'application/x-www-form-urlencoded');        
-            var body = JSON.stringify(NewsPage);
+    getNewsPageTop(NewsPage: NewsPage) {
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        var body = JSON.stringify(NewsPage);
 
-            return this.httpc.post<News>(CMS_URL + '/News/getTopNews',body);
-        }
+        return this.httpc.post<News>(CMS_URL + '/News/getTopNews', body);
+    }
 
 
-        updateNews(NewsRequest:NewsRequest){
-            var headers = new Headers();
-            headers.append('Content-Type', 'application/x-www-form-urlencoded');        
-            var body = JSON.stringify(NewsRequest);
+    updateNews(NewsRequest: NewsRequest) {
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        var body = JSON.stringify(NewsRequest);
 
-            return this.httpc.post<NewsRequest>(CMS_URL + '/News/deleteNews ',body);
-        }
+        return this.httpc.post<NewsRequest>(CMS_URL + '/News/deleteNews ', body);
+    }
 
-        setTopNews(SetTopNews:SetTopNews){
-            var headers = new Headers();
-            headers.append('Content-Type', 'application/x-www-form-urlencoded');
-            let topnews  = new Array();
-            topnews.push(SetTopNews);        
-            var body = JSON.stringify(topnews);
+    setTopNews(SetTopNews: SetTopNews) {
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        let topnews = new Array();
+        topnews.push(SetTopNews);
+        var body = JSON.stringify(topnews);
 
-            return this.httpc.post<SetTopNews>(CMS_URL + '/News/setTopNews ',body);
-        }
+        return this.httpc.post<SetTopNews>(CMS_URL + '/News/setTopNews ', body);
+    }
 
-        addNews(AddNews:AddNews){
-            var headers = new Headers();
-            headers.append('Content-Type', 'application/x-www-form-urlencoded');        
-            var body = JSON.stringify(AddNews);
+    addNews(AddNews: AddNews) {
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        var body = JSON.stringify(AddNews);
 
-            return this.httpc.post<AddNews>(CMS_URL + '/News/manageNews ',body);
-        }
+        return this.httpc.post<AddNews>(CMS_URL + '/News/manageNews ', body);
+    }
+
+    getLandingNews() {
+        return this.httpc.get<LandingNews>(CMS_URL + '/News/getlandingnews');
+    }
+
+    addLandingNews(LandingRequest: LandingRequest) {
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        var body = JSON.stringify(LandingRequest);
+
+        return this.httpc.post<LandingRequest>(CMS_URL + '/News/addlandingnews ', body);
+    }
+
+    deleteLanding(id){
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        var body = JSON.stringify(id);
+
+        return this.httpc.post<any>(CMS_URL + '/News/deletelanding ', body);
+    }
 }

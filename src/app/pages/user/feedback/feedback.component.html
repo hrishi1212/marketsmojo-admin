@@ -91,7 +91,7 @@
 
 <!-- assign dialog -->
 <p-dialog header="Assign To" [(visible)]="displayDialog" appendTo="body" [width]="1000" [contentStyle]="{'max-height':'400px'}"
-    [autoAlign]="true" [responsive]="true" showEffect="fade" [modal]="true">
+ [responsive]="true" showEffect="fade" [modal]="true">
     <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="selectedFeedback">
         <div class="ui-grid-row">
             <div class="ui-grid-col-4">
@@ -149,7 +149,7 @@
 
 <!-- email dialog -->
 <p-dialog header="Reply" [(visible)]="displayReply" appendTo="body" [width]="1000" [contentStyle]="{'max-height':'400px'}"
-    [autoAlign]="true" [responsive]="true" showEffect="fade" [modal]="true">
+ [responsive]="true" showEffect="fade" [modal]="true">
     <div class="ui-grid ui-grid-responsive ui-fluid">
         <p-fieldset [toggleable]="true" [collapsed]="true" *ngFor="let reply of FeedbackReply">
             <p-header>{{reply.e_name}} to User</p-header>

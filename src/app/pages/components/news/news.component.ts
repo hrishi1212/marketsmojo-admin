@@ -20,15 +20,22 @@ import { AnimationGroupPlayer } from '@angular/animations/src/players/animation_
 import { PanelModule } from 'primeng/panel';
 import { SetTopNews } from "../../../domain/settopnews.request";
 import { AddNews } from "../../../domain/addnews.request";
+import { LandingRequest } from "../../../domain/landingnews.request";
+
 import { InputMaskModule } from 'primeng/inputmask';
 import { CalendarModule } from 'primeng/calendar';
+import { LandingNews } from "../../../domain/landingnews";
+
+interface deleteId {
+  _id:number;
+}
 
 @Component({
   selector: 'ngx-tree',
   templateUrl: './news.component.html',
   providers: [NewsService, SearchService]
 })
-export class NewsComponent {
+export class NewsComponent implements deleteId {
 
   constructor(private _news: NewsService,
     private _search: SearchService) {
@@ -39,29 +46,37 @@ export class NewsComponent {
   loading: boolean;
   totalRecords: number;
   totalRecordsTop: number;
-
+  _id:number;
   news: News = new News();
   newsRequest: NewsRequest = new NewsRequest();
   newspage: NewsPage = new NewsPage();
   searchrequest: SearchRequest = new SearchRequest();
   settopnews: SetTopNews = new SetTopNews();
-
+  landingNews: LandingRequest = new LandingRequest();
   newsArray: News[];
+  LandingNews: LandingNews[];
   newsArrayTop: News[];
   headersCol: any[];
+  landingHeaders: any[];
   headersColTop: any[];
   selectedNews: News;
+  selectedLanding: LandingNews;
   newsNew: News;
   displayDialog: boolean;
   Company: string;
   results: any[];
   searchString = [];
+  deleteId : {_id:number};
   NewsDrop: SelectItem[];
   TopDrop: SelectItem[];
   message: string;
   messageTop: string;
   mapStocks: any[] = [];
-  mapStockId : any[] = [];
+  mapStockId: any[] = [];
+  AdddisplayDialog: boolean = false;
+  AddlandingDialog: boolean = false;
+
+  addnews: AddNews = new AddNews();
 
   ngOnInit() {
     this.NewsDrop = [
@@ -76,6 +91,7 @@ export class NewsComponent {
       { label: 'OTHER', value: 0 }
 
     ];
+    this.getlandingNews();
   }
 
   getNewsPage() {
@@ -173,10 +189,10 @@ export class NewsComponent {
 
 
   onRowSelectStock(event) {
-    this.mapStockId=[];
-    this.mapStocks =[];
+    this.mapStockId = [];
+    this.mapStocks = [];
     this.selectedNews = event;
-    if(this.selectedNews.mapstock){
+    if (this.selectedNews.mapstock) {
       this.selectedNews.mapstock.forEach(element => {
         this.mapStocks.push(element);
       });
@@ -202,7 +218,7 @@ export class NewsComponent {
       }
     )
   }
-  
+
   cancel() {
     this.displayDialog = false;
   }
@@ -241,14 +257,9 @@ export class NewsComponent {
     )
   }
 
-
-  AdddisplayDialog: boolean = false;
-  addnews: AddNews = new AddNews();
-
-
   addNews() {
-    this.mapStockId=[];
-    this.mapStocks =[];
+    this.mapStockId = [];
+    this.mapStocks = [];
     this.addnews = new AddNews();
     this.AdddisplayDialog = true;
   }
@@ -256,7 +267,7 @@ export class NewsComponent {
   saveNews() {
     this.loading = true;
     this.addnews.isdeleted = 0;
-    this.mapStocks.forEach(value =>{
+    this.mapStocks.forEach(value => {
       this.mapStockId.push(value.Id);
     });
     this.addnews.mapstock = this.mapStockId;
@@ -278,7 +289,7 @@ export class NewsComponent {
 
   updateNews() {
     this.loading = true;
-    this.mapStocks.forEach(value =>{
+    this.mapStocks.forEach(value => {
       this.mapStockId.push(value.Id);
     });
     this.addnews.mapstock = this.mapStockId;
@@ -307,5 +318,63 @@ export class NewsComponent {
       }
     )
     this.displayDialog = false;
+  }
+
+  showDialogToAdd() {
+    this.landingNews._id = null;
+    this.AddlandingDialog = true;
+  }
+
+  saveLandingNews() {
+    this._news.addLandingNews(this.landingNews).subscribe(
+      (data: any) => {
+        if (data.code == '200') {
+          this.AddlandingDialog = false;
+          this.getlandingNews();
+        }
+      }
+    )
+  }
+
+  getlandingNews() {
+    this._news.getLandingNews().subscribe(
+      (data: any) => {
+        if (data.code == '200') {
+          this.LandingNews = data.data;
+          this.landingHeaders = [
+            { field: '_id', header: 'ID', Style: { width: '200px', 'text-align': 'center' }, width: '50' },
+            { field: 'title', header: 'Title', Style: { width: '200px', 'text-align': 'center' }, width: '500' },
+            { field: 'expirydate', header: 'Expiry Date', Style: { width: '200px', 'text-align': 'center' }, width: '150' }
+
+          ];
+          this.loading = false;
+        }
+      }
+    )
+  }
+
+  onlandingSelect(event) {
+    this.selectedLanding = event;
+    console.log(this.selectedLanding);
+    this._id = event._id;
+    this.landingNews.title = this.selectedLanding.title;
+    this.landingNews.expirydate = new Date(this.selectedLanding.expirydate);
+    this.AddlandingDialog = true;
+   this.landingNews._id = event._id;
+  }
+
+  deleteLanding(){
+   
+    const deleteid = <deleteId>{
+      _id:this._id
+  }
+    this._news.deleteLanding(deleteid).subscribe(
+      (data: any) => {
+        if (data.code == '200') {
+          this.AddlandingDialog = false;
+          this.getlandingNews();
+        }
+      }
+    )
   }
 }
