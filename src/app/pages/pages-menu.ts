@@ -17,13 +17,13 @@ export const MENU_ITEMS: NbMenuItem[] = [
     link: '/pages/user',
     children: [
       {
+        title: 'User',
+        link: '/pages/user/grid',
+      },
+      {
         title: 'User Feedback',
         link: '/pages/user/feedback',
       },
-      // {
-      //   title: 'User Survey',
-      //   link: '/pages/user/grid',
-      // },
       // {
       //   title: 'User Invoice',
       //   link: '/pages/user/icons',

@@ -15,4 +15,5 @@ export class User{
     redirect_url:string;
     trxn_migrate:string;
     userid:number;
+    autologin:string;
 }

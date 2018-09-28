@@ -86,12 +86,15 @@ export class StockMasterComponent {
       }
     )
   }
+
   Company : string;
+  
 sidSelect(event) {
     this.stockpage.sid = event.Id;
     this.Company = event.Company;
    this.getstockPage();
   }
+  
   loadCarsLazy(event: LazyLoadEvent) {
     var pagenum = event.first / event.rows + 1;
     if(event.globalFilter){
@@ -167,7 +170,7 @@ sidSelect(event) {
   }
 
   updateStock(){
-    this.stockmasterRequest.userid = localStorage.getItem('userid');
+    this.stockmasterRequest.userid = parseInt(localStorage.getItem('userid'));
     this._stockmaster.updateStock(this.stockmasterRequest).subscribe(
 
       (data:any)=>{
