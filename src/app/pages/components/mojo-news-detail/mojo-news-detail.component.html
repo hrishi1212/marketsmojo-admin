@@ -1,0 +1,217 @@
+<div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="action=='update'">
+    <br>
+    <div class="ui-grid-row">
+        <div class="ui-grid-col-4">
+            <label for="assign">Title :</label>
+        </div>
+        <div class="ui-grid-col-8">
+            <input pInputText id="newsDetailData.title" [(ngModel)]="newsDetailData.title" />
+        </div>
+    </div>
+    <br>
+    <div class="ui-grid-row">
+        <div class="ui-grid-col-4">
+            <label for="assign">Description :</label>
+        </div>
+        <div class="ui-grid-col-8">
+            <p-editor [(ngModel)]="newsDetailData.description" [style]="{'height':'320px','background':'white'}"></p-editor>
+        </div>
+    </div>
+    <br>
+    <div class="ui-grid-row">
+        <div class="ui-grid-col-4">
+            <label for="assign">link :</label>
+        </div>
+        <div class="ui-grid-col-8">
+            <input pInputText id="newsDetailData.link" [(ngModel)]="newsDetailData.link" />
+        </div>
+    </div>
+    <br>
+    <div class="ui-grid-row">
+        <div class="ui-grid-col-4">
+            <label for="assign">Source :</label>
+        </div>
+        <div class="ui-grid-col-8">
+            <input pInputText id="newsDetailData.source" [(ngModel)]="newsDetailData.source" />
+        </div>
+    </div>
+    <br>
+    <div class="ui-grid-row">
+        <div class="ui-grid-col-4">
+            <label for="assign">Image :</label>
+        </div>
+        <div class="ui-grid-col-8">
+            <img [src]="newsDetailData.imagepath" style="width:20%">
+            <input type="file" id="newsDetailData.imgfile" [(ngModel)]="newsDetailData.imgfile" (change)="handleFileInput($event.target.files)" />
+        </div>
+    </div>
+    <br>
+    <div class="ui-grid-row">
+        <div class="ui-grid-col-4">
+            <label for="assign">News Type :</label>
+        </div>
+        <div class="ui-grid-col-8">
+            <p-dropdown id="newstype" [autoWidth]="false" [(ngModel)]="newsDetailData.newstype" [options]="NewsDrop"></p-dropdown>
+        </div>
+    </div>
+    <br>
+    <div class="ui-grid-row">
+        <div class="ui-grid-col-4">
+            <label for="assign">Published Date :</label>
+        </div>
+        <div class="ui-grid-col-8">
+            <p-calendar [(ngModel)]="newsDetailData.publisheddate" [showTime]="true"></p-calendar>
+        </div>
+    </div>
+    <br>
+    <div class="ui-grid-row">
+        <div class="ui-grid-col-4">
+            <label for="assign">Top News :</label>
+        </div>
+        <div class="ui-grid-col-8">
+            <p-checkbox [(ngModel)]="newsDetailData.topnews" (onChange)="manageTopNews($event)" value="1" id="newsDetailData.topnews" binary="true"></p-checkbox>
+        </div>
+    </div>
+    <br>
+    <div class="ui-grid-row">
+        <div class="ui-grid-col-4">
+            <label for="assign">Map Stocks</label>
+        </div>
+        <div class="ui-grid-col-8">
+            <p-autoComplete [(ngModel)]="mapStocks" [suggestions]="results" (completeMethod)="search($event)"
+                            [minLength]="1" placeholder="Map Stocks" field="Company" [multiple]="true">
+            </p-autoComplete>
+            <span style="margin-left:10px" [innerHtml]="Company"></span>
+            <ul>
+                <li *ngFor="let c of mapStocks">{{c.Company}}</li>
+            </ul>
+        </div>
+    </div>
+    <br>
+    <div class="ui-dialog-buttonpane ui-helper-clearfix" style="float: right">
+        <button type="button" icon="fa fa-check" (click)="update()" label="" class="cust-button success-button">
+            <i class="fa fa-check"></i>&nbsp;Save
+        </button>
+        <button type="button" icon="fa fa-check" (click)="deleteNews()" label="" class="cust-button delete-button">
+            <i class="fa fa-check"></i>&nbsp;Delete
+        </button>
+        <button type="button"  icon="fa fa-close" (click)="cancel()" label="Cancel" class="cust-button cancel-button">
+            <i class="fa fa-close"></i>&nbsp;Cancel
+        </button>
+    </div>
+    <!--<div class="ui-dialog-buttonpane ui-helper-clearfix">
+        <button type="button" pButton icon="fa fa-close" (click)="cancel()" label="Cancel"></button>
+        <button type="button" pButton icon="fa fa-check" (click)="deleteNews()" label="Delete"></button>
+        <button type="button" pButton icon="fa fa-check" (click)="updateNews()" label="Update"></button>
+
+    </div>-->
+</div>
+<div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="action=='add'">
+    <br>
+    <div class="ui-grid-row">
+        <div class="ui-grid-col-4">
+            <label for="assign">Title :</label>
+        </div>
+        <div class="ui-grid-col-8">
+            <input pInputText id="selNewsDetails.title" [(ngModel)]="selNewsDetails.title" />
+        </div>
+    </div>
+    <br>
+    <div class="ui-grid-row">
+        <div class="ui-grid-col-4">
+            <label for="assign">Description :</label>
+        </div>
+        <div class="ui-grid-col-8">
+            <p-editor [(ngModel)]="selNewsDetails.description" [style]="{'height':'320px','background':'white'}"></p-editor>
+            <!--<input pInputText id="selNewsDetails.description" [(ngModel)]="selNewsDetails.description" />-->
+        </div>
+    </div>
+    <br>
+    <div class="ui-grid-row">
+        <div class="ui-grid-col-4">
+            <label for="assign">link :</label>
+        </div>
+        <div class="ui-grid-col-8">
+            <input pInputText id="selNewsDetails.link" [(ngModel)]="selNewsDetails.link" />
+        </div>
+    </div>
+    <br>
+    <div class="ui-grid-row">
+        <div class="ui-grid-col-4">
+            <label for="assign">Source :</label>
+        </div>
+        <div class="ui-grid-col-8">
+            <input pInputText id="selNewsDetails.source" [(ngModel)]="selNewsDetails.source" />
+        </div>
+    </div>
+    <br>
+    <div class="ui-grid-row">
+        <div class="ui-grid-col-4">
+            <label for="assign">Image :</label>
+        </div>
+        <div class="ui-grid-col-8">
+            <img [src]="selNewsDetails.imagepath" style="width:20%">
+            <input type="file" id="selNewsDetails.imgfile" [(ngModel)]="selNewsDetails.imgfile" (change)="handleFileInput($event.target.files)" />
+        </div>
+    </div>
+    <br>
+    <div class="ui-grid-row">
+        <div class="ui-grid-col-4">
+            <label for="assign">News Type :</label>
+        </div>
+        <div class="ui-grid-col-8">
+            <p-dropdown id="newstype" [autoWidth]="false" [(ngModel)]="selNewsDetails.newstype" [options]="NewsDrop"></p-dropdown>
+        </div>
+    </div>
+    <br>
+    <div class="ui-grid-row">
+        <div class="ui-grid-col-4">
+            <label for="assign">Published Date :</label>
+        </div>
+        <div class="ui-grid-col-8">
+            <p-calendar [(ngModel)]="selNewsDetails.publisheddate" [showTime]="true"></p-calendar>
+        </div>
+    </div>
+    <br>
+    <div class="ui-grid-row">
+        <div class="ui-grid-col-4">
+            <label for="assign">Top News :</label>
+        </div>
+        <div class="ui-grid-col-8">
+            <p-checkbox value="1" [(ngModel)]="selNewsDetails.topnews" (onChange)="manageTopNews($event)" id="selNewsDetails.topnews" binary="true" aria-checked="false"></p-checkbox>
+        </div>
+    </div>
+    <br>
+    <div class="ui-grid-row">
+        <div class="ui-grid-col-4">
+            <label for="assign">Map Stocks</label>
+        </div>
+        <div class="ui-grid-col-8">
+            <p-autoComplete [(ngModel)]="mapStocks" [suggestions]="results" (completeMethod)="search($event)"
+                            [minLength]="1" placeholder="Map Stocks" field="Company" [multiple]="true">
+            </p-autoComplete>
+            <span style="margin-left:10px" [innerHtml]="Company"></span>
+            <ul>
+                <li *ngFor="let c of mapStocks">{{c.Company}}</li>
+            </ul>
+        </div>
+    </div>
+    <br>
+    <div class="ui-dialog-buttonpane ui-helper-clearfix" style="float: right">
+        <button type="button" icon="fa fa-check" (click)="saveNews()" label="" class="cust-button success-button">
+            <i class="fa fa-check"></i>&nbsp;Save
+        </button>
+        <!--<button type="button" icon="fa fa-check" (click)="deleteNews()" label="" class="cust-button delete-button">
+            <i class="fa fa-check"></i>&nbsp;Delete
+        </button>-->
+        <button type="button"  icon="fa fa-close" (click)="cancel()" label="Cancel" class="cust-button cancel-button">
+            <i class="fa fa-close"></i>&nbsp;Cancel
+        </button>
+    </div>
+</div>
+<style>
+    .cust-button{border:1px solid #2399e5;background: #2399e5;color: #ffffff;border-radius: 0.3em;padding: 5px 10px;margin-right: 10px;}
+    .delete-button{border:1px solid rgb(221, 75, 57);background: rgb(221, 75, 57) none repeat scroll 0% 0%;color: #ffffff;}
+    .success-button{border:1px solid #5fba7d;background: #5fba7d;color: #ffffff;}
+    .cancel-button{border:1px solid #3b4045;background: #3b4045;color: #ffffff;}
+</style>

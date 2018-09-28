@@ -16,7 +16,8 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
 import {PanelModule} from 'primeng/panel';
 import {InputMaskModule} from 'primeng/inputmask';
 import {CalendarModule} from 'primeng/calendar';
-
+import {CheckboxModule} from 'primeng/checkbox';
+import {EditorModule} from 'primeng/editor';
 
 @NgModule({
   imports: [
@@ -33,6 +34,8 @@ import {CalendarModule} from 'primeng/calendar';
     InputTextModule,
     AutoCompleteModule,
     PanelModule,
+    CheckboxModule,
+    EditorModule,
     InputMaskModule,
     CalendarModule
   ],
