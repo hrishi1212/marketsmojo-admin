@@ -13,6 +13,7 @@ import {EditorModule} from 'primeng/editor';
 import {FieldsetModule} from 'primeng/fieldset';
 import {InputTextModule} from 'primeng/inputtext';
 import {AutoCompleteModule} from 'primeng/autocomplete';
+import {CheckboxModule} from 'primeng/checkbox';
 
 
 const PAGES_COMPONENTS = [
@@ -30,6 +31,7 @@ const PAGES_COMPONENTS = [
     DropdownModule,
     ListboxModule,
     EditorModule,
+      CheckboxModule,
     FieldsetModule,
     InputTextModule,
     AutoCompleteModule

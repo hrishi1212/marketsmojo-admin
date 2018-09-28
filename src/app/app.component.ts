@@ -30,7 +30,8 @@ export class AppComponent implements OnInit {
     var  login = localStorage.getItem("login");
     if(login==='true')
     {
-        this.router.navigate(["/pages/dashboard"]);
+        this.router.navigate(['/pages/components/mojo-news']);
+        // this.router.navigate(["/pages/dashboard"]);
     }else{
       this.router.navigate(["/login"]);
     }
